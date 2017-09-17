@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ page.title }}</title>
+		<link rel="stylesheet" type="text/css" href="/css/main_ja.css">
+	</head>
+	<body>
+		<nav>
+    		<ul>
+        		<li><a href="/ja">ホームページ</a></li>
+	        	<li><a href="/ja/about">ぼくについて</a></li>
+        		<!-- <li><a href="/ja/blog">ブログ</a></li> -->
+            <!-- <li><a href="/ja/reading-list">Reading List</a></li> -->
+            <li class="language"><a href="{{ site.url }}">English</a></li>
+    		</ul>
+		</nav>
+
+		<div class="container">
+		{{ content }}
+		</div><!-- /.container -->
+
+		<footer>
+    		<ul>
+          <li><a href="mailto:raul@raulnegron.me">メールに送る</a></li>
+        	<li><a target="_blank" href="https://github.com/rnegron">GitHubを見る</a></li>
+				</ul>
+		</footer>
+	</body>
+</html>
