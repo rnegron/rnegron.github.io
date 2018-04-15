@@ -1,2 +1,2 @@
-User-agent: *
-Allow: /
+User-Agent: *
+Sitemap: http://raulnegron.me/sitemap.xml
