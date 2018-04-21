@@ -94,12 +94,12 @@ $ sudo cp -r gbdk-osx /opt/gbdk
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Save the file as &lt;code&gt;first.c&lt;/code&gt;. And&amp;nbsp;now&amp;#8230;&lt;/p&gt;
+&lt;p&gt;Save the file as &lt;code&gt;first.c&lt;/code&gt; and proceed to build the&amp;nbsp;code:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ lcc first.c -o first.gb
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Hopefully everything compiled correctly! You&amp;#8217;ll know because &lt;code&gt;lcc&lt;/code&gt; stayed silent after it did its&amp;nbsp;job.&lt;/p&gt;
+&lt;p&gt;Hopefully everything compiled correctly! You&amp;#8217;ll know it worked if &lt;code&gt;lcc&lt;/code&gt; stays quiet after compiling, thus obeying &lt;a href="http://www.linfo.org/rule_of_silence.html"&gt;The Rule of Silence&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Let&amp;#8217;s run &lt;em&gt;bgb&lt;/em&gt; (&lt;code&gt;$ wine bgb.exe&lt;/code&gt;), secondary-click the window, open &lt;code&gt;first.gb&lt;/code&gt; and check out the&amp;nbsp;results!&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;
 &lt;center&gt;
