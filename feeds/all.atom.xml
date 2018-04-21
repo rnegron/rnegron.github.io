@@ -1,4 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Raúl Negrón's Website</title><link href="http://raulnegron.me/" rel="alternate"></link><link href="http://raulnegron.me/feeds/all.atom.xml" rel="self"></link><id>http://raulnegron.me/</id><updated>2018-04-14T00:00:00-04:00</updated><entry><title>Hello, Pelican!</title><link href="http://raulnegron.me/blog/2018/hello-pelican" rel="alternate"></link><published>2018-04-14T00:00:00-04:00</published><updated>2018-04-14T00:00:00-04:00</updated><author><name>Raúl</name></author><id>tag:raulnegron.me,2018-04-14:/blog/2018/hello-pelican</id><summary type="html">&lt;p&gt;As taught by &lt;a href="https://en.wikipedia.org/wiki/The_C_Programming_Language#Influence"&gt;K&amp;amp;R&lt;/a&gt;.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Raúl Negrón's Website</title><link href="http://raulnegron.me/" rel="alternate"></link><link href="http://raulnegron.me/feeds/all.atom.xml" rel="self"></link><id>http://raulnegron.me/</id><updated>2018-04-19T00:00:00-04:00</updated><entry><title>Getting started with Game Boy development on Mac</title><link href="http://raulnegron.me/blog/2018/starting-gb-dev" rel="alternate"></link><published>2018-04-19T00:00:00-04:00</published><updated>2018-04-19T00:00:00-04:00</updated><author><name>Raúl</name></author><id>tag:raulnegron.me,2018-04-19:/blog/2018/starting-gb-dev</id><summary type="html">&lt;p&gt;&lt;br&gt;
+&lt;center&gt;
+&lt;img src="http://raulnegron.me/images/gameboy.jpg" style="width: 170px;"/&gt;
+&lt;/center&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;I don&amp;#8217;t know what inspired it, but recently I got the idea that programming for an old game console …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;br&gt;
+&lt;center&gt;
+&lt;img src="http://raulnegron.me/images/gameboy.jpg" style="width: 170px;"/&gt;
+&lt;/center&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;I don&amp;#8217;t know what inspired it, but recently I got the idea that programming for an old game console would make for a fun project. Apart from giving me an excuse to write code in a language other than Python, it&amp;#8217;s something I&amp;#8217;ve wanted to do ever since I learned that programming was at the heart of all the great games I&amp;#8217;ve played throughout the years. So, I decided to find out how feasible it would be to program for one of these old school gaming&amp;nbsp;systems.&lt;/p&gt;
+&lt;p&gt;The Game Boy Advance was my first research subject. While reading up on the &lt;span class="caps"&gt;GBA&lt;/span&gt;, I learned that the original Game Boy (model &amp;#8220;&lt;span class="caps"&gt;DMG&lt;/span&gt;-01&amp;#8221;) had a more well-established homebrew community, compared to the Game Boy Advance. There is a lot of great documentation out there on developing for the Game Boy! Just visiting the &lt;a href="https://github.com/avivace/awesome-gbdev"&gt;awesome-gbdev&lt;/a&gt; repo convinced me to choose the original Game Boy as my retro coding&amp;nbsp;platform.&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;d like to blog about my experience as a form of self-motivation. I&amp;#8217;ll write about the process from the start and then be able to look back and see how I&amp;#8217;ve progressed along the way! And if someone happens upon these posts, I hope they find them&amp;nbsp;useful.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;span class="caps"&gt;NOTE&lt;/span&gt;&lt;/strong&gt;: I&amp;#8217;ll be using the following Japanese-language blog post as a template for this one: &lt;a href="https://qiita.com/syano/items/2180da2cfe9ce161e65b"&gt;開発環境の導入&lt;/a&gt;.&lt;/p&gt;
+&lt;h1&gt;Development Environment on&amp;nbsp;MacOS&lt;/h1&gt;
+&lt;p&gt;As the title says, I am working towards a functional &lt;span class="caps"&gt;GB&lt;/span&gt; dev environment on MacOS (specifically High Sierra, version 10.13.4). Sadly, most of the good tools for Game Boy development are Windows-only. But that&amp;#8217;s okay! We can get away with using &lt;a href="https://www.winehq.org/"&gt;Wine&lt;/a&gt; to run the best of&amp;nbsp;them.&lt;/p&gt;
+&lt;h2&gt;An introduction to the&amp;nbsp;tools&lt;/h2&gt;
+&lt;p&gt;The development scene for the Game Boy is centered around two programming languages: C and assembly. My personal preference was to start developing in C. I&amp;#8217;m using Harry Mulder&amp;#8217;s &lt;a href="http://www.devrs.com/gb/hmgd/gbtd.html"&gt;Tile Designer&lt;/a&gt; as well as his &lt;a href="http://www.devrs.com/gb/hmgd/gbmb.html"&gt;Map Builder&lt;/a&gt; to manage the graphical aspects of developing for a video game console. Finally, the &lt;a href="http://bgb.bircd.org/"&gt;bgb&lt;/a&gt; emulator is the standard for testing and debugging Game Boy&amp;nbsp;games.&lt;/p&gt;
+&lt;h1&gt;Getting a C compiler up and&amp;nbsp;running:&lt;/h1&gt;
+&lt;p&gt;The tool of choice here is the &lt;a href="http://gbdk.sourceforge.net/"&gt;Game Boy Developers Kit&lt;/a&gt; (&lt;span class="caps"&gt;GBDK&lt;/span&gt;). The installation may be tricky on MacOS. There are a couple of alternative installation methods around, but I went for the&amp;nbsp;following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git clone https://github.com/x43x61x69/gbdk-osx
+$ &lt;span class="nb"&gt;cd&lt;/span&gt; gbdk-osx
+$ mkdir -p sdcc/bin
+$ sed -i &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt; -e &lt;span class="s1"&gt;&amp;#39;1005d&amp;#39;&lt;/span&gt; sdcc/src/SDCC.y
+$ make
+$ sudo cp -r gbdk-osx /opt/gbdk
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;make&lt;/code&gt; will proceed to build &lt;span class="caps"&gt;GBDK&lt;/span&gt;. Note that the above commands do some extra stuff besides building the compiler libraries. Click on them below to learn more about what they are&amp;nbsp;required.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/co-me/gbdk/issues/1"&gt;&lt;code&gt;mkdir -p sdcc/bin&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/x43x61x69/gbdk-osx/issues/2"&gt;&lt;code&gt;sed -i '' -e '1005d' sdcc/src/SDCC.y&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/co-me/gbdk/issues/5"&gt;&lt;code&gt;sudo cp -r gbdk-osx/build/ppc-unknown-linux2.2/gbdk /opt/gbdk&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Make sure to add the path to the new binaries to your &lt;code&gt;PATH&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/opt/gbdk/bin:&lt;/span&gt;&lt;span class="nv"&gt;$PATH&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Ideally, you would include that line in your &lt;code&gt;.bash_profile&lt;/code&gt; or similar. The compiler&amp;#8217;s front-end (called &lt;code&gt;lcc&lt;/code&gt;) would then be easily&amp;nbsp;accessible.&lt;/p&gt;
+&lt;p&gt;You could also choose to leave the binaries in-place and make a symbolic link, like&amp;nbsp;so:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ sudo ln -s build/ppc-unknown-linux2.2/gbdk /opt
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In that case, you would have to adjust your &lt;code&gt;PATH&lt;/code&gt; accordingly.&lt;/p&gt;
+&lt;h1&gt;Building a minimal Game Boy game: a sanity&amp;nbsp;check&lt;/h1&gt;
+&lt;p&gt;Having come this far, let&amp;#8217;s make something a bit more involved than a &lt;code&gt;printf("Hello, world!");&lt;/code&gt; for the Game Boy, shall&amp;nbsp;we?&lt;/p&gt;
+&lt;p&gt;Create a file and then copy-paste (or write by hand!) the following&amp;nbsp;code:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdio.h&amp;gt;  // printf()&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;gb/gb.h&amp;gt;  // joypad(), delay(), J_UP, J_DOWN, ...&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
+
+&lt;span class="kt"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+    &lt;span class="c1"&gt;// Loop forever&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// Check the status of the Game Boy Joy Pad&lt;/span&gt;
+        &lt;span class="k"&gt;switch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;joypad&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+            &lt;span class="c1"&gt;// If the UP button is pressed...&lt;/span&gt;
+            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="nl"&gt;J_UP&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+
+                &lt;span class="c1"&gt;// Display &amp;quot;Up!&amp;quot; on the screen&lt;/span&gt;
+                &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Up!&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+                &lt;span class="c1"&gt;// Then wait for half a second...&lt;/span&gt;
+                &lt;span class="n"&gt;delay&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+                &lt;span class="c1"&gt;// Go back to checking the status of the Joy Pad&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+            &lt;span class="c1"&gt;// And so on&lt;/span&gt;
+            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="nl"&gt;J_DOWN&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Down!&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+                &lt;span class="n"&gt;delay&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="nl"&gt;J_LEFT&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Left!&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+                &lt;span class="n"&gt;delay&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+            &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="nl"&gt;J_RIGHT&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Right!&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+                &lt;span class="n"&gt;delay&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;500&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+            &lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Save the file as &lt;code&gt;first.c&lt;/code&gt;. And&amp;nbsp;now&amp;#8230;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ lcc first.c -o first.gb
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Hopefully everything compiled correctly! You&amp;#8217;ll know because &lt;code&gt;lcc&lt;/code&gt; stayed silent after it did its&amp;nbsp;job.&lt;/p&gt;
+&lt;p&gt;Let&amp;#8217;s run &lt;em&gt;bgb&lt;/em&gt; (&lt;code&gt;$ wine bgb.exe&lt;/code&gt;), secondary-click the window, open &lt;code&gt;first.gb&lt;/code&gt; and check out the&amp;nbsp;results!&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;center&gt;
+&lt;img src="http://raulnegron.me/images/gb-1-bgb-1.png" style="width: 250px;"/&gt;
+&lt;/center&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;And that&amp;#8217;s it! From code to binary that the Game Boy recognizes, built on MacOS. A world of 8-bit possibilities now&amp;nbsp;awaits!&lt;/p&gt;
+&lt;h2&gt;The C alternative: &lt;span class="caps"&gt;RGBDS&lt;/span&gt; on&amp;nbsp;MacOS&lt;/h2&gt;
+&lt;p&gt;This post focused on coding in C. For assembly, there exists the &lt;a href="https://github.com/rednex/rgbds"&gt;Rednex Game Boy Development System (&lt;span class="caps"&gt;RGBDS&lt;/span&gt;)&lt;/a&gt;.
+The best part is that installation couldn&amp;#8217;t be&amp;nbsp;simpler.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;brew install rgbds
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I will definitely get into assembly on the &lt;span class="caps"&gt;GB&lt;/span&gt; at some point in the&amp;nbsp;future!&lt;/p&gt;
+&lt;h1&gt;Further&amp;nbsp;reading&lt;/h1&gt;
+&lt;p&gt;If you can read Japanese (or don&amp;#8217;t mind using Google Translate), I recommend the &lt;a href="https://adventar.org/calendars/2505"&gt;Game Boy Advent Calendar 2017&lt;/a&gt; series of blog&amp;nbsp;posts.&lt;/p&gt;
+&lt;p&gt;Finally, having already mentioned the place to get a lot of good resources (&lt;a href="https://github.com/avivace/awesome-gbdev"&gt;awesome-gbdev&lt;/a&gt;), I&amp;#8217;ll go ahead and highlight a few resources on that&amp;nbsp;list.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://media.ccc.de/v/33c3-8029-the_ultimate_game_boy_talk"&gt;The Ultimate Game Boy Talk&lt;/a&gt; - A must-watch deep-dive tech-talk on the original Game&amp;nbsp;Boy.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/mrombout/gbdk_playground"&gt;Simplified &lt;span class="caps"&gt;GBDK&lt;/span&gt; Examples&lt;/a&gt; - Repository containing self-contained examples on &lt;span class="caps"&gt;GBDK&lt;/span&gt; concepts. If you&amp;#8217;d like to see the &lt;code&gt;printf("Hello, world!");&lt;/code&gt; of the Game Boy world, &lt;a href="https://github.com/mrombout/gbdk_playground/tree/master/hello_world"&gt;look no&amp;nbsp;further!&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/pashutk/flappybird-gameboy"&gt;flappybird-gameboy&lt;/a&gt; - Reading the source code of other projects is a good way to get started with development in any environment. Flappy Bird is a simple enough game to make for a good first look into &lt;span class="caps"&gt;GB&lt;/span&gt; development in C using &lt;span class="caps"&gt;GBDK&lt;/span&gt;!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://sameboy.github.io/"&gt;SameBoy&lt;/a&gt; - An active, open-source emulator written in C with a focus on MacOS support. With its debugging features, it has the potential to become the go-to emulator for development purposes on&amp;nbsp;Mac!&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://www.gamasutra.com/blogs/DoctorLudos/20171207/311143/Making_a_Game_Boy_game_in_2017_A_quotSheep_It_Upquot_PostMortem_part_12.php"&gt;Making a Game Boy game in 2017: A &amp;#8220;Sheep It Up!&amp;#8221; Post-Mortem&amp;#8221;&lt;/a&gt; -  A great read chronicling the development of a Game Boy game which introduces plenty of helpful concepts along the&amp;nbsp;way&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</content><category term="gameboy"></category><category term="programming"></category><category term="mac"></category><category term="c"></category><category term="assembly"></category></entry><entry><title>Hello, Pelican!</title><link href="http://raulnegron.me/blog/2018/hello-pelican" rel="alternate"></link><published>2018-04-14T00:00:00-04:00</published><updated>2018-04-14T00:00:00-04:00</updated><author><name>Raúl</name></author><id>tag:raulnegron.me,2018-04-14:/blog/2018/hello-pelican</id><summary type="html">&lt;p&gt;As taught by &lt;a href="https://en.wikipedia.org/wiki/The_C_Programming_Language#Influence"&gt;K&amp;amp;R&lt;/a&gt;.
 This post also brought to you by the &lt;a href="http://docs.getpelican.com/en/stable/quickstart.html"&gt;Pelican quickstart&lt;/a&gt;.&lt;/p&gt;</summary><content type="html">&lt;p&gt;As taught by &lt;a href="https://en.wikipedia.org/wiki/The_C_Programming_Language#Influence"&gt;K&amp;amp;R&lt;/a&gt;.
 This post also brought to you by the &lt;a href="http://docs.getpelican.com/en/stable/quickstart.html"&gt;Pelican quickstart&lt;/a&gt;.&lt;/p&gt;</content><category term="blog-post"></category></entry></feed>
