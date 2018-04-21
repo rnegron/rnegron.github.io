@@ -134,6 +134,63 @@ The best part is that installation couldn&amp;#8217;t be&amp;nbsp;simpler.&lt;/p
 &lt;li&gt;
 &lt;p&gt;&lt;a href="https://www.gamasutra.com/blogs/DoctorLudos/20171207/311143/Making_a_Game_Boy_game_in_2017_A_quotSheep_It_Upquot_PostMortem_part_12.php"&gt;Making a Game Boy game in 2017: A &amp;#8220;Sheep It Up!&amp;#8221; Post-Mortem&amp;#8221;&lt;/a&gt; -  A great read chronicling the development of a Game Boy game which introduces plenty of helpful concepts along the&amp;nbsp;way&lt;/p&gt;
 &lt;/li&gt;
-&lt;/ul&gt;</content><category term="gameboy"></category><category term="programming"></category><category term="mac"></category><category term="c"></category><category term="assembly"></category></entry><entry><title>Hello, Pelican!</title><link href="http://raulnegron.me/blog/2018/hello-pelican" rel="alternate"></link><published>2018-04-14T00:00:00-04:00</published><updated>2018-04-14T00:00:00-04:00</updated><author><name>Raúl</name></author><id>tag:raulnegron.me,2018-04-14:/blog/2018/hello-pelican</id><summary type="html">&lt;p&gt;As taught by &lt;a href="https://en.wikipedia.org/wiki/The_C_Programming_Language#Influence"&gt;K&amp;amp;R&lt;/a&gt;.
+&lt;/ul&gt;
+&lt;h1&gt;Extra: Happy&amp;nbsp;29th!&lt;/h1&gt;
+&lt;p&gt;Without realizing it, I uploaded this post on the &lt;a href="https://twitter.com/OnThisDayGaming/status/987792880260575232"&gt;on the 29th anniversary&lt;/a&gt; of the Game Boy&amp;#8217;s Japanese release date! Since I was not aware of the Game Boy&amp;#8217;s Japanese release date, there was a &lt;span class="math"&gt;\(\frac{1}{365} = 0.0027\%\)&lt;/span&gt; chance of this happening! However, taking into account the time-zone difference, I actually uploaded this post at around 7:&lt;span class="caps"&gt;30AM&lt;/span&gt; on the 22nd, Japan time. Oh well, it was pretty cool in any&amp;nbsp;case!&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="gameboy"></category><category term="programming"></category><category term="mac"></category><category term="c"></category><category term="assembly"></category></entry><entry><title>Hello, Pelican!</title><link href="http://raulnegron.me/blog/2018/hello-pelican" rel="alternate"></link><published>2018-04-14T00:00:00-04:00</published><updated>2018-04-14T00:00:00-04:00</updated><author><name>Raúl</name></author><id>tag:raulnegron.me,2018-04-14:/blog/2018/hello-pelican</id><summary type="html">&lt;p&gt;As taught by &lt;a href="https://en.wikipedia.org/wiki/The_C_Programming_Language#Influence"&gt;K&amp;amp;R&lt;/a&gt;.
 This post also brought to you by the &lt;a href="http://docs.getpelican.com/en/stable/quickstart.html"&gt;Pelican quickstart&lt;/a&gt;.&lt;/p&gt;</summary><content type="html">&lt;p&gt;As taught by &lt;a href="https://en.wikipedia.org/wiki/The_C_Programming_Language#Influence"&gt;K&amp;amp;R&lt;/a&gt;.
 This post also brought to you by the &lt;a href="http://docs.getpelican.com/en/stable/quickstart.html"&gt;Pelican quickstart&lt;/a&gt;.&lt;/p&gt;</content><category term="blog-post"></category></entry></feed>
