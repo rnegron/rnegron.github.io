@@ -106,7 +106,7 @@ $ sudo cp -r gbdk-osx /opt/gbdk
 &lt;img src="http://raulnegron.me/images/gb-1-bgb-1.png" style="width: 250px;"/&gt;
 &lt;/center&gt;
 &lt;br&gt;&lt;/p&gt;
-&lt;p&gt;And that&amp;#8217;s it! From code to binary that the Game Boy recognizes, built on MacOS. A world of 8-bit possibilities now&amp;nbsp;awaits!&lt;/p&gt;
+&lt;p&gt;And that&amp;#8217;s it! From code to binary that the Game Boy recognizes, built on MacOS. A world of 8-bit possibilities&amp;nbsp;awaits!&lt;/p&gt;
 &lt;h2&gt;The C alternative: &lt;span class="caps"&gt;RGBDS&lt;/span&gt; on&amp;nbsp;MacOS&lt;/h2&gt;
 &lt;p&gt;This post focused on coding in C. For assembly, there exists the &lt;a href="https://github.com/rednex/rgbds"&gt;Rednex Game Boy Development System (&lt;span class="caps"&gt;RGBDS&lt;/span&gt;)&lt;/a&gt;.
 The best part is that installation couldn&amp;#8217;t be&amp;nbsp;simpler.&lt;/p&gt;
