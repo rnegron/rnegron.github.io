@@ -46,7 +46,7 @@ $ sudo cp -r gbdk-osx /opt/gbdk
 &lt;p&gt;In that case, you would have to adjust your &lt;code&gt;PATH&lt;/code&gt; accordingly.&lt;/p&gt;
 &lt;h1&gt;Building a minimal Game Boy game: a sanity&amp;nbsp;check&lt;/h1&gt;
 &lt;p&gt;Having come this far, let&amp;#8217;s make something a bit more involved than a &lt;code&gt;printf("Hello, world!");&lt;/code&gt; for the Game Boy, shall&amp;nbsp;we?&lt;/p&gt;
-&lt;p&gt;Create a file and then copy-paste (or write by hand!) the following&amp;nbsp;code:&lt;/p&gt;
+&lt;p&gt;Create a file and then copy-paste (or type by hand!) the following&amp;nbsp;code:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;stdio.h&amp;gt;  // printf()&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 &lt;span class="cp"&gt;#include&lt;/span&gt; &lt;span class="cpf"&gt;&amp;lt;gb/gb.h&amp;gt;  // joypad(), delay(), J_UP, J_DOWN, ...&lt;/span&gt;&lt;span class="cp"&gt;&lt;/span&gt;
 
