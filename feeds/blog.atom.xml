@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Raúl Negrón's Website - blog</title><link href="http://raulnegron.me/" rel="alternate"></link><link href="http://raulnegron.me/feeds/blog.atom.xml" rel="self"></link><id>http://raulnegron.me/</id><updated>2018-04-21T00:00:00-04:00</updated><entry><title>Getting started with Game Boy development on Mac</title><link href="http://raulnegron.me/blog/2018/starting-gb-dev" rel="alternate"></link><published>2018-04-21T00:00:00-04:00</published><updated>2018-04-21T00:00:00-04:00</updated><author><name>Raúl</name></author><id>tag:raulnegron.me,2018-04-21:/blog/2018/starting-gb-dev</id><summary type="html">&lt;p&gt;&lt;br&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Raúl Negrón's Website - blog</title><link href="https://raulnegron.me/" rel="alternate"></link><link href="https://raulnegron.me/feeds/blog.atom.xml" rel="self"></link><id>https://raulnegron.me/</id><updated>2018-04-21T00:00:00-04:00</updated><entry><title>Getting started with Game Boy development on Mac</title><link href="https://raulnegron.me/blog/2018/starting-gb-dev" rel="alternate"></link><published>2018-04-21T00:00:00-04:00</published><updated>2018-04-21T00:00:00-04:00</updated><author><name>Raúl</name></author><id>tag:raulnegron.me,2018-04-21:/blog/2018/starting-gb-dev</id><summary type="html">&lt;p&gt;&lt;br&gt;
 &lt;center&gt;
-&lt;img src="http://raulnegron.me/images/gameboy.jpg" style="width: 170px;"/&gt;
+&lt;img src="https://raulnegron.me/images/gameboy.jpg" style="width: 170px;"/&gt;
 &lt;/center&gt;
 &lt;br&gt;&lt;/p&gt;
 &lt;p&gt;I don&amp;#8217;t know what inspired it, but recently I got the idea that programming for an old game console …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;br&gt;
 &lt;center&gt;
-&lt;img src="http://raulnegron.me/images/gameboy.jpg" style="width: 170px;"/&gt;
+&lt;img src="https://raulnegron.me/images/gameboy.jpg" style="width: 170px;"/&gt;
 &lt;/center&gt;
 &lt;br&gt;&lt;/p&gt;
 &lt;p&gt;I don&amp;#8217;t know what inspired it, but recently I got the idea that programming for an old game console would make for a fun project. Apart from giving me an excuse to write code in a language other than Python, it&amp;#8217;s something I&amp;#8217;ve wanted to do ever since I learned that programming was at the heart of all the great games I&amp;#8217;ve played throughout the years. So, I decided to find out how feasible it would be to program for one of these old school gaming&amp;nbsp;systems.&lt;/p&gt;
@@ -103,7 +103,7 @@ $ sudo cp -r gbdk-osx /opt/gbdk
 &lt;p&gt;Let&amp;#8217;s run &lt;em&gt;bgb&lt;/em&gt; (&lt;code&gt;$ wine bgb.exe&lt;/code&gt;), secondary-click the window, open &lt;code&gt;first.gb&lt;/code&gt; and check out the&amp;nbsp;results!&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;
 &lt;center&gt;
-&lt;img src="http://raulnegron.me/images/gb-1-bgb-1.png" style="width: 250px;"/&gt;
+&lt;img src="https://raulnegron.me/images/gb-1-bgb-1.png" style="width: 250px;"/&gt;
 &lt;/center&gt;
 &lt;br&gt;&lt;/p&gt;
 &lt;p&gt;And that&amp;#8217;s it! From code to binary that the Game Boy recognizes, built on MacOS. A world of 8-bit possibilities awaits! A more complete version of this example is available at &lt;a href="http://gbdev.gg8.se/wiki/articles/GBDK_Joypad_Tutorial"&gt;GBDev&lt;/a&gt;.&lt;/p&gt;
@@ -191,6 +191,6 @@ The best part is that installation couldn&amp;#8217;t be&amp;nbsp;simpler.&lt;/p
         "}";
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-&lt;/script&gt;</content><category term="gameboy"></category><category term="programming"></category><category term="mac"></category><category term="c"></category><category term="assembly"></category></entry><entry><title>Hello, Pelican!</title><link href="http://raulnegron.me/blog/2018/hello-pelican" rel="alternate"></link><published>2018-04-14T00:00:00-04:00</published><updated>2018-04-14T00:00:00-04:00</updated><author><name>Raúl</name></author><id>tag:raulnegron.me,2018-04-14:/blog/2018/hello-pelican</id><summary type="html">&lt;p&gt;As taught by &lt;a href="https://en.wikipedia.org/wiki/The_C_Programming_Language#Influence"&gt;K&amp;amp;R&lt;/a&gt;.
+&lt;/script&gt;</content><category term="gameboy"></category><category term="programming"></category><category term="mac"></category><category term="c"></category><category term="assembly"></category></entry><entry><title>Hello, Pelican!</title><link href="https://raulnegron.me/blog/2018/hello-pelican" rel="alternate"></link><published>2018-04-14T00:00:00-04:00</published><updated>2018-04-14T00:00:00-04:00</updated><author><name>Raúl</name></author><id>tag:raulnegron.me,2018-04-14:/blog/2018/hello-pelican</id><summary type="html">&lt;p&gt;As taught by &lt;a href="https://en.wikipedia.org/wiki/The_C_Programming_Language#Influence"&gt;K&amp;amp;R&lt;/a&gt;.
 This post also brought to you by the &lt;a href="http://docs.getpelican.com/en/stable/quickstart.html"&gt;Pelican quickstart&lt;/a&gt;.&lt;/p&gt;</summary><content type="html">&lt;p&gt;As taught by &lt;a href="https://en.wikipedia.org/wiki/The_C_Programming_Language#Influence"&gt;K&amp;amp;R&lt;/a&gt;.
 This post also brought to you by the &lt;a href="http://docs.getpelican.com/en/stable/quickstart.html"&gt;Pelican quickstart&lt;/a&gt;.&lt;/p&gt;</content><category term="blog-post"></category></entry></feed>

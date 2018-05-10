@@ -2,28 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
-    <loc>http://raulnegron.me/blog/2018/starting-gb-dev</loc>
+    <loc>https://raulnegron.me/blog/2018/starting-gb-dev</loc>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>http://raulnegron.me/blog/2018/hello-pelican</loc>
+    <loc>https://raulnegron.me/blog/2018/hello-pelican</loc>
     <priority>0.8</priority>
   </url>
 
 
   <url>
-    <loc>http://raulnegron.me/about</loc>
+    <loc>https://raulnegron.me/about</loc>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>http://raulnegron.me/</loc>
+    <loc>https://raulnegron.me/</loc>
     <priority>1.0</priority>
   </url>
 
   <url>
-    <loc>http://raulnegron.me/reading</loc>
+    <loc>https://raulnegron.me/reading</loc>
     <priority>1.0</priority>
   </url>
 

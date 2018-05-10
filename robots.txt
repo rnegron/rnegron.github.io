@@ -1,2 +1,2 @@
 User-Agent: *
-Sitemap: http://raulnegron.me/sitemap.xml
+Sitemap: https://raulnegron.me/sitemap.xml
