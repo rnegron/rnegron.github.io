@@ -1,5 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Raúl Negrón's Website - blog</title><link href="https://raulnegron.me/" rel="alternate"></link><link href="https://raulnegron.me/feeds/blog.atom.xml" rel="self"></link><id>https://raulnegron.me/</id><updated>2018-04-21T00:00:00-04:00</updated><entry><title>Getting started with Game Boy development on Mac</title><link href="https://raulnegron.me/blog/2018/starting-gb-dev" rel="alternate"></link><published>2018-04-21T00:00:00-04:00</published><updated>2018-04-21T00:00:00-04:00</updated><author><name>Raúl</name></author><id>tag:raulnegron.me,2018-04-21:/blog/2018/starting-gb-dev</id><summary type="html">&lt;p&gt;&lt;br&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Raúl Negrón's Website - blog</title><link href="https://raulnegron.me/" rel="alternate"></link><link href="https://raulnegron.me/feeds/blog.atom.xml" rel="self"></link><id>https://raulnegron.me/</id><updated>2018-07-27T00:00:00-04:00</updated><entry><title>Identity and Equality in Python</title><link href="https://raulnegron.me/blog/2018/dev-python-strings-identity-vs-equality" rel="alternate"></link><published>2018-07-27T00:00:00-04:00</published><updated>2018-07-27T00:00:00-04:00</updated><author><name>Raúl</name></author><id>tag:raulnegron.me,2018-07-27:/blog/2018/dev-python-strings-identity-vs-equality</id><summary type="html">&lt;p&gt;I would consider &lt;a href="https://www.python.org/"&gt;Python&lt;/a&gt; to be the programming language I&amp;#8217;m most comfortable writing code in. There&amp;#8217;s plenty to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I would consider &lt;a href="https://www.python.org/"&gt;Python&lt;/a&gt; to be the programming language I&amp;#8217;m most comfortable writing code in. There&amp;#8217;s plenty to love, and one of its more recognizable features is its simple to read &lt;a href="https://en.wikipedia.org/wiki/Python_syntax_and_semantics"&gt;syntax&lt;/a&gt;. I&amp;#8217;ve heard the phrase &amp;#8220;executable pseudocode&amp;#8221; thrown around before, and its easy to see where the comparisons come&amp;nbsp;from. &lt;/p&gt;
+&lt;p&gt;A great side effect of sporting such a relatively simple to understand syntax is its &lt;a href="https://www.economist.com/science-and-technology/2018/07/21/python-has-brought-computer-programming-to-a-vast-new-audience"&gt;mass appeal&lt;/a&gt;, with people jumping in with little programming knowledge and using Python to jump start their new coding&amp;nbsp;adventures. &lt;/p&gt;
+&lt;p&gt;Its not hard to get carried away and forget that, despite the focus on readability, code is not the same as prose. Its always worthwhile to keep the subtleties of a particular language in mind. That being said, this post is about the bug I created when I forgot about the (perhaps not so subtle) distinction between identity and equality in Python, and what I learned from that&amp;nbsp;mistake.&lt;/p&gt;
+&lt;p&gt;Let&amp;#8217;s review the fundamentals before diving into the&amp;nbsp;particulars.&lt;/p&gt;
+&lt;h1&gt;Object&amp;nbsp;Equality&lt;/h1&gt;
+&lt;p&gt;Object equality refers to the intuitive notion of equality from mathematics. Sounds simple&amp;nbsp;enough. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;  &lt;span class="c1"&gt;# True&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The equality operator is part of Python&amp;#8217;s built-in &lt;a href="https://docs.python.org/3/library/stdtypes.html?highlight=comparison#comparisons"&gt;comparison operators&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;From the docs, we see that &lt;em&gt;&amp;#8220;objects of different types, except different numeric types, never compare equal.&amp;#8221;&lt;/em&gt; We can test this out as&amp;nbsp;follows:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Comparison between objects of different types, one non-numeric&lt;/span&gt;
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;1&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;  &lt;span class="c1"&gt;# False, x and y are different objects&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Comparison between different numeric types&lt;/span&gt;
+&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;1.0&lt;/span&gt;
+&lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# &amp;lt;class &amp;#39;int&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# &amp;lt;class &amp;#39;float&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;   &lt;span class="c1"&gt;# True&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can also define equality on our own objects by writing an &lt;code&gt;__eq__()&lt;/code&gt; dunder&amp;nbsp;method:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Goomba&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__eq__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="sd"&gt;        Goomba is equal to other if the sum of their values is even &lt;/span&gt;
+&lt;span class="sd"&gt;        &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;False&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Koopa&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;
+
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__eq__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="sd"&gt;&amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class="sd"&gt;        Koopa is equal to other if the sum of their values is odd&lt;/span&gt;
+&lt;span class="sd"&gt;        &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;other&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;False&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;True&lt;/span&gt;
+
+&lt;span class="n"&gt;goombario&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Goomba&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;goombella&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Goomba&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;kooper&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Koopa&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;koops&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Koopa&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="n"&gt;goombella&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;goombario&lt;/span&gt;  &lt;span class="c1"&gt;# False, 1 + 2 = 3, 3 % 2 = 1&lt;/span&gt;
+&lt;span class="n"&gt;goombario&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;goombario&lt;/span&gt;  &lt;span class="c1"&gt;# True,  1 + 1 = 2, 2 % 2 = 0&lt;/span&gt;
+
+&lt;span class="n"&gt;goombario&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;kooper&lt;/span&gt;     &lt;span class="c1"&gt;# True,  1 + 1 = 2, 2 % 2 = 0&lt;/span&gt;
+&lt;span class="n"&gt;goombella&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;kooper&lt;/span&gt;     &lt;span class="c1"&gt;# False, 2 + 1 = 3, 3 % 2 = 1&lt;/span&gt;
+&lt;span class="n"&gt;goombella&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;koops&lt;/span&gt;      &lt;span class="c1"&gt;# True,  2 + 2 = 4, 4 % 2 = 0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You may have noticed something peculiar from the example: due to the way equality was defined in the above classes, the order of the operands matters (the operation is not symmetric in this&amp;nbsp;case).&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;goombella&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;kooper&lt;/span&gt;     &lt;span class="c1"&gt;# False, 3 % 2 = 1 (odd for Goomba = false)&lt;/span&gt;
+&lt;span class="n"&gt;kooper&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;goombella&lt;/span&gt;     &lt;span class="c1"&gt;# True,  3 % 2 = 1 (odd for Koopa = true)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Syntactic_sugar"&gt;Syntactic sugar&lt;/a&gt; is to blame for any confusion here. You can read more &lt;a href="https://docs.python.org/3/reference/datamodel.html#object.__eq__"&gt;in the Python docs&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;Digging a bit further, we can see from the &lt;a href="https://docs.python.org/3/reference/expressions.html#value-comparisons"&gt;value comparisons for expressions&lt;/a&gt; docs page that it is intended for the &lt;code&gt;==&lt;/code&gt; operator to be a test for an &lt;a href="https://en.wikipedia.org/wiki/Equivalence_relation"&gt;equivalence relation&lt;/a&gt;. So the above example, where symmetry is not observed, would not be consistent with the way Python defines equality. In any case, object equality is pretty straightforward from a practical point of&amp;nbsp;view.&lt;/p&gt;
+&lt;h1&gt;Object&amp;nbsp;Identity&lt;/h1&gt;
+&lt;p&gt;For me, the notion of &amp;#8220;identity&amp;#8221; is a bit more vague than &amp;#8220;equality&amp;#8221;. What does it mean for two objects to share an identity? While perhaps not as intuitive as object equality, object identity is not much more complicated. In Python, the identity operator is appropriately known as the &lt;code&gt;is&lt;/code&gt; &lt;a href="https://docs.python.org/3/reference/expressions.html#is"&gt;operator&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Basically, &lt;code&gt;a is b&lt;/code&gt; if and only if &lt;code&gt;id(a) == id(b)&lt;/code&gt;, where &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt; are objects and &lt;code&gt;id(x)&lt;/code&gt; is &lt;a href="https://docs.python.org/3/library/functions.html#id"&gt;the memory address of x&lt;/a&gt;. So, for two objects to be &amp;#8220;identical&amp;#8221;, it must be the case that they are the same exact object! In other words, if two variables share the same object address, there are in fact &lt;em&gt;not&lt;/em&gt; two objects but rather two &lt;em&gt;references&lt;/em&gt; to the same&amp;nbsp;object.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;  &lt;span class="c1"&gt;# True&lt;/span&gt;
+
+
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;  &lt;span class="c1"&gt;# True&lt;/span&gt;
+&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="n"&gt;y&lt;/span&gt;  &lt;span class="c1"&gt;# False&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;There are some subtleties to this that may not be immediately apparent. For example, &lt;code&gt;[1, 2, 3] is [1, 2, 3]&lt;/code&gt; = &lt;code&gt;False&lt;/code&gt;. Meanwhile, &lt;code&gt;(1, 2, 3) is (1, 2, 3)&lt;/code&gt; = &lt;code&gt;True&lt;/code&gt;. The reason is, as you may suspect, that &lt;a href="https://docs.python.org/3/library/stdtypes.html?highlight=comparison#lists"&gt;lists&lt;/a&gt; are mutable while &lt;a href="https://docs.python.org/3/library/stdtypes.html?highlight=comparison#tuples"&gt;tuples&lt;/a&gt; are&amp;nbsp;not. &lt;/p&gt;
+&lt;h1&gt;Equality vs Identity in Python&amp;nbsp;Strings&lt;/h1&gt;
+&lt;p&gt;Well, what about strings? We know that strings in Python are immutable objects. And as we might expect, &lt;code&gt;'hello, world' is 'hello, world'&lt;/code&gt; = &lt;code&gt;True&lt;/code&gt;! But here&amp;#8217;s where things start to get&amp;nbsp;interesting&amp;#8230;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Example 1&lt;/span&gt;
+&lt;span class="s1"&gt;&amp;#39;hello, world&amp;#39;&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;hello, world&amp;#39;&lt;/span&gt;  &lt;span class="c1"&gt;# True&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Example 2&lt;/span&gt;
+&lt;span class="n"&gt;str_1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;hello, world&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;str_2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;hello, world&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;str_1&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="n"&gt;str_2&lt;/span&gt;  &lt;span class="c1"&gt;# False (!)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Example 3&lt;/span&gt;
+&lt;span class="n"&gt;str_1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;helloworld&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;str_2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;helloworld&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;str_1&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="n"&gt;str_2&lt;/span&gt;  &lt;span class="c1"&gt;# True (?!)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Example 4&lt;/span&gt;
+&lt;span class="n"&gt;str_1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;hello, world&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;str_2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;hello, world&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;str_1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;, &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="n"&gt;str_2&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;, &amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# False(!?!)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;What gives? And to make things more interesting, the above code was executed line-by-line on the interactive shell. If you copy the above into a source file run the Python on the file (and printing the results), you will find that the first three conditions are &lt;code&gt;True&lt;/code&gt; (the last one remains &lt;code&gt;False&lt;/code&gt;). Which means that the second identity operation just changed truth values! And how come removing the comma and whitespace from both strings at the end there didn&amp;#8217;t make the identity check &lt;code&gt;True&lt;/code&gt; again? The key to answering all these questions is: &lt;a href="https://en.wikipedia.org/wiki/String_interning"&gt;string interning&lt;/a&gt;! Let&amp;#8217;s talk about&amp;nbsp;it.&lt;/p&gt;
+&lt;h2&gt;String Interning, or &amp;#8220;Compare strings in O(1) instead of&amp;nbsp;O(n)!&amp;#8221;&lt;/h2&gt;
+&lt;p&gt;This concept was completely unknown to me until very recently. &lt;em&gt;String interning&lt;/em&gt; is the process by which a particular &lt;code&gt;string&lt;/code&gt; object can be stored in an internal dictionary for faster lookups. Further assignments of the same string contents will yield a reference to this stored object instead of creating a new&amp;nbsp;object.&lt;/p&gt;
+&lt;p&gt;In practical terms, interning a string allows for lower memory usage as well as a performance boost in matching via string equality. That is, instead of relying on &lt;a href="https://en.wikipedia.org/wiki/Category:String_matching_algorithms"&gt;standard string matching algorithms&lt;/a&gt; to determine whether or not two strings are the same (i.e. contain the same characters in the same order), you can simply check whether or not they are references to the same object. This allows an &lt;em&gt;equality&lt;/em&gt; check to be optimized as an &lt;em&gt;identity&lt;/em&gt; check, which typically means that an &lt;em&gt;O(n)&lt;/em&gt; character-by-character operation has been optimized all the way down to an &lt;em&gt;O(1)&lt;/em&gt; numerical address comparison. This is quite the optimization, which is why Python natively interns strings based on a set of internal rules. And if we examine some of these rules, we&amp;#8217;ll find answers to the questions left unsolved in the previous&amp;nbsp;section.&lt;/p&gt;
+&lt;p&gt;For example, it turns out that Python natively interns all strings which contain only &lt;a href="https://en.wikipedia.org/wiki/ASCII"&gt;&lt;span class="caps"&gt;ASCII&lt;/span&gt;&lt;/a&gt; letters, digits and the underscore character. This explains what happened in &lt;em&gt;Example 3&lt;/em&gt;. Both strings are pure &lt;span class="caps"&gt;ASCII&lt;/span&gt; and therefore got interned by Python (conversly, their comma-and-whitespace-containing &lt;code&gt;hello, world&lt;/code&gt; counterparts from &lt;em&gt;Example 2&lt;/em&gt; were not interned by this rule). Also, it&amp;#8217;s important to note that native interning occurs at compilation time. This fact explains why &lt;code&gt;False&lt;/code&gt; was the result in &lt;em&gt;Example 4&lt;/em&gt;. It would seem that the &lt;code&gt;replace&lt;/code&gt; method turned our comma-and-whitespace-containing strings into intern-me-&lt;span class="caps"&gt;ASCII&lt;/span&gt; strings, but in fact the string replacement occurred at runtime, and thus never got the chance to be interned&amp;nbsp;natively. &lt;/p&gt;
+&lt;p&gt;But how does this explain &lt;em&gt;Example 1&lt;/em&gt;? Well, Python was smart enough to realize that &lt;code&gt;'hello, world' is 'hello, world'&lt;/code&gt; is an attempt to compare the reference of two immutable objects which happen to be the same and it optimized accordingly. Now, how come the code exhibits completely different behavior when running in the shell versus in a source file for &lt;em&gt;Example 2&lt;/em&gt;?  Notice that this same scenario plays out a little differently depending on the execution environment. This is because, in the shell, the code is fed to the Python interpreter line-by-line, as opposed to file execution, where the Python has access to all the code in the file at once. Again, Python was smart enough to optimize the strings when it had forward-lookup capabilities available, but not so when it did not &amp;#8220;know&amp;#8221; what the next line would be (which was the case for &lt;em&gt;Example 1&lt;/em&gt;, where it did&amp;nbsp;optimize).&lt;/p&gt;
+&lt;p&gt;Phew! Now, let&amp;#8217;s look at how we use manual string interning and get the &lt;code&gt;is&lt;/code&gt; operator to work as we expected it to&amp;nbsp;originally:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;sys&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nb"&gt;intern&lt;/span&gt;
+
+&lt;span class="n"&gt;str_1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;intern&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;hello, world&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;str_2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;intern&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;hello, world&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;str_1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;str_2&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;  &lt;span class="c1"&gt;# &amp;lt;class &amp;#39;str&amp;#39;&amp;gt; &amp;lt;class &amp;#39;str&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;str_1&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="n"&gt;str_2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# True&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;There it is! Two different references to the same object. We saved memory by not creating two different objects for the same string, we achieved a performance boost by comparing references instead of the contents of the strings, and we learned a lot about Python strings and objects along the&amp;nbsp;way.&lt;/p&gt;
+&lt;h1&gt;From a bug,&amp;nbsp;knowledge&lt;/h1&gt;
+&lt;p&gt;I mentioned at the top that I became interested in this whole string identity vs equality thing because of a bug I found (a.k.a created) at work. Here it is, in all its&amp;nbsp;glory:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;database&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;some_database_alias&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="c1"&gt;# ...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;At first glance, there may not seem to be much of a problem here. However, if the code that is expected to run after the conditional expression is of critical importance, then it pays to make sure that the conditions under which the expression evaluates to true are well&amp;nbsp;understood.&lt;/p&gt;
+&lt;p&gt;Then came the time for that line of code to do its one&amp;nbsp;job&amp;#8230;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;database&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;database&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;database&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# &amp;#39;some_database_alias&amp;#39;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;type&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;database&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;  &lt;span class="c1"&gt;# &amp;lt;class &amp;#39;str&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;database&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;some_database_alias&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# True&lt;/span&gt;
+
+&lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;database&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;some_database_alias&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# False&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;It didn&amp;#8217;t work. I wrote an identity comparison where I should have written an equality comparison instead. The moral of the story here: &lt;strong&gt;&lt;code&gt;is&lt;/code&gt; is not &lt;code&gt;==&lt;/code&gt;&lt;/strong&gt;.&lt;/p&gt;
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;What started out as a casual review of Python syntax caused by a simple enough bug turned into a curiosity-driven deep dive into Python string internals and comparison operators. All in good fun. The following article by Adrien Guillo was very helpful and goes into the lower-level goings on of CPython&amp;#8217;s string interning mechanisms: &lt;a href="http://guilload.com/python-string-interning/"&gt;The internals of Python string interning&lt;/a&gt;. Satwik Kansal wrote another, higher-level introduction to the topic: &lt;a href="https://www.codementor.io/satwikkansal/do-you-really-think-you-know-strings-in-python-fnxh8mtha"&gt;Do you really think you know strings in&amp;nbsp;Python?&lt;/a&gt; &lt;/p&gt;</content><category term="python"></category><category term="django"></category><category term="programming"></category></entry><entry><title>Getting started with Game Boy development on Mac</title><link href="https://raulnegron.me/blog/2018/starting-gb-dev" rel="alternate"></link><published>2018-04-21T00:00:00-04:00</published><updated>2018-04-21T00:00:00-04:00</updated><author><name>Raúl</name></author><id>tag:raulnegron.me,2018-04-21:/blog/2018/starting-gb-dev</id><summary type="html">&lt;p&gt;&lt;br&gt;
 &lt;center&gt;
 &lt;img src="https://raulnegron.me/images/gameboy.jpg" style="width: 170px;"/&gt;
 &lt;/center&gt;

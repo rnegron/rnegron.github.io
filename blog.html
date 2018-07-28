@@ -77,6 +77,163 @@ styles, `#sidebar-checkbox` for behavior. -->
 <div class="posts">
   <div class="post">
     <h1 class="post-title">
+      <a href="https://raulnegron.me/blog/2018/dev-python-strings-identity-vs-equality" rel="bookmark" title="Permalink to Identity and Equality in Python">Identity and Equality in&nbsp;Python</a>
+    </h1>
+    <span class="post-date">July 27, 2018</span>
+
+    <!-- <p>I would consider <a href="https://www.python.org/">Python</a> to be the programming language I&#8217;m most comfortable writing code in. There&#8217;s plenty to love, and one of its more recognizable features is its simple to read <a href="https://en.wikipedia.org/wiki/Python_syntax_and_semantics">syntax</a>. I&#8217;ve heard the phrase &#8220;executable pseudocode&#8221; thrown around before, and its easy to see where the comparisons come&nbsp;from. </p>
+<p>A great side effect of sporting such a relatively simple to understand syntax is its <a href="https://www.economist.com/science-and-technology/2018/07/21/python-has-brought-computer-programming-to-a-vast-new-audience">mass appeal</a>, with people jumping in with little programming knowledge and using Python to jump start their new coding&nbsp;adventures. </p>
+<p>Its not hard to get carried away and forget that, despite the focus on readability, code is not the same as prose. Its always worthwhile to keep the subtleties of a particular language in mind. That being said, this post is about the bug I created when I forgot about the (perhaps not so subtle) distinction between identity and equality in Python, and what I learned from that&nbsp;mistake.</p>
+<p>Let&#8217;s review the fundamentals before diving into the&nbsp;particulars.</p>
+<h1>Object&nbsp;Equality</h1>
+<p>Object equality refers to the intuitive notion of equality from mathematics. Sounds simple&nbsp;enough. </p>
+<div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">x</span> <span class="o">==</span> <span class="n">y</span>  <span class="c1"># True</span>
+</pre></div>
+
+
+<p>The equality operator is part of Python&#8217;s built-in <a href="https://docs.python.org/3/library/stdtypes.html?highlight=comparison#comparisons">comparison operators</a>.</p>
+<p>From the docs, we see that <em>&#8220;objects of different types, except different numeric types, never compare equal.&#8221;</em> We can test this out as&nbsp;follows:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Comparison between objects of different types, one non-numeric</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
+<span class="n">x</span> <span class="o">==</span> <span class="n">y</span>  <span class="c1"># False, x and y are different objects</span>
+
+<span class="c1"># Comparison between different numeric types</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># &lt;class &#39;int&#39;&gt;</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># &lt;class &#39;float&#39;&gt;</span>
+<span class="n">x</span> <span class="o">==</span> <span class="n">y</span>   <span class="c1"># True</span>
+</pre></div>
+
+
+<p>We can also define equality on our own objects by writing an <code>__eq__()</code> dunder&nbsp;method:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Goomba</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Goomba is equal to other if the sum of their values is even </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+<span class="k">class</span> <span class="nc">Koopa</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Koopa is equal to other if the sum of their values is odd</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+<span class="n">goombario</span> <span class="o">=</span> <span class="n">Goomba</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">goombella</span> <span class="o">=</span> <span class="n">Goomba</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">kooper</span> <span class="o">=</span> <span class="n">Koopa</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">koops</span> <span class="o">=</span> <span class="n">Koopa</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">goombella</span> <span class="o">==</span> <span class="n">goombario</span>  <span class="c1"># False, 1 + 2 = 3, 3 % 2 = 1</span>
+<span class="n">goombario</span> <span class="o">==</span> <span class="n">goombario</span>  <span class="c1"># True,  1 + 1 = 2, 2 % 2 = 0</span>
+
+<span class="n">goombario</span> <span class="o">==</span> <span class="n">kooper</span>     <span class="c1"># True,  1 + 1 = 2, 2 % 2 = 0</span>
+<span class="n">goombella</span> <span class="o">==</span> <span class="n">kooper</span>     <span class="c1"># False, 2 + 1 = 3, 3 % 2 = 1</span>
+<span class="n">goombella</span> <span class="o">==</span> <span class="n">koops</span>      <span class="c1"># True,  2 + 2 = 4, 4 % 2 = 0</span>
+</pre></div>
+
+
+<p>You may have noticed something peculiar from the example: due to the way equality was defined in the above classes, the order of the operands matters (the operation is not symmetric in this&nbsp;case).</p>
+<div class="highlight"><pre><span></span><span class="n">goombella</span> <span class="o">==</span> <span class="n">kooper</span>     <span class="c1"># False, 3 % 2 = 1 (odd for Goomba = false)</span>
+<span class="n">kooper</span> <span class="o">==</span> <span class="n">goombella</span>     <span class="c1"># True,  3 % 2 = 1 (odd for Koopa = true)</span>
+</pre></div>
+
+
+<p><a href="https://en.wikipedia.org/wiki/Syntactic_sugar">Syntactic sugar</a> is to blame for any confusion here. You can read more <a href="https://docs.python.org/3/reference/datamodel.html#object.__eq__">in the Python docs</a>. </p>
+<p>Digging a bit further, we can see from the <a href="https://docs.python.org/3/reference/expressions.html#value-comparisons">value comparisons for expressions</a> docs page that it is intended for the <code>==</code> operator to be a test for an <a href="https://en.wikipedia.org/wiki/Equivalence_relation">equivalence relation</a>. So the above example, where symmetry is not observed, would not be consistent with the way Python defines equality. In any case, object equality is pretty straightforward from a practical point of&nbsp;view.</p>
+<h1>Object&nbsp;Identity</h1>
+<p>For me, the notion of &#8220;identity&#8221; is a bit more vague than &#8220;equality&#8221;. What does it mean for two objects to share an identity? While perhaps not as intuitive as object equality, object identity is not much more complicated. In Python, the identity operator is appropriately known as the <code>is</code> <a href="https://docs.python.org/3/reference/expressions.html#is">operator</a>.</p>
+<p>Basically, <code>a is b</code> if and only if <code>id(a) == id(b)</code>, where <code>a</code> and <code>b</code> are objects and <code>id(x)</code> is <a href="https://docs.python.org/3/library/functions.html#id">the memory address of x</a>. So, for two objects to be &#8220;identical&#8221;, it must be the case that they are the same exact object! In other words, if two variables share the same object address, there are in fact <em>not</em> two objects but rather two <em>references</em> to the same&nbsp;object.</p>
+<div class="highlight"><pre><span></span><span class="mi">1</span> <span class="ow">is</span> <span class="mi">1</span>  <span class="c1"># True</span>
+
+
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="n">x</span> <span class="o">==</span> <span class="n">y</span>  <span class="c1"># True</span>
+<span class="n">x</span> <span class="ow">is</span> <span class="n">y</span>  <span class="c1"># False</span>
+</pre></div>
+
+
+<p>There are some subtleties to this that may not be immediately apparent. For example, <code>[1, 2, 3] is [1, 2, 3]</code> = <code>False</code>. Meanwhile, <code>(1, 2, 3) is (1, 2, 3)</code> = <code>True</code>. The reason is, as you may suspect, that <a href="https://docs.python.org/3/library/stdtypes.html?highlight=comparison#lists">lists</a> are mutable while <a href="https://docs.python.org/3/library/stdtypes.html?highlight=comparison#tuples">tuples</a> are&nbsp;not. </p>
+<h1>Equality vs Identity in Python&nbsp;Strings</h1>
+<p>Well, what about strings? We know that strings in Python are immutable objects. And as we might expect, <code>'hello, world' is 'hello, world'</code> = <code>True</code>! But here&#8217;s where things start to get&nbsp;interesting&#8230;</p>
+<div class="highlight"><pre><span></span><span class="c1"># Example 1</span>
+<span class="s1">&#39;hello, world&#39;</span> <span class="ow">is</span> <span class="s1">&#39;hello, world&#39;</span>  <span class="c1"># True</span>
+
+<span class="c1"># Example 2</span>
+<span class="n">str_1</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
+<span class="n">str_2</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
+<span class="n">str_1</span> <span class="ow">is</span> <span class="n">str_2</span>  <span class="c1"># False (!)</span>
+
+<span class="c1"># Example 3</span>
+<span class="n">str_1</span> <span class="o">=</span> <span class="s1">&#39;helloworld&#39;</span>
+<span class="n">str_2</span> <span class="o">=</span> <span class="s1">&#39;helloworld&#39;</span>
+<span class="n">str_1</span> <span class="ow">is</span> <span class="n">str_2</span>  <span class="c1"># True (?!)</span>
+
+<span class="c1"># Example 4</span>
+<span class="n">str_1</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
+<span class="n">str_2</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
+<span class="n">str_1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="n">str_2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>  <span class="c1"># False(!?!)</span>
+</pre></div>
+
+
+<p>What gives? And to make things more interesting, the above code was executed line-by-line on the interactive shell. If you copy the above into a source file run the Python on the file (and printing the results), you will find that the first three conditions are <code>True</code> (the last one remains <code>False</code>). Which means that the second identity operation just changed truth values! And how come removing the comma and whitespace from both strings at the end there didn&#8217;t make the identity check <code>True</code> again? The key to answering all these questions is: <a href="https://en.wikipedia.org/wiki/String_interning">string interning</a>! Let&#8217;s talk about&nbsp;it.</p>
+<h2>String Interning, or &#8220;Compare strings in O(1) instead of&nbsp;O(n)!&#8221;</h2>
+<p>This concept was completely unknown to me until very recently. <em>String interning</em> is the process by which a particular <code>string</code> object can be stored in an internal dictionary for faster lookups. Further assignments of the same string contents will yield a reference to this stored object instead of creating a new&nbsp;object.</p>
+<p>In practical terms, interning a string allows for lower memory usage as well as a performance boost in matching via string equality. That is, instead of relying on <a href="https://en.wikipedia.org/wiki/Category:String_matching_algorithms">standard string matching algorithms</a> to determine whether or not two strings are the same (i.e. contain the same characters in the same order), you can simply check whether or not they are references to the same object. This allows an <em>equality</em> check to be optimized as an <em>identity</em> check, which typically means that an <em>O(n)</em> character-by-character operation has been optimized all the way down to an <em>O(1)</em> numerical address comparison. This is quite the optimization, which is why Python natively interns strings based on a set of internal rules. And if we examine some of these rules, we&#8217;ll find answers to the questions left unsolved in the previous&nbsp;section.</p>
+<p>For example, it turns out that Python natively interns all strings which contain only <a href="https://en.wikipedia.org/wiki/ASCII"><span class="caps">ASCII</span></a> letters, digits and the underscore character. This explains what happened in <em>Example 3</em>. Both strings are pure <span class="caps">ASCII</span> and therefore got interned by Python (conversly, their comma-and-whitespace-containing <code>hello, world</code> counterparts from <em>Example 2</em> were not interned by this rule). Also, it&#8217;s important to note that native interning occurs at compilation time. This fact explains why <code>False</code> was the result in <em>Example 4</em>. It would seem that the <code>replace</code> method turned our comma-and-whitespace-containing strings into intern-me-<span class="caps">ASCII</span> strings, but in fact the string replacement occurred at runtime, and thus never got the chance to be interned&nbsp;natively. </p>
+<p>But how does this explain <em>Example 1</em>? Well, Python was smart enough to realize that <code>'hello, world' is 'hello, world'</code> is an attempt to compare the reference of two immutable objects which happen to be the same and it optimized accordingly. Now, how come the code exhibits completely different behavior when running in the shell versus in a source file for <em>Example 2</em>?  Notice that this same scenario plays out a little differently depending on the execution environment. This is because, in the shell, the code is fed to the Python interpreter line-by-line, as opposed to file execution, where the Python has access to all the code in the file at once. Again, Python was smart enough to optimize the strings when it had forward-lookup capabilities available, but not so when it did not &#8220;know&#8221; what the next line would be (which was the case for <em>Example 1</em>, where it did&nbsp;optimize).</p>
+<p>Phew! Now, let&#8217;s look at how we use manual string interning and get the <code>is</code> operator to work as we expected it to&nbsp;originally:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">intern</span>
+
+<span class="n">str_1</span> <span class="o">=</span> <span class="nb">intern</span><span class="p">(</span><span class="s1">&#39;hello, world&#39;</span><span class="p">)</span>
+<span class="n">str_2</span> <span class="o">=</span> <span class="nb">intern</span><span class="p">(</span><span class="s1">&#39;hello, world&#39;</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">str_1</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">str_2</span><span class="p">))</span>  <span class="c1"># &lt;class &#39;str&#39;&gt; &lt;class &#39;str&#39;&gt;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">str_1</span> <span class="ow">is</span> <span class="n">str_2</span><span class="p">)</span>  <span class="c1"># True</span>
+</pre></div>
+
+
+<p>There it is! Two different references to the same object. We saved memory by not creating two different objects for the same string, we achieved a performance boost by comparing references instead of the contents of the strings, and we learned a lot about Python strings and objects along the&nbsp;way.</p>
+<h1>From a bug,&nbsp;knowledge</h1>
+<p>I mentioned at the top that I became interested in this whole string identity vs equality thing because of a bug I found (a.k.a created) at work. Here it is, in all its&nbsp;glory:</p>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">database</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;some_database_alias&#39;</span><span class="p">:</span>
+    <span class="c1"># ...</span>
+</pre></div>
+
+
+<p>At first glance, there may not seem to be much of a problem here. However, if the code that is expected to run after the conditional expression is of critical importance, then it pays to make sure that the conditions under which the expression evaluates to true are well&nbsp;understood.</p>
+<p>Then came the time for that line of code to do its one&nbsp;job&#8230;</p>
+<div class="highlight"><pre><span></span><span class="n">database</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">database</span>
+<span class="k">print</span><span class="p">(</span><span class="n">database</span><span class="p">)</span>  <span class="c1"># &#39;some_database_alias&#39;</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">database</span><span class="p">))</span>  <span class="c1"># &lt;class &#39;str&#39;&gt;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">database</span> <span class="o">==</span> <span class="s1">&#39;some_database_alias&#39;</span><span class="p">)</span>  <span class="c1"># True</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">database</span> <span class="ow">is</span> <span class="s1">&#39;some_database_alias&#39;</span><span class="p">)</span>  <span class="c1"># False</span>
+</pre></div>
+
+
+<p>It didn&#8217;t work. I wrote an identity comparison where I should have written an equality comparison instead. The moral of the story here: <strong><code>is</code> is not <code>==</code></strong>.</p>
+<h1>Conclusion</h1>
+<p>What started out as a casual review of Python syntax caused by a simple enough bug turned into a curiosity-driven deep dive into Python string internals and comparison operators. All in good fun. The following article by Adrien Guillo was very helpful and goes into the lower-level goings on of CPython&#8217;s string interning mechanisms: <a href="http://guilload.com/python-string-interning/">The internals of Python string interning</a>. Satwik Kansal wrote another, higher-level introduction to the topic: <a href="https://www.codementor.io/satwikkansal/do-you-really-think-you-know-strings-in-python-fnxh8mtha">Do you really think you know strings in&nbsp;Python?</a> </p> -->
+  </div>
+  <div class="post">
+    <h1 class="post-title">
       <a href="https://raulnegron.me/blog/2018/starting-gb-dev" rel="bookmark" title="Permalink to Getting started with Game Boy development on Mac">Getting started with Game Boy development on&nbsp;Mac</a>
     </h1>
     <span class="post-date">April 21, 2018</span>
