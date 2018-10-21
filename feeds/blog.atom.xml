@@ -177,7 +177,7 @@ $ sudo cp -r gbdk-osx /opt/gbdk
 &lt;p&gt;&lt;a href="https://github.com/x43x61x69/gbdk-osx/issues/2"&gt;&lt;code&gt;sed -i '' -e '1005d' sdcc/src/SDCC.y&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href="https://github.com/co-me/gbdk/issues/5"&gt;&lt;code&gt;sudo cp -r gbdk-osx/build/ppc-unknown-linux2.2/gbdk /opt/gbdk&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Make sure to add the path to the new binaries to your &lt;code&gt;PATH&lt;/code&gt;:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/opt/gbdk/bin:&lt;/span&gt;&lt;span class="nv"&gt;$PATH&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;PATH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/opt/gbdk/bin:&lt;/span&gt;&lt;span class="nv"&gt;$PATH&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
 
@@ -254,14 +254,14 @@ $ sudo cp -r gbdk-osx /opt/gbdk
 &lt;h2&gt;The C alternative: &lt;span class="caps"&gt;RGBDS&lt;/span&gt; on&amp;nbsp;MacOS&lt;/h2&gt;
 &lt;p&gt;This post focused on coding in C. For assembly, there exists the &lt;a href="https://github.com/rednex/rgbds"&gt;Rednex Game Boy Development System (&lt;span class="caps"&gt;RGBDS&lt;/span&gt;)&lt;/a&gt;.
 The best part is that installation couldn&amp;#8217;t be&amp;nbsp;simpler.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;brew install rgbds
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ brew install rgbds
 &lt;/pre&gt;&lt;/div&gt;
 
 
 &lt;p&gt;I will definitely get into assembly on the &lt;span class="caps"&gt;GB&lt;/span&gt; at some point in the&amp;nbsp;future!&lt;/p&gt;
 &lt;h1&gt;Further&amp;nbsp;reading&lt;/h1&gt;
 &lt;p&gt;If you can read Japanese (or don&amp;#8217;t mind using Google Translate), I recommend the &lt;a href="https://adventar.org/calendars/2505"&gt;Game Boy Advent Calendar 2017&lt;/a&gt; series of blog&amp;nbsp;posts.&lt;/p&gt;
-&lt;p&gt;Finally, having already mentioned the place to get a lot of good resources (&lt;a href="https://github.com/avivace/awesome-gbdev"&gt;awesome-gbdev&lt;/a&gt;), I&amp;#8217;ll go ahead and highlight a few resources on that&amp;nbsp;list.&lt;/p&gt;
+&lt;p&gt;Finally, having already mentioned the place to get a lot of good resources (&lt;a href="https://github.com/gbdev/awesome-gbdev"&gt;awesome-gbdev&lt;/a&gt;), I&amp;#8217;ll go ahead and highlight a few resources on that&amp;nbsp;list.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a href="https://media.ccc.de/v/33c3-8029-the_ultimate_game_boy_talk"&gt;The Ultimate Game Boy Talk&lt;/a&gt; - A must-watch deep-dive tech-talk on the original Game&amp;nbsp;Boy.&lt;/p&gt;

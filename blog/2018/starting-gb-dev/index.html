@@ -117,7 +117,7 @@ $ sudo cp -r gbdk-osx /opt/gbdk
 <p><a href="https://github.com/x43x61x69/gbdk-osx/issues/2"><code>sed -i '' -e '1005d' sdcc/src/SDCC.y</code></a></p>
 <p><a href="https://github.com/co-me/gbdk/issues/5"><code>sudo cp -r gbdk-osx/build/ppc-unknown-linux2.2/gbdk /opt/gbdk</code></a></p>
 <p>Make sure to add the path to the new binaries to your <code>PATH</code>:</p>
-<div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/opt/gbdk/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span>$ <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/opt/gbdk/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span>
 </pre></div>
 
 
@@ -194,14 +194,14 @@ $ sudo cp -r gbdk-osx /opt/gbdk
 <h2>The C alternative: <span class="caps">RGBDS</span> on&nbsp;MacOS</h2>
 <p>This post focused on coding in C. For assembly, there exists the <a href="https://github.com/rednex/rgbds">Rednex Game Boy Development System (<span class="caps">RGBDS</span>)</a>.
 The best part is that installation couldn&#8217;t be&nbsp;simpler.</p>
-<div class="highlight"><pre><span></span>brew install rgbds
+<div class="highlight"><pre><span></span>$ brew install rgbds
 </pre></div>
 
 
 <p>I will definitely get into assembly on the <span class="caps">GB</span> at some point in the&nbsp;future!</p>
 <h1>Further&nbsp;reading</h1>
 <p>If you can read Japanese (or don&#8217;t mind using Google Translate), I recommend the <a href="https://adventar.org/calendars/2505">Game Boy Advent Calendar 2017</a> series of blog&nbsp;posts.</p>
-<p>Finally, having already mentioned the place to get a lot of good resources (<a href="https://github.com/avivace/awesome-gbdev">awesome-gbdev</a>), I&#8217;ll go ahead and highlight a few resources on that&nbsp;list.</p>
+<p>Finally, having already mentioned the place to get a lot of good resources (<a href="https://github.com/gbdev/awesome-gbdev">awesome-gbdev</a>), I&#8217;ll go ahead and highlight a few resources on that&nbsp;list.</p>
 <ul>
 <li>
 <p><a href="https://media.ccc.de/v/33c3-8029-the_ultimate_game_boy_talk">The Ultimate Game Boy Talk</a> - A must-watch deep-dive tech-talk on the original Game&nbsp;Boy.</p>
@@ -277,6 +277,19 @@ The best part is that installation couldn&#8217;t be&nbsp;simpler.</p>
 }
 </script>
   </div>
+</div>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'raulnegron';
+        var disqus_title = 'Getting started with Game Boy development on&nbsp;Mac';
+        (function () {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
       </div>
 
