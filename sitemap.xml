@@ -5,32 +5,26 @@
     <loc>https://raulnegron.me/blog/2018/dev-python-strings-identity-vs-equality</loc>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://raulnegron.me/blog/2018/starting-gb-dev</loc>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://raulnegron.me/blog/2018/hello-pelican</loc>
     <priority>0.8</priority>
   </url>
 
-
   <url>
     <loc>https://raulnegron.me/about</loc>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://raulnegron.me/</loc>
     <priority>1.0</priority>
   </url>
-
   <url>
     <loc>https://raulnegron.me/reading</loc>
     <priority>1.0</priority>
   </url>
-
 
 </urlset>
