@@ -1,5 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Raúl Negrón's Website</title><link href="https://raulnegron.me/" rel="alternate"></link><link href="https://raulnegron.me/feeds/all.atom.xml" rel="self"></link><id>https://raulnegron.me/</id><updated>2018-07-27T00:00:00-04:00</updated><entry><title>Identity and Equality in Python</title><link href="https://raulnegron.me/blog/2018/dev-python-strings-identity-vs-equality" rel="alternate"></link><published>2018-07-27T00:00:00-04:00</published><updated>2018-07-27T00:00:00-04:00</updated><author><name>Raúl Negrón</name></author><id>tag:raulnegron.me,2018-07-27:/blog/2018/dev-python-strings-identity-vs-equality</id><summary type="html">&lt;p&gt;I would consider &lt;a href="https://www.python.org/"&gt;Python&lt;/a&gt; to be the programming language I&amp;#8217;m most comfortable writing code in. There&amp;#8217;s plenty to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I would consider &lt;a href="https://www.python.org/"&gt;Python&lt;/a&gt; to be the programming language I&amp;#8217;m most comfortable writing code in. There&amp;#8217;s plenty to love, and one of its more recognizable features is its simple to read &lt;a href="https://en.wikipedia.org/wiki/Python_syntax_and_semantics"&gt;syntax&lt;/a&gt;. I&amp;#8217;ve heard the phrase &amp;#8220;executable pseudocode&amp;#8221; thrown around before, and its easy to see where the comparisons come&amp;nbsp;from. &lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Raúl Negrón's Website</title><link href="https://raulnegron.me/" rel="alternate"></link><link href="https://raulnegron.me/feeds/all.atom.xml" rel="self"></link><id>https://raulnegron.me/</id><updated>2019-01-19T00:00:00-04:00</updated><entry><title>Full-Stack Project: vg-stack (Part 1)</title><link href="https://raulnegron.me/blog/2019/vgstack-1" rel="alternate"></link><published>2019-01-19T00:00:00-04:00</published><updated>2019-01-19T00:00:00-04:00</updated><author><name>Raúl Negrón</name></author><id>tag:raulnegron.me,2019-01-19:/blog/2019/vgstack-1</id><summary type="html">&lt;h1&gt;Motivation&lt;/h1&gt;
+&lt;p&gt;In the web development space, tools and best-practices change quite frequently. At one point in the not-so-distant past, a …&lt;/p&gt;</summary><content type="html">&lt;h1&gt;Motivation&lt;/h1&gt;
+&lt;p&gt;In the web development space, tools and best-practices change quite frequently. At one point in the not-so-distant past, a &lt;a href="https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29"&gt;&lt;span class="caps"&gt;LAMP&lt;/span&gt;&lt;/a&gt; stack was the go-to approach for launching a web application. These days, &lt;span class="caps"&gt;PHP&lt;/span&gt; is the #8 most popular programming language (according to a company with the name &lt;a href="https://www.tiobe.com/tiobe-index/"&gt;&amp;#8220;The Importance Of Being Earnest&amp;#8221;&lt;/a&gt;), while Python and JavaScript rank above&amp;nbsp;it.&lt;/p&gt;
+&lt;p&gt;One of the reason for this change has to do with the growing trend towards microservice architectures. Together with the need for rapid prototyping and the onset of agile development methodologies, Python and other languages have swept in and stolen the &lt;span class="caps"&gt;LAMP&lt;/span&gt; stack&amp;#8217;s&amp;nbsp;lunch.&lt;/p&gt;
+&lt;p&gt;So what is the &lt;em&gt;new stack&lt;/em&gt;? A complex question with opinionated answers&amp;#8230; Here is a recent community discussion on Hacker News: &lt;a href="https://news.ycombinator.com/item?id=18829557"&gt;Go-to web stack&amp;nbsp;today?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;But wow, there are so many things to learn and keep up to date with nowadays! To help alleviate this, I&amp;#8217;d like to work on a side-project using full-stack technologies. In particular, I want to use the following tools to build a fullstack&amp;nbsp;app:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Django&amp;nbsp;(backend)&lt;/li&gt;
+&lt;li&gt;Angular&amp;nbsp;(frontend)&lt;/li&gt;
+&lt;li&gt;Docker&amp;nbsp;(development/deployment)&lt;/li&gt;
+&lt;li&gt;Postgres&amp;nbsp;(database)&lt;/li&gt;
+&lt;li&gt;&amp;#8230; plus many more! (think git, pipenv, serverless, test-driven development&amp;#8230; Maybe type-hints, GraphQL and data visualization&amp;nbsp;too?)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;The idea: A web app for keeping track of your video game&amp;nbsp;backlog&lt;/h1&gt;
+&lt;p&gt;No shame: the project is most definitely a copy of &lt;a href="https://backloggery.com"&gt;The Backloggery&lt;/a&gt;, a great site that I use often. However, as far as I know, The Backloggery is &lt;a href="https://backloggery.com/about.php"&gt;built in &lt;span class="caps"&gt;PHP&lt;/span&gt;&lt;/a&gt;, probably on a &lt;span class="caps"&gt;LAMP&lt;/span&gt; stack or similar. So I thought I would take a crack at building a small subset of the Backloggery features, on a more modern&amp;nbsp;stack.&lt;/p&gt;
+&lt;p&gt;I like this idea because it comes with a well-defined problem set. I can already envision the database schema and how to build the backend. But as I mentioned, this project is going to involve the entire stack. That means I gotta learn some front-end JavaScript. In this series of blog posts, I document my&amp;nbsp;experience.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;I should say, the reason I picked &lt;a href="https://angular.io/"&gt;Angular&lt;/a&gt; and not (the elephant in the room) &lt;a href="https://reactjs.org/"&gt;React&lt;/a&gt; is that in my &lt;a href="https://www.abartyshealth.com"&gt;day job&lt;/a&gt;, our frontend team works with Angular and so this is a skill I would like to improve! Besides, we all know &lt;a href="https://en.wikipedia.org/wiki/PostgreSQL"&gt;Postgres&lt;/a&gt; is the real elephant here, right? Let&amp;#8217;s move&amp;nbsp;on.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1&gt;The app:&amp;nbsp;vg-stack&lt;/h1&gt;
+&lt;p&gt;I had to name my repo&amp;nbsp;something!&lt;/p&gt;
+&lt;p&gt;In all honestly, I like the name because it hints at the purpose of the project (practicing the web stack) while at the same conjuring a mental image of a bunch of video games stacked on top of each&amp;nbsp;other.&lt;/p&gt;
+&lt;h2&gt;Setting&amp;nbsp;up&lt;/h2&gt;
+&lt;p&gt;For this first part, I&amp;#8217;m going to build a back-end skeleton using Django and the awesome &lt;a href="https://www.django-rest-framework.org/"&gt;Django &lt;span class="caps"&gt;REST&lt;/span&gt; framework&lt;/a&gt; package. As already mentioned, our database will be the ever-popular PostgreSQL and we are aiming for best practices in all parts of the stack. That includes deployment/development tools and environments! That said, I&amp;#8217;m going to assume knowledge of the tools used and explain only the&amp;nbsp;highlights.&lt;/p&gt;
+&lt;h2&gt;Project&amp;nbsp;Structure&lt;/h2&gt;
+&lt;p&gt;In fact, I&amp;#8217;m going to skip most of the project setup entirely and just go with a pre-built template! I like William Vincent&amp;#8217;s &lt;a href="https://github.com/wsvincent/drfx"&gt;drfx&lt;/a&gt;, so let&amp;#8217;s go ahead and clone&amp;nbsp;that:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ git clone https://github.com/wsvincent/drfx vgstack
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The template provided comes with a lot of best practices built in. We can build on top of it and get going&amp;nbsp;quickly!&lt;/p&gt;
+&lt;h3&gt;Dependencies&lt;/h3&gt;
+&lt;p&gt;We&amp;#8217;re going to install the following extra packages for now:
+&lt;a href="https://github.com/theskumar/python-dotenv"&gt;python-dotenv&lt;/a&gt; to comply with &lt;a href="https://12factor.net/config"&gt;mandate &lt;span class="caps"&gt;III&lt;/span&gt;&lt;/a&gt; of The Twelve-Factor App, &lt;a href="https://github.com/psycopg/psycopg2"&gt;psycopg2-binary&lt;/a&gt; to use PostgreSQL as our database, &lt;a href="https://github.com/ambv/black"&gt;black&lt;/a&gt; to format our code and &lt;a href="https://github.com/FactoryBoy/factory_boy"&gt;factory_boy&lt;/a&gt; to improve our tests&amp;nbsp;maintenance.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ pipenv install python-dotenv psycopg2-binary
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ pipenv install --pre --dev black factory_boy
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We install &lt;code&gt;black&lt;/code&gt; and &lt;code&gt;factory_boy&lt;/code&gt; as development dependencies and tell Pipenv to allow the pre-release &lt;code&gt;black&lt;/code&gt; package&amp;nbsp;through!&lt;/p&gt;
+&lt;h2&gt;Django&amp;nbsp;Settings&lt;/h2&gt;
+&lt;p&gt;Let&amp;#8217;s get started setting up our&amp;nbsp;project.&lt;/p&gt;
+&lt;p&gt;First, create a &lt;code&gt;.env&lt;/code&gt; file for use with &lt;code&gt;python-dotenv&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# vgstack/.env
+
+DEBUG=on
+SECRET_KEY=your-secret-key
+DATABASE_USER=postgres
+DATABASE_PASSWORD=postgres
+DATABASE_NAME=postgres
+DATABASE_HOST=database
+DATABASE_PORT=5432
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Replace the &lt;code&gt;SECRET_KEY&lt;/code&gt; with an actual secret key! You can generate one in&amp;nbsp;Python:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;django.core.management.utils&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;get_random_secret_key&lt;/span&gt;
+
+&lt;span class="n"&gt;get_random_secret_key&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The database env variables can stay as they are, since those settings happily coincide with the default database, user and password in the &lt;a href="https://hub.docker.com/_/postgres"&gt;Postgres Docker Image&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;Now, replace &amp;#8220;drfx&amp;#8221; with &amp;#8220;vgstack&amp;#8221; everywhere it appears in the project, such as in values for &lt;code&gt;ROOT_URLCONF&lt;/code&gt;, &lt;code&gt;WSGI_APPLICATION&lt;/code&gt; and even the main &amp;#8220;drfx&amp;#8221;&amp;nbsp;directory!&lt;/p&gt;
+&lt;p&gt;We also modify our settings file in order to use &lt;code&gt;python-dotenv&lt;/code&gt;. In the end, it should look like&amp;nbsp;this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# vgstack/vgstack/settings.py&lt;/span&gt;
+
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pathlib&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Path&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;dotenv&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;load_dotenv&lt;/span&gt;
+
+
+&lt;span class="n"&gt;BASE_DIR&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Path&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="vm"&gt;__file__&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;resolve&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent&lt;/span&gt;
+&lt;span class="n"&gt;dotenv_path&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BASE_DIR&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;.env&amp;#39;&lt;/span&gt;
+&lt;span class="n"&gt;load_dotenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dotenv_path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;dotenv_path&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+
+&lt;span class="c1"&gt;# SECURITY WARNING: don&amp;#39;t run with debug turned on in production!&lt;/span&gt;
+&lt;span class="n"&gt;DEBUG&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DEBUG&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# SECURITY WARNING: keep the secret key used in production secret!&lt;/span&gt;
+&lt;span class="n"&gt;SECRET_KEY&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;SECRET_KEY&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Allow communicaiton from our Docker container if DEBUG=True&lt;/span&gt;
+&lt;span class="n"&gt;ALLOWED_HOSTS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;0.0.0.0&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;DEBUG&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+
+&lt;span class="c1"&gt;# ...&lt;/span&gt;
+
+&lt;span class="n"&gt;ROOT_URLCONF&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;vgstack.urls&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# ...&lt;/span&gt;
+
+&lt;span class="n"&gt;WSGI_APPLICATION&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;vgstack.wsgi.application&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Database&lt;/span&gt;
+&lt;span class="n"&gt;DATABASES&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="s2"&gt;&amp;quot;default&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;ENGINE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;django.db.backends.postgresql&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;NAME&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DATABASE_NAME&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;USER&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DATABASE_USER&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;PASSWORD&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DATABASE_PASSWORD&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;HOST&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DATABASE_HOST&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;PORT&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getenv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;DATABASE_PORT&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;CONN_MAX_AGE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;7200&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;# ...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Notice I replaced the &lt;code&gt;os.path&lt;/code&gt; call for the new kid on the block: &lt;code&gt;Pathlib&lt;/code&gt;. I&amp;#8217;m trying to make that a&amp;nbsp;habit!&lt;/p&gt;
+&lt;h3&gt;Docker&lt;/h3&gt;
+&lt;p&gt;Let&amp;#8217;s build a simple Python&amp;nbsp;Dockerfile!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;# vgstack/Dockerfile&lt;/span&gt;
+
+&lt;span class="c"&gt;# pull the Python official base image, slimmed down&lt;/span&gt;
+&lt;span class="k"&gt;FROM&lt;/span&gt;&lt;span class="s"&gt; python:3.7-slim&lt;/span&gt;
+
+&lt;span class="c"&gt;# set environment varibles&lt;/span&gt;
+&lt;span class="k"&gt;ENV&lt;/span&gt; PYTHONDONTWRITEBYTECODE &lt;span class="m"&gt;1&lt;/span&gt;
+&lt;span class="k"&gt;ENV&lt;/span&gt; PYTHONUNBUFFERED &lt;span class="m"&gt;1&lt;/span&gt;
+
+&lt;span class="c"&gt;# set work directory&lt;/span&gt;
+&lt;span class="k"&gt;WORKDIR&lt;/span&gt;&lt;span class="s"&gt; /usr/src/app&lt;/span&gt;
+
+&lt;span class="c"&gt;# install dependencies with Pipenv&lt;/span&gt;
+&lt;span class="k"&gt;RUN&lt;/span&gt; pip install --upgrade pip &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; pip install pipenv
+&lt;span class="k"&gt;COPY&lt;/span&gt; ./Pipfile /usr/src/app/Pipfile
+&lt;span class="k"&gt;RUN&lt;/span&gt; pipenv install --system --skip-lock
+
+&lt;span class="c"&gt;# copy project over to image&lt;/span&gt;
+&lt;span class="k"&gt;COPY&lt;/span&gt; . /usr/src/app/
+
+&lt;span class="c"&gt;# specify our entrypoint&lt;/span&gt;
+&lt;span class="k"&gt;ENTRYPOINT&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;./docker-entrypoint.sh&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And a nice docker-compose file to help us run the project and related&amp;nbsp;services.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c"&gt;# vgstack/docker-compose.yml&lt;/span&gt;
+
+version: &lt;span class="s1"&gt;&amp;#39;3.7&amp;#39;&lt;/span&gt;
+
+services:
+  database:
+    image: postgres:11-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  web:
+    build: .
+    entrypoint: /usr/src/app/docker-entrypoint.sh
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - &lt;span class="m"&gt;8000&lt;/span&gt;:8000
+    env_file: .env
+    depends_on:
+      - database
+volumes:
+  postgres_data:
+    external: false
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;We can see that we are persisting the Postgres database via Docker volumes. Also, we are taking advantage of the &lt;code&gt;env_file&lt;/code&gt; command to load in our previously created file. Finally, we call the &lt;code&gt;entrypoint&lt;/code&gt; command to run a shell script instead of running an in-line&amp;nbsp;command.&lt;/p&gt;
+&lt;p&gt;The following entrypoint script is a modified version of the one found in José Padilla&amp;#8217;s &lt;a href="https://github.com/jpadilla/notaso"&gt;notaso&lt;/a&gt; project. It attempts to use a PostgreSQL cursor every second, and keeps trying until a connection succeeds. Then, it proceeds to migrate the Django models and runs the development&amp;nbsp;server.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="ch"&gt;#!/bin/sh&lt;/span&gt;
+
+&lt;span class="c1"&gt;# vgstack/docker-entrypoint.sh&lt;/span&gt;
+
+&lt;span class="nb"&gt;set&lt;/span&gt; -e
+
+postgres_ready&lt;span class="o"&gt;(){&lt;/span&gt;
+python manage.py shell &lt;span class="s"&gt;&amp;lt;&amp;lt; END&lt;/span&gt;
+&lt;span class="s"&gt;import sys&lt;/span&gt;
+&lt;span class="s"&gt;import psycopg2&lt;/span&gt;
+&lt;span class="s"&gt;from django.db import connections&lt;/span&gt;
+&lt;span class="s"&gt;try:&lt;/span&gt;
+&lt;span class="s"&gt;    connections[&amp;#39;default&amp;#39;].cursor()&lt;/span&gt;
+&lt;span class="s"&gt;except psycopg2.OperationalError:&lt;/span&gt;
+&lt;span class="s"&gt;    sys.exit(-1)&lt;/span&gt;
+&lt;span class="s"&gt;sys.exit(0)&lt;/span&gt;
+&lt;span class="s"&gt;END&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;until&lt;/span&gt; postgres_ready&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &amp;gt;&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;==&amp;gt; Waiting for Postgres...&amp;quot;&lt;/span&gt;
+    sleep &lt;span class="m"&gt;1&lt;/span&gt;
+&lt;span class="k"&gt;done&lt;/span&gt;
+
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;==&amp;gt; Postgres started!&amp;quot;&lt;/span&gt;
+
+python manage.py makemigrations users
+python manage.py migrate
+python manage.py runserver &lt;span class="m"&gt;0&lt;/span&gt;.0.0.0:8000
+
+&lt;span class="nb"&gt;exec&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$@&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: Make sure to &lt;code&gt;chmod +x docker-entrypoint.sh&lt;/code&gt;!&lt;/p&gt;
+&lt;h3&gt;Sanity&amp;nbsp;check&lt;/h3&gt;
+&lt;p&gt;We can now use docker-compose to build our images and start our development&amp;nbsp;server!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ docker-compose up --build
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Visiting &lt;a href="http://0.0.0.0:8000"&gt;http://0.0.0.0:8000&lt;/a&gt; on your browser should show&amp;#8230; a 404 page. That&amp;#8217;s by design! There&amp;#8217;s no home page yet. Pointing the browser over to &lt;a href="http://0.0.0.0:8000/admin/"&gt;http://0.0.0.0:8000/admin/&lt;/a&gt; should show a log in screen, which means all is well! You can create a user by opening a new terminal window and using Python inside the running Docker container&amp;nbsp;via &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ docker-compose &lt;span class="nb"&gt;exec&lt;/span&gt; web python manage.py createsuperuser
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;You may want to start the containers in detached mode so you don&amp;#8217;t have to keep opening terminal&amp;nbsp;windows.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ docker-compose up -d
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Applying a &lt;code&gt;black&lt;/code&gt; coat of&amp;nbsp;paint&lt;/h3&gt;
+&lt;p&gt;After all that, it&amp;#8217;s nice to make sure our code looks nice and consistent. For that, we can use the opinionated Python code formatter,&amp;nbsp;black.&lt;/p&gt;
+&lt;p&gt;First, create a &lt;code&gt;pyproject.toml&lt;/code&gt; file in the root of the project, in order to customize black&amp;#8217;s settings if we so&amp;nbsp;choose.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;# vgstack/pyproject.toml
+
+[tool.black]
+line-length = 88
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And now,&amp;nbsp;format:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ black .
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Looking&amp;nbsp;good.&lt;/p&gt;
+&lt;h2&gt;Up&amp;nbsp;Next&lt;/h2&gt;
+&lt;p&gt;Now that the project is set up with best practices thanks to &lt;code&gt;drfx&lt;/code&gt; and a nice development workflow using Docker and environment variables, we can get to work writing the actual bulk of the backend. In the next part, we will write the models, serializers, views and (last but not least) the tests that make up our backend&amp;nbsp;code.&lt;/p&gt;
+&lt;h1&gt;Resources:&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://wsvincent.com/django-docker-postgresql/"&gt;https://wsvincent.com/django-docker-postgresql/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.djangoproject.com/en/2.1/ref/settings/"&gt;https://docs.djangoproject.com/en/2.1/ref/settings/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><category term="web"></category><category term="programming"></category><category term="python"></category><category term="django"></category><category term="docker"></category></entry><entry><title>Identity and Equality in Python</title><link href="https://raulnegron.me/blog/2018/dev-python-strings-identity-vs-equality" rel="alternate"></link><published>2018-07-27T00:00:00-04:00</published><updated>2018-07-27T00:00:00-04:00</updated><author><name>Raúl Negrón</name></author><id>tag:raulnegron.me,2018-07-27:/blog/2018/dev-python-strings-identity-vs-equality</id><summary type="html">&lt;p&gt;I would consider &lt;a href="https://www.python.org/"&gt;Python&lt;/a&gt; to be the programming language I&amp;#8217;m most comfortable writing code in. There&amp;#8217;s plenty to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;I would consider &lt;a href="https://www.python.org/"&gt;Python&lt;/a&gt; to be the programming language I&amp;#8217;m most comfortable writing code in. There&amp;#8217;s plenty to love, and one of its more recognizable features is its simple to read &lt;a href="https://en.wikipedia.org/wiki/Python_syntax_and_semantics"&gt;syntax&lt;/a&gt;. I&amp;#8217;ve heard the phrase &amp;#8220;executable pseudocode&amp;#8221; thrown around before, and its easy to see where the comparisons come&amp;nbsp;from. &lt;/p&gt;
 &lt;p&gt;A great side effect of sporting such a relatively simple to understand syntax is its &lt;a href="https://www.economist.com/science-and-technology/2018/07/21/python-has-brought-computer-programming-to-a-vast-new-audience"&gt;mass appeal&lt;/a&gt;, with people jumping in with little programming knowledge and using Python to jump start their new coding&amp;nbsp;adventures. &lt;/p&gt;
 &lt;p&gt;Its not hard to get carried away and forget that, despite the focus on readability, code is not the same as prose. Its always worthwhile to keep the subtleties of a particular language in mind. That being said, this post is about the bug I created when I forgot about the (perhaps not so subtle) distinction between identity and equality in Python, and what I learned from that&amp;nbsp;mistake.&lt;/p&gt;
 &lt;p&gt;Let&amp;#8217;s review the fundamentals before diving into the&amp;nbsp;particulars.&lt;/p&gt;
