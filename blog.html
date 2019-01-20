@@ -94,7 +94,7 @@ styles, `#sidebar-checkbox` for behavior. -->
 </ul>
 <h1>The idea: A web app for keeping track of your video game&nbsp;backlog</h1>
 <p>No shame: the project is most definitely a copy of <a href="https://backloggery.com">The Backloggery</a>, a great site that I use often. However, as far as I know, The Backloggery is <a href="https://backloggery.com/about.php">built in <span class="caps">PHP</span></a>, probably on a <span class="caps">LAMP</span> stack or similar. So I thought I would take a crack at building a small subset of the Backloggery features, on a more modern&nbsp;stack.</p>
-<p>I like this idea because it comes with a well-defined problem set. I can already envision the database schema and how to build the backend. But as I mentioned, this project is going to involve the entire stack. That means I gotta learn some front-end JavaScript. In this series of blog posts, I document my&nbsp;experience.</p>
+<p>I like this idea because it comes with a well-defined problem set. I can already envision the database schema and how to build the backend. But as I mentioned, this project is going to involve the entire stack. That means I gotta learn some frontend JavaScript. In this series of blog posts, I document my&nbsp;experience.</p>
 <blockquote>
 <p>I should say, the reason I picked <a href="https://angular.io/">Angular</a> and not (the elephant in the room) <a href="https://reactjs.org/">React</a> is that in my <a href="https://www.abartyshealth.com">day job</a>, our frontend team works with Angular and so this is a skill I would like to improve! Besides, we all know <a href="https://en.wikipedia.org/wiki/PostgreSQL">Postgres</a> is the real elephant here, right? Let&#8217;s move&nbsp;on.</p>
 </blockquote>
@@ -102,7 +102,7 @@ styles, `#sidebar-checkbox` for behavior. -->
 <p>I had to name my repo&nbsp;something!</p>
 <p>In all honestly, I like the name because it hints at the purpose of the project (practicing the web stack) while at the same conjuring a mental image of a bunch of video games stacked on top of each&nbsp;other.</p>
 <h2>Setting&nbsp;up</h2>
-<p>For this first part, I&#8217;m going to build a back-end skeleton using Django and the awesome <a href="https://www.django-rest-framework.org/">Django <span class="caps">REST</span> framework</a> package. As already mentioned, our database will be the ever-popular PostgreSQL and we are aiming for best practices in all parts of the stack. That includes deployment/development tools and environments! That said, I&#8217;m going to assume knowledge of the tools used and explain only the&nbsp;highlights.</p>
+<p>For this first part, I&#8217;m going to build a backend skeleton using Django and the awesome <a href="https://www.django-rest-framework.org/">Django <span class="caps">REST</span> framework</a> package. As already mentioned, our database will be the ever-popular PostgreSQL and we are aiming for best practices in all parts of the stack. That includes deployment/development tools and environments! That said, I&#8217;m going to assume knowledge of the tools used and explain only the&nbsp;highlights.</p>
 <h2>Project&nbsp;Structure</h2>
 <p>In fact, I&#8217;m going to skip most of the project setup entirely and just go with a pre-built template! I like William Vincent&#8217;s <a href="https://github.com/wsvincent/drfx">drfx</a>, so let&#8217;s go ahead and clone&nbsp;that:</p>
 <div class="highlight"><pre><span></span>$ git clone https://github.com/wsvincent/drfx vgstack
@@ -318,7 +318,7 @@ line-length = 88
 
 <p>Looking&nbsp;good.</p>
 <h2>Up&nbsp;Next</h2>
-<p>Now that the project is set up with best practices thanks to <code>drfx</code> and a nice development workflow using Docker and environment variables, we can get to work writing the actual bulk of the backend. In the next part, we will write the models, serializers, views and (last but not least) the tests that make up our backend&nbsp;code.</p>
+<p>Now that the project is set up with best practices thanks to <code>drfx</code> and we have a nice development workflow using Docker, we can get to work writing the actual bulk of the backend. In the next part, we will write the models, serializers, views and (last but not least) the tests that make up our backend&nbsp;code.</p>
 <h1>Resources:</h1>
 <ul>
 <li><a href="https://wsvincent.com/django-docker-postgresql/">https://wsvincent.com/django-docker-postgresql/</a></li>
