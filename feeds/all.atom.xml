@@ -211,7 +211,7 @@ python manage.py runserver &lt;span class="m"&gt;0&lt;/span&gt;.0.0.0:8000
 &lt;/pre&gt;&lt;/div&gt;
 
 
-&lt;p&gt;Visiting &lt;a href="http://0.0.0.0:8000"&gt;http://0.0.0.0:8000&lt;/a&gt; on your browser should show&amp;#8230; a 404 page. That&amp;#8217;s by design! There&amp;#8217;s no home page yet. Pointing the browser over to &lt;a href="http://0.0.0.0:8000/admin/"&gt;http://0.0.0.0:8000/admin/&lt;/a&gt; should show a log in screen, which means all is well! You can create a user by opening a new terminal window and using Python inside the running Docker container&amp;nbsp;via &lt;/p&gt;
+&lt;p&gt;Visiting &lt;a href="http://0.0.0.0:8000"&gt;http://0.0.0.0:8000&lt;/a&gt; on your browser should show&amp;#8230; a 404 page. That&amp;#8217;s by design! There&amp;#8217;s no home page yet. Pointing the browser over to &lt;a href="http://0.0.0.0:8000/admin/"&gt;http://0.0.0.0:8000/admin/&lt;/a&gt; should show a log in screen, which means all is well! You can create a user by opening a new terminal window and using Python inside the running Docker&amp;nbsp;container. &lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ docker-compose &lt;span class="nb"&gt;exec&lt;/span&gt; web python manage.py createsuperuser
 &lt;/pre&gt;&lt;/div&gt;
 

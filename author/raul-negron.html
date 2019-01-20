@@ -291,7 +291,7 @@ python manage.py runserver <span class="m">0</span>.0.0.0:8000
 </pre></div>
 
 
-<p>Visiting <a href="http://0.0.0.0:8000">http://0.0.0.0:8000</a> on your browser should show&#8230; a 404 page. That&#8217;s by design! There&#8217;s no home page yet. Pointing the browser over to <a href="http://0.0.0.0:8000/admin/">http://0.0.0.0:8000/admin/</a> should show a log in screen, which means all is well! You can create a user by opening a new terminal window and using Python inside the running Docker container&nbsp;via </p>
+<p>Visiting <a href="http://0.0.0.0:8000">http://0.0.0.0:8000</a> on your browser should show&#8230; a 404 page. That&#8217;s by design! There&#8217;s no home page yet. Pointing the browser over to <a href="http://0.0.0.0:8000/admin/">http://0.0.0.0:8000/admin/</a> should show a log in screen, which means all is well! You can create a user by opening a new terminal window and using Python inside the running Docker&nbsp;container. </p>
 <div class="highlight"><pre><span></span>$ docker-compose <span class="nb">exec</span> web python manage.py createsuperuser
 </pre></div>
 
