@@ -99,7 +99,7 @@ Transfer-Encoding: chunked
 &lt;p&gt;It works! This flavor we really had to work for, but it was worth it in the&amp;nbsp;end.&lt;/p&gt;
 &lt;p&gt;(&lt;span class="caps"&gt;P.S.&lt;/span&gt; If you noticed the colon to the left of &lt;code&gt;"path"&lt;/code&gt; and &lt;code&gt;"status"&lt;/code&gt; in the code and don&amp;#8217;t know what they are, may I introduce you to: &lt;a href="https://http2.github.io/http2-spec/#rfc.section.8.1.2.1"&gt;pseudo headers&lt;/a&gt;)&lt;/p&gt;
 &lt;h2&gt;3)&amp;nbsp;Express&lt;/h2&gt;
-&lt;p&gt;Here we use have &lt;a href="https://expressjs.com/"&gt;Express&lt;/a&gt; framework, probably the most popular of the NodeJS backend&amp;nbsp;libraries.&lt;/p&gt;
+&lt;p&gt;Here we have the &lt;a href="https://expressjs.com/"&gt;Express&lt;/a&gt; framework, probably the most popular of the NodeJS backend&amp;nbsp;libraries.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;express&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;require&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;express&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;express&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;PORT&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;3000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
