@@ -221,14 +221,14 @@ $ <span class="nb">cd</span> gbdk-osx
 $ mkdir -p sdcc/bin
 $ sed -i <span class="s1">&#39;&#39;</span> -e <span class="s1">&#39;1005d&#39;</span> sdcc/src/SDCC.y
 $ make
-$ sudo cp -r gbdk-osx /opt/gbdk</code></pre></div>
+$ sudo mkdir /opt <span class="o">&amp;&amp;</span> sudo cp -r build/ppc-unknown-linux2.2/gbdk /opt</code></pre></div>
 <p><code>make</code> will proceed to build GBDK. Note that the above commands do some extra stuff besides building the compiler libraries. Click on them below to learn more about why they are required if we want the build to succeed.</p>
 
 <p><a href="https://github.com/co-me/gbdk/issues/1"><code>mkdir -p sdcc/bin</code></a></p>
 
 <p><a href="https://github.com/x43x61x69/gbdk-osx/issues/2"><code>sed -i '' -e '1005d' sdcc/src/SDCC.y</code></a></p>
 
-<p><a href="https://github.com/co-me/gbdk/issues/5"><code>sudo cp -r gbdk-osx/build/ppc-unknown-linux2.2/gbdk /opt/gbdk</code></a></p>
+<p><a href="https://github.com/co-me/gbdk/issues/5"><code>sudo mkdir /opt &amp;&amp; sudo cp -r build/ppc-unknown-linux2.2/gbdk /opt</code></a></p>
 
 <p>Make sure to add the path to the new binaries to your <code>PATH</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;/opt/gbdk/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span></code></pre></div>
@@ -323,7 +323,7 @@ The best part is that installation couldn&rsquo;t be simpler.</p>
 
 <li><p><a href="https://sameboy.github.io/">SameBoy</a> - An active, open-source emulator written in C with a focus on MacOS support. With its debugging features, it has the potential to become the go-to emulator for development purposes on Mac!</p></li>
 
-<li><p><a href="https://www.gamasutra.com/blogs/DoctorLudos/20171207/311143/Making_a_Game_Boy_game_in_2017_A_quotSheep_It_Upquot_PostMortem_part_12.php">Making a Game Boy game in 2017: A &ldquo;Sheep It Up!&rdquo; Post-Mortem&rdquo;</a> -  A great read chronicling the development of a Game Boy game which introduces plenty of helpful concepts along the way</p></li>
+<li><p><a href="https://www.gamasutra.com/blogs/DoctorLudos/20171207/311143/Making_a_Game_Boy_game_in_2017_A_quotSheep_It_Upquot_PostMortem_part_12.php">Making a Game Boy game in 2017: A &ldquo;Sheep It Up!&rdquo; Post-Mortem&rdquo;</a> - A great read chronicling the development of a Game Boy game which introduces plenty of helpful concepts along the way</p></li>
 </ul>
 
 <h1 id="extra-happy-29th">Extra: Happy 29th!</h1>
