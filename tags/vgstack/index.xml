@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Vgstack on Raúl Negrón&#39;s Website</title>
+    <title>vgstack on Raúl Negrón&#39;s Website</title>
     <link>https://raulnegron.me/tags/vgstack/</link>
-    <description>Recent content in Vgstack on Raúl Negrón&#39;s Website</description>
+    <description>Recent content in vgstack on Raúl Negrón&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 19 Jan 2019 00:00:00 +0000</lastBuildDate>
@@ -13,10 +13,10 @@
     
     <item>
       <title>Full-Stack Project: vg-stack (Part 1)</title>
-      <link>https://raulnegron.me/blog/vgstack-1/</link>
+      <link>https://raulnegron.me/2019/vgstack-1/</link>
       <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://raulnegron.me/blog/vgstack-1/</guid>
+      <guid>https://raulnegron.me/2019/vgstack-1/</guid>
       <description>Motivation In the web development space, tools and best-practices change quite frequently. At one point in the not-so-distant past, a LAMP stack was the go-to approach for launching a web application. These days, PHP is the #8 most popular programming language (according to a company with the name &amp;ldquo;The Importance Of Being Earnest&amp;rdquo;), while Python and JavaScript rank above it.
 One of the reason for this change has to do with the growing trend towards microservice architectures.</description>
     </item>

@@ -12,23 +12,13 @@
     
     <item>
       <title>About Me</title>
-      <link>https://raulnegron.me/about/</link>
+      <link>https://raulnegron.me/fixed/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://raulnegron.me/about/</guid>
+      <guid>https://raulnegron.me/fixed/about/</guid>
       <description>At Ginzan Onsen  
 I was born February 5th, 1995. I got my bachelor&amp;rsquo;s degree in Computer Science from the University of Puerto Rico at Río Piedras in early 2018.
 Apart from computer science and math, I enjoy studying philosophy and different languages. If you&amp;rsquo;re interested in my resume, you can obtain it here.</description>
-    </item>
-    
-    <item>
-      <title>Reading List</title>
-      <link>https://raulnegron.me/reading/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://raulnegron.me/reading/</guid>
-      <description>Here are some of the more technical books I&amp;rsquo;ve read recently.
- Code: The Hidden Language of Computer Hardware and Software, by Charles Petzold An Introduction to Functional Programming Through Lambda Calculus, by Greg Michaelson Data Science from Scratch: First Principles with Python, by Joel Grus Don&amp;rsquo;t Make Me Think, Revisited: A Common Sense Approach to Web Usability, by Steve Krug HTML and CSS: Design and Build Websites, by Jon Duckett  And some miscellaneous books I&amp;rsquo;ve managed to sneak in.</description>
     </item>
     
   </channel>

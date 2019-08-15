@@ -3,57 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://raulnegron.me/about/</loc>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/reading/</loc>
+    <loc>https://raulnegron.me/fixed/about/</loc>
   </url>
   
   <url>
     <loc>https://raulnegron.me/blog/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/blog/hello-hugo/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/blog/server-side-javascript-flavors/</loc>
-    <lastmod>2019-01-26T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/blog/vgstack-1/</loc>
     <lastmod>2019-03-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://raulnegron.me/blog/dev-python-strings-identity-vs-equality/</loc>
-    <lastmod>2018-07-27T00:00:00+00:00</lastmod>
+    <loc>https://raulnegron.me/2019/hello-hugo/</loc>
+    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://raulnegron.me/blog/starting-gb-dev/</loc>
-    <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+    <loc>https://raulnegron.me/</loc>
+    <lastmod>2019-03-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://raulnegron.me/blog/hello-pelican/</loc>
-    <lastmod>2018-04-14T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/tags/assembly/</loc>
-    <lastmod>2018-04-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/tags/backend/</loc>
-    <lastmod>2019-01-26T00:00:00+00:00</lastmod>
+    <loc>https://raulnegron.me/tags/</loc>
+    <lastmod>2019-03-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -64,25 +34,13 @@
   </url>
   
   <url>
-    <loc>https://raulnegron.me/tags/c/</loc>
-    <lastmod>2018-04-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <loc>https://raulnegron.me/2019/server-side-javascript-flavors/</loc>
+    <lastmod>2019-01-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://raulnegron.me/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/tags/django/</loc>
-    <lastmod>2019-03-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/tags/docker/</loc>
-    <lastmod>2019-03-14T00:00:00+00:00</lastmod>
+    <loc>https://raulnegron.me/tags/backend/</loc>
+    <lastmod>2019-01-26T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -90,22 +48,6 @@
     <loc>https://raulnegron.me/tags/express/</loc>
     <lastmod>2019-01-26T00:00:00+00:00</lastmod>
     <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/fixed/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/tags/gameboy/</loc>
-    <lastmod>2018-04-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/</loc>
-    <lastmod>2019-03-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -121,12 +63,6 @@
   </url>
   
   <url>
-    <loc>https://raulnegron.me/tags/mac/</loc>
-    <lastmod>2018-04-21T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://raulnegron.me/tags/node/</loc>
     <lastmod>2019-01-26T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -134,19 +70,30 @@
   
   <url>
     <loc>https://raulnegron.me/tags/programming/</loc>
-    <lastmod>2019-01-26T00:00:00+00:00</lastmod>
+    <lastmod>2019-03-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/2019/vgstack-1/</loc>
+    <lastmod>2019-03-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/tags/django/</loc>
+    <lastmod>2019-03-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/tags/docker/</loc>
+    <lastmod>2019-03-14T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://raulnegron.me/tags/python/</loc>
     <lastmod>2019-03-14T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/tags/</loc>
-    <lastmod>2018-04-21T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -159,6 +106,55 @@
   <url>
     <loc>https://raulnegron.me/tags/web/</loc>
     <lastmod>2019-03-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/2018/dev-python-strings-identity-vs-equality/</loc>
+    <lastmod>2018-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/2018/starting-gb-dev/</loc>
+    <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/tags/assembly/</loc>
+    <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/tags/c/</loc>
+    <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/tags/gameboy/</loc>
+    <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/tags/mac/</loc>
+    <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/2018/hello-pelican/</loc>
+    <lastmod>2018-04-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/fixed/</loc>
     <priority>0</priority>
   </url>
   

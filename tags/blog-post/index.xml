@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog Post on Raúl Negrón&#39;s Website</title>
+    <title>blog-post on Raúl Negrón&#39;s Website</title>
     <link>https://raulnegron.me/tags/blog-post/</link>
-    <description>Recent content in Blog Post on Raúl Negrón&#39;s Website</description>
+    <description>Recent content in blog-post on Raúl Negrón&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 05 Mar 2019 00:00:00 +0000</lastBuildDate>
@@ -13,10 +13,10 @@
     
     <item>
       <title>Hello, Hugo!</title>
-      <link>https://raulnegron.me/blog/hello-hugo/</link>
+      <link>https://raulnegron.me/2019/hello-hugo/</link>
       <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://raulnegron.me/blog/hello-hugo/</guid>
+      <guid>https://raulnegron.me/2019/hello-hugo/</guid>
       <description>Today, I switched the static file generator for this website from Pelican over to Hugo. The process was smooth, only requiring minimal changes to source files (mainly front-matter syntax). I modified the hugo-lanyon theme only a little bit to get it looking how I wanted.
 An archived snapshot of the old Pelican source files is here. Before Pelican, I used Jekyll, which is archived here.
 Anyway, this post brought to you by the Hugo quickstart!</description>
@@ -24,10 +24,10 @@ Anyway, this post brought to you by the Hugo quickstart!</description>
     
     <item>
       <title>Hello, Pelican!</title>
-      <link>https://raulnegron.me/blog/hello-pelican/</link>
+      <link>https://raulnegron.me/2018/hello-pelican/</link>
       <pubDate>Sat, 14 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://raulnegron.me/blog/hello-pelican/</guid>
+      <guid>https://raulnegron.me/2018/hello-pelican/</guid>
       <description>As taught by K&amp;amp;R. This post also brought to you by the Pelican quickstart.</description>
     </item>
     
