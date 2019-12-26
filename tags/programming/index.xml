@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>programming on Raúl Negrón&#39;s Website</title>
@@ -17,7 +17,7 @@
       <pubDate>Sat, 26 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://raulnegron.me/2019/server-side-javascript-flavors/</guid>
-      <description>I&amp;rsquo;ve been reading up on JavaScript these past few months. I feel like there used to be a stigma against the language during my time at university, and maybe there still is. I dug up and read a book I once bought called JavaScript: The Good Parts by Douglas Crockford. It&amp;rsquo;s outdated now, but I used to joke that if &amp;ldquo;The Good Parts&amp;rdquo; could be described in 172 pages&amp;hellip; Well, suffice it to say, I was not very encouraged.</description>
+      <description>I&#39;ve been reading up on JavaScript these past few months. I feel like there used to be a stigma against the language during my time at university, and maybe there still is. I dug up and read a book I once bought called JavaScript: The Good Parts by Douglas Crockford. It&#39;s outdated now, but I used to joke that if &amp;ldquo;The Good Parts&amp;rdquo; could be described in 172 pages&amp;hellip; Well, suffice it to say, I was not very encouraged.</description>
     </item>
     
     <item>
@@ -36,7 +36,7 @@ One of the reason for this change has to do with the growing trend towards micro
       <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://raulnegron.me/2018/dev-python-strings-identity-vs-equality/</guid>
-      <description>I would consider Python to be the programming language I&amp;rsquo;m most comfortable writing code in. There&amp;rsquo;s plenty to love, and one of its more recognizable features is its simple to read syntax. I&amp;rsquo;ve heard the phrase &amp;ldquo;executable pseudocode&amp;rdquo; thrown around before, and its easy to see where the comparisons come from.
+      <description>I would consider Python to be the programming language I&#39;m most comfortable writing code in. There&#39;s plenty to love, and one of its more recognizable features is its simple to read syntax. I&#39;ve heard the phrase &amp;ldquo;executable pseudocode&amp;rdquo; thrown around before, and its easy to see where the comparisons come from.
 A great side effect of sporting such a relatively simple to understand syntax is its mass appeal, with people jumping in with little programming knowledge and using Python to jump start their new coding adventures.</description>
     </item>
     
@@ -46,7 +46,7 @@ A great side effect of sporting such a relatively simple to understand syntax is
       <pubDate>Sat, 21 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>https://raulnegron.me/2018/starting-gb-dev/</guid>
-      <description>I don&amp;rsquo;t know what inspired it, but recently I got the idea that programming for an old game console would make for a fun project. Apart from giving me an excuse to write code in a language other than Python, it&amp;rsquo;s something I&amp;rsquo;ve wanted to do ever since I learned that programming was at the heart of all the great games I&amp;rsquo;ve played throughout the years. So, I decided to find out how feasible it would be to program for one of these old school gaming systems.</description>
+      <description>I don&#39;t know what inspired it, but recently I got the idea that programming for an old game console would make for a fun project. Apart from giving me an excuse to write code in a language other than Python, it&#39;s something I&#39;ve wanted to do ever since I learned that programming was at the heart of all the great games I&#39;ve played throughout the years. So, I decided to find out how feasible it would be to program for one of these old school gaming systems.</description>
     </item>
     
   </channel>

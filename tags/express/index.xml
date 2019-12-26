@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>express on Raúl Negrón&#39;s Website</title>
@@ -17,7 +17,7 @@
       <pubDate>Sat, 26 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://raulnegron.me/2019/server-side-javascript-flavors/</guid>
-      <description>I&amp;rsquo;ve been reading up on JavaScript these past few months. I feel like there used to be a stigma against the language during my time at university, and maybe there still is. I dug up and read a book I once bought called JavaScript: The Good Parts by Douglas Crockford. It&amp;rsquo;s outdated now, but I used to joke that if &amp;ldquo;The Good Parts&amp;rdquo; could be described in 172 pages&amp;hellip; Well, suffice it to say, I was not very encouraged.</description>
+      <description>I&#39;ve been reading up on JavaScript these past few months. I feel like there used to be a stigma against the language during my time at university, and maybe there still is. I dug up and read a book I once bought called JavaScript: The Good Parts by Douglas Crockford. It&#39;s outdated now, but I used to joke that if &amp;ldquo;The Good Parts&amp;rdquo; could be described in 172 pages&amp;hellip; Well, suffice it to say, I was not very encouraged.</description>
     </item>
     
   </channel>

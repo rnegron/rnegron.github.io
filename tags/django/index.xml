@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>django on Raúl Negrón&#39;s Website</title>
@@ -27,7 +27,7 @@ One of the reason for this change has to do with the growing trend towards micro
       <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://raulnegron.me/2018/dev-python-strings-identity-vs-equality/</guid>
-      <description>I would consider Python to be the programming language I&amp;rsquo;m most comfortable writing code in. There&amp;rsquo;s plenty to love, and one of its more recognizable features is its simple to read syntax. I&amp;rsquo;ve heard the phrase &amp;ldquo;executable pseudocode&amp;rdquo; thrown around before, and its easy to see where the comparisons come from.
+      <description>I would consider Python to be the programming language I&#39;m most comfortable writing code in. There&#39;s plenty to love, and one of its more recognizable features is its simple to read syntax. I&#39;ve heard the phrase &amp;ldquo;executable pseudocode&amp;rdquo; thrown around before, and its easy to see where the comparisons come from.
 A great side effect of sporting such a relatively simple to understand syntax is its mass appeal, with people jumping in with little programming knowledge and using Python to jump start their new coding adventures.</description>
     </item>
     
