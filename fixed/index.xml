@@ -29,9 +29,9 @@ Apart from computer science and math, I enjoy studying philosophy and different 
       <description>Here are my open-source projects as well as some projects I&#39;ve contributed to.
  noticias-pr A command-line interface for reading the latest from local news sites in Puerto Rico.
 Tech Highlights:
- NodeJS Web scraping Available on npm  cc-api (Work-in-progress) An open-source API for Caribbean Cinemas.
+ NodeJS Web scraping Available on npm  cc-api An open-source API for Caribbean Cinemas.
 Tech Highlights:
- TypeScript MongoDB Web scraping  vgstack (Work-in-progress) Keep track of your video game backlog. My full-stack clone of The Backloggery.</description>
+ TypeScript MongoDB Web scraping Available at: https://cc.raulnegron.me  vgstack (Work-in-progress) Keep track of your video game backlog. My full-stack clone of The Backloggery.</description>
     </item>
     
   </channel>
