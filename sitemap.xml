@@ -7,12 +7,27 @@
   </url>
   
   <url>
+    <loc>https://raulnegron.me/uses/</loc>
+    <lastmod>2020-02-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://raulnegron.me/blog/</loc>
     <lastmod>2019-03-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://raulnegron.me/projects/</loc>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/fixed/</loc>
+    <lastmod>2020-02-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://raulnegron.me/</loc>
+    <lastmod>2020-02-02T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -23,11 +38,6 @@
   <url>
     <loc>https://raulnegron.me/2019/hello-hugo/</loc>
     <lastmod>2019-03-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/</loc>
-    <lastmod>2019-03-14T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -137,10 +147,6 @@
   
   <url>
     <loc>https://raulnegron.me/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>https://raulnegron.me/fixed/</loc>
   </url>
   
 </urlset>
