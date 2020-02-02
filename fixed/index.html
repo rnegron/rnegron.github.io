@@ -214,12 +214,12 @@
       <a href="https://raulnegron.me/2019/server-side-javascript-flavors/">Server-side JavaScript, available in 6 flavors</a>
     </h1>
     <span class="post-date">January 26, 2019</span>
-    <p>I've been reading up on JavaScript these past few months. I feel like there used to be a stigma against the language during my time at university, and maybe there still is. I dug up and read a book I once bought called <a href="http://shop.oreilly.com/product/9780596517748.do">JavaScript: The Good Parts</a> by Douglas Crockford. It's outdated now, but I used to joke that if &ldquo;The Good Parts&rdquo; could be described in 172 pages&hellip; Well, suffice it to say, I was not very encouraged.</p>
-<p>Well, I've come around. <a href="https://github.com/mbeaudru/modern-js-cheatsheet">Modern JavaScript</a> is fun to write and, being a web-first language, it entices you to think about problems in a different way from other languages I've tried. After going through some <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript">basic language training</a>, it's time to see how to set up a simple web server, JavaScript style.</p>
+    <p>I&rsquo;ve been reading up on JavaScript these past few months. I feel like there used to be a stigma against the language during my time at university, and maybe there still is. I dug up and read a book I once bought called <a href="http://shop.oreilly.com/product/9780596517748.do">JavaScript: The Good Parts</a> by Douglas Crockford. It&rsquo;s outdated now, but I used to joke that if &ldquo;The Good Parts&rdquo; could be described in 172 pages&hellip; Well, suffice it to say, I was not very encouraged.</p>
+<p>Well, I&rsquo;ve come around. <a href="https://github.com/mbeaudru/modern-js-cheatsheet">Modern JavaScript</a> is fun to write and, being a web-first language, it entices you to think about problems in a different way from other languages I&rsquo;ve tried. After going through some <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript">basic language training</a>, it&rsquo;s time to see how to set up a simple web server, JavaScript style.</p>
 <h2 id="a-selection-of-flavors-to-choose-from">A selection of flavors to choose from</h2>
 <p>Once you start researching your options, you may feel the onset of analysis paralysis. There are a lot of different packages and projects to choose from. I thought it would be fun to write a simple echo server using a few of them, as an excuse to go through their tutorial and docs.</p>
 <h2 id="setup">Setup</h2>
-<p>Simple as pie. For sending requests, I like to use <a href="https://httpie.org/">HTTPie</a>. We'll use it to easily send some query parameters through <code>localhost</code> on port 3000. I should mention that I am running NodeJS v11.7.0 and HTTPie v1.0.2.</p>
+<p>Simple as pie. For sending requests, I like to use <a href="https://httpie.org/">HTTPie</a>. We&rsquo;ll use it to easily send some query parameters through <code>localhost</code> on port 3000. I should mention that I am running NodeJS v11.7.0 and HTTPie v1.0.2.</p>
 <h2 id="1-nodejs-core">1) NodeJS Core</h2>
 <p>First up, vanilla <a href="https://nodejs.org/">NodeJS</a> style.</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;http&#34;</span><span class="p">)</span><span class="p">;</span>
@@ -250,9 +250,9 @@ Transfer-Encoding: chunked
     <span class="s2">&#34;user&#34;</span>: <span class="s2">&#34;1&#34;</span>
 <span class="o">}</span>
 </code></pre></div><p>A nifty, if plain, echo server. We should expect the response from all the servers in this blog post to have the <code>content-type</code> header set to &ldquo;application/json&rdquo; and the status set at 200, so I will omit the rest of their responses.</p>
-<p>Even though the code is quite simple, we still had to work for that echo response. Other packages highlighted in this post will automatically parse the query string from the URL, but we didn't have that luxury here. The response also had to be manually JSON-stringified. Diving a bit deeper (down the prototype chain), we find that our server, from <code>http.createServer()</code>, is an <a href="https://nodejs.org/api/events.html#events_class_eventemitter">EventEmitter</a>. It's been instructed to listen for request events at port 3000. The <code>req</code> and <code>res</code> streams (notice there are two&hellip;) represent the client side request and the server side response, respectively. Moving on to the rest of the server-side flavors&hellip;</p>
+<p>Even though the code is quite simple, we still had to work for that echo response. Other packages highlighted in this post will automatically parse the query string from the URL, but we didn&rsquo;t have that luxury here. The response also had to be manually JSON-stringified. Diving a bit deeper (down the prototype chain), we find that our server, from <code>http.createServer()</code>, is an <a href="https://nodejs.org/api/events.html#events_class_eventemitter">EventEmitter</a>. It&rsquo;s been instructed to listen for request events at port 3000. The <code>req</code> and <code>res</code> streams (notice there are two&hellip;) represent the client side request and the server side response, respectively. Moving on to the rest of the server-side flavors&hellip;</p>
 <h2 id="2-nodejs-core-the-sequel">2) NodeJS Core: The Sequel</h2>
-<p>But before that, did you know there is a core NodeJS module called <a href="https://nodejs.org/api/http2.html">http2</a>? Actually, back it up, did you know there is a <a href="https://tools.ietf.org/html/rfc7540">version 2 of HTTP</a>?! In any case, this module is a stable part of NodeJS now, so I believe it should get it's own spot.</p>
+<p>But before that, did you know there is a core NodeJS module called <a href="https://nodejs.org/api/http2.html">http2</a>? Actually, back it up, did you know there is a <a href="https://tools.ietf.org/html/rfc7540">version 2 of HTTP</a>?! In any case, this module is a stable part of NodeJS now, so I believe it should get it&rsquo;s own spot.</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">http2</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;http2&#34;</span><span class="p">)</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http2</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;url&#34;</span><span class="p">)</span><span class="p">;</span>
@@ -271,9 +271,9 @@ Transfer-Encoding: chunked
 
 <span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">)</span><span class="p">;</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">HTTP2 Server now listening at port </span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">...</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
-</code></pre></div><p>We're in it now. Instead of two separate streams, the server now responds to the <code>stream</code> event and provides a duplex stream. We obtain the query parameters via the <code>headers</code> object, and parse it similarly to how it was done using the original <code>http</code> example.</p>
-<p>By the way, the above code won't work on browsers&hellip; While HTTP/2 <a href="https://http2.github.io/faq/#does-http2-require-encryption">does not</a> enforce encryption, modern browsers seem to have conspired to enforce it. There exists an <code>http2.createSecureServer</code> which can work with browsers. But without setting up a secure server, how will we (taste) test this flavor? Even HTTPie has trouble with it! I tried the experimental <a href="https://github.com/httpie/httpie-http2">HTTP/2</a> plugin, but could not get it to work.</p>
-<p>Let's roll up our sleeves and write a basic HTTP/2 client in Node to get this example to work.</p>
+</code></pre></div><p>We&rsquo;re in it now. Instead of two separate streams, the server now responds to the <code>stream</code> event and provides a duplex stream. We obtain the query parameters via the <code>headers</code> object, and parse it similarly to how it was done using the original <code>http</code> example.</p>
+<p>By the way, the above code won&rsquo;t work on browsers&hellip; While HTTP/2 <a href="https://http2.github.io/faq/#does-http2-require-encryption">does not</a> enforce encryption, modern browsers seem to have conspired to enforce it. There exists an <code>http2.createSecureServer</code> which can work with browsers. But without setting up a secure server, how will we (taste) test this flavor? Even HTTPie has trouble with it! I tried the experimental <a href="https://github.com/httpie/httpie-http2">HTTP/2</a> plugin, but could not get it to work.</p>
+<p>Let&rsquo;s roll up our sleeves and write a basic HTTP/2 client in Node to get this example to work.</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">http2</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;http2&#34;</span><span class="p">)</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">;</span>
 
@@ -300,7 +300,7 @@ Transfer-Encoding: chunked
 
 <span class="nx">req</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
 </code></pre></div><p>It works! This flavor we really had to work for, but it was worth it in the end.</p>
-<p>(P.S. If you noticed the colon to the left of <code>&quot;path&quot;</code> and <code>&quot;status&quot;</code> in the code and don't know what they are, may I introduce you to: <a href="https://http2.github.io/http2-spec/#rfc.section.8.1.2.1">pseudo headers</a>)</p>
+<p>(P.S. If you noticed the colon to the left of <code>&quot;path&quot;</code> and <code>&quot;status&quot;</code> in the code and don&rsquo;t know what they are, may I introduce you to: <a href="https://http2.github.io/http2-spec/#rfc.section.8.1.2.1">pseudo headers</a>)</p>
 <h2 id="3-express">3) Express</h2>
 <p>Here we have the <a href="https://expressjs.com/">Express</a> framework, probably the most popular of the NodeJS backend libraries.</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;express&#34;</span><span class="p">)</span><span class="p">;</span>
@@ -316,7 +316,7 @@ Transfer-Encoding: chunked
 <span class="p">}</span><span class="p">)</span><span class="p">;</span>
 </code></pre></div><p>That <code>app</code> object has access to a lot more than what is seen here, including a powerful method chaining concept called <a href="https://expressjs.com/en/guide/using-middleware.html">middleware</a>.</p>
 <h2 id="4-hapijs">4) Hapi.js</h2>
-<p>I had never heard about Hapi before researching this topic. Here's how it looks.</p>
+<p>I had never heard about Hapi before researching this topic. Here&rsquo;s how it looks.</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">hapi</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;hapi&#34;</span><span class="p">)</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">;</span>
 
@@ -361,7 +361,7 @@ Transfer-Encoding: chunked
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">Restify listening at port </span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
 <span class="p">}</span><span class="p">)</span><span class="p">;</span>
 </code></pre></div><h2 id="6-koa">6) Koa</h2>
-<p>Described as a <a href="https://koajs.com/">&ldquo;next generation framework from the creators of Express&rdquo;</a>, here's Koa.</p>
+<p>Described as a <a href="https://koajs.com/">&ldquo;next generation framework from the creators of Express&rdquo;</a>, here&rsquo;s Koa.</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">koa</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;koa&#34;</span><span class="p">)</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">koa</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
 <span class="kr">const</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">;</span>
@@ -374,7 +374,7 @@ Transfer-Encoding: chunked
 <span class="p">}</span><span class="p">)</span><span class="p">;</span>
 
 <span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">)</span><span class="p">;</span>
-</code></pre></div><p>From the little time I've spent with all these frameworks, I think I like the look of Koa the most. This was just a very quick look at making a barebones server in all these different packages. Each one has their own ecosystem and quirks, pros and cons. I recommend going through their documentation to see what they can really offer.</p>
+</code></pre></div><p>From the little time I&rsquo;ve spent with all these frameworks, I think I like the look of Koa the most. This was just a very quick look at making a barebones server in all these different packages. Each one has their own ecosystem and quirks, pros and cons. I recommend going through their documentation to see what they can really offer.</p>
 <p>Next up, a selection of flavors from the server side of Python frameworks.</p>
 
   </div>
@@ -386,9 +386,9 @@ Transfer-Encoding: chunked
     <span class="post-date">January 19, 2019</span>
     <h1 id="motivation">Motivation</h1>
 <p>In the web development space, tools and best-practices change quite frequently. At one point in the not-so-distant past, a <a href="https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29">LAMP</a> stack was the go-to approach for launching a web application. These days, PHP is the #8 most popular programming language (according to a company with the name <a href="https://www.tiobe.com/tiobe-index/">&ldquo;The Importance Of Being Earnest&rdquo;</a>), while Python and JavaScript rank above it.</p>
-<p>One of the reason for this change has to do with the growing trend towards microservice architectures. Together with the need for rapid prototyping and the onset of agile development methodologies, Python and other languages have swept in and stolen the LAMP stack's lunch.</p>
+<p>One of the reason for this change has to do with the growing trend towards microservice architectures. Together with the need for rapid prototyping and the onset of agile development methodologies, Python and other languages have swept in and stolen the LAMP stack&rsquo;s lunch.</p>
 <p>So what is the <em>new stack</em>? A complex question with opinionated answers&hellip; Here is a recent community discussion on Hacker News: <a href="https://news.ycombinator.com/item?id=18829557">Go-to web stack today?</a></p>
-<p>But wow, there are so many things to learn and keep up to date with nowadays! To help alleviate this, I'd like to work on a side-project using full-stack technologies. In particular, I want to use the following tools to build a fullstack app:</p>
+<p>But wow, there are so many things to learn and keep up to date with nowadays! To help alleviate this, I&rsquo;d like to work on a side-project using full-stack technologies. In particular, I want to use the following tools to build a fullstack app:</p>
 <ul>
 <li>Django (backend)</li>
 <li>Ember (frontend)</li>
@@ -400,25 +400,25 @@ Transfer-Encoding: chunked
 <p>No shame: the project is most definitely a copy of <a href="https://backloggery.com">The Backloggery</a>, a great site that I use often. However, as far as I know, The Backloggery is <a href="https://backloggery.com/about.php">built in PHP</a>, probably on a LAMP stack or similar. So I thought I would take a crack at building a small subset of the Backloggery features, on a more modern stack.</p>
 <p>I like this idea because it comes with a well-defined problem set. I can already envision the database schema and how to build the backend. But as I mentioned, this project is going to involve the entire stack. That means I gotta learn some frontend JavaScript. In this series of blog posts, I document my experience.</p>
 <blockquote>
-<p>I should say, the reason I picked <a href="https://emberjs.com/">Ember</a> and not (the elephant in the room) <a href="https://reactjs.org/">React</a> is that in my <a href="https://www.aliaspayments.com">day job</a>, we work with Ember and so this is a skill I would like to improve! Besides, we all know <a href="https://en.wikipedia.org/wiki/PostgreSQL">Postgres</a> is the real elephant here, right? Let's move on.</p>
+<p>I should say, the reason I picked <a href="https://emberjs.com/">Ember</a> and not (the elephant in the room) <a href="https://reactjs.org/">React</a> is that in my <a href="https://www.aliaspayments.com">day job</a>, we work with Ember and so this is a skill I would like to improve! Besides, we all know <a href="https://en.wikipedia.org/wiki/PostgreSQL">Postgres</a> is the real elephant here, right? Let&rsquo;s move on.</p>
 </blockquote>
 <h1 id="the-app-vg-stack">The app: vg-stack</h1>
 <p>I had to name my repo something!</p>
 <p>In all honestly, I like the name because it hints at the purpose of the project (practicing the web stack) while at the same conjuring a mental image of a bunch of video games stacked on top of each other.</p>
 <h2 id="setting-up">Setting up</h2>
-<p>For this first part, I'm going to build a backend skeleton using Django and the awesome <a href="https://www.django-rest-framework.org/">Django REST framework</a> package. As already mentioned, our database will be the ever-popular PostgreSQL and we are aiming for best practices in all parts of the stack. That includes deployment/development tools and environments! That said, I'm going to assume knowledge of the tools used and explain only the highlights.</p>
+<p>For this first part, I&rsquo;m going to build a backend skeleton using Django and the awesome <a href="https://www.django-rest-framework.org/">Django REST framework</a> package. As already mentioned, our database will be the ever-popular PostgreSQL and we are aiming for best practices in all parts of the stack. That includes deployment/development tools and environments! That said, I&rsquo;m going to assume knowledge of the tools used and explain only the highlights.</p>
 <h2 id="project-structure">Project Structure</h2>
-<p>In fact, I'm going to skip most of the project setup entirely and just go with a pre-built template! I like William Vincent's <a href="https://github.com/wsvincent/drfx">drfx</a>, so let's go ahead and clone that:</p>
+<p>In fact, I&rsquo;m going to skip most of the project setup entirely and just go with a pre-built template! I like William Vincent&rsquo;s <a href="https://github.com/wsvincent/drfx">drfx</a>, so let&rsquo;s go ahead and clone that:</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ git clone https://github.com/wsvincent/drfx vgstack
 </code></pre></div><p>The template provided comes with a lot of best practices built in. We can build on top of it and get going quickly!</p>
 <h3 id="dependencies">Dependencies</h3>
-<p>We're going to install the following extra packages for now:
+<p>We&rsquo;re going to install the following extra packages for now:
 <a href="https://github.com/theskumar/python-dotenv">python-dotenv</a> to comply with <a href="https://12factor.net/config">mandate III</a> of The Twelve-Factor App, <a href="https://github.com/psycopg/psycopg2">psycopg2-binary</a> to use PostgreSQL as our database, <a href="https://github.com/ambv/black">black</a> to format our code and <a href="https://github.com/FactoryBoy/factory_boy">factory_boy</a> to improve our tests maintenance.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ pipenv install python-dotenv psycopg2-binary
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ pipenv install --pre --dev black factory_boy
 </code></pre></div><p>We install <code>black</code> and <code>factory_boy</code> as development dependencies and tell Pipenv to allow the pre-release <code>black</code> package through!</p>
 <h2 id="django-settings">Django Settings</h2>
-<p>Let's get started setting up our project.</p>
+<p>Let&rsquo;s get started setting up our project.</p>
 <p>First, create a <code>.env</code> file for use with <code>python-dotenv</code>.</p>
 <pre><code class="language-env" data-lang="env"># vgstack/.env
 
@@ -479,9 +479,9 @@ DATABASE_PORT=5432
 <span class="p">}</span>
 
 <span class="c1"># ...</span>
-</code></pre></div><p>Notice I replaced the <code>os.path</code> call for the new kid on the block: <code>Pathlib</code>. I'm trying to make that a habit!</p>
+</code></pre></div><p>Notice I replaced the <code>os.path</code> call for the new kid on the block: <code>Pathlib</code>. I&rsquo;m trying to make that a habit!</p>
 <h3 id="docker">Docker</h3>
-<p>Let's build a simple Python Dockerfile!</p>
+<p>Let&rsquo;s build a simple Python Dockerfile!</p>
 <div class="highlight"><pre class="chroma"><code class="language-docker" data-lang="docker"><span class="c"># vgstack/Dockerfile</span><span class="err">
 </span><span class="err"></span><span class="err">
 </span><span class="err"></span><span class="c"># pull the Python official base image, slimmed down</span><span class="err">
@@ -529,7 +529,7 @@ DATABASE_PORT=5432
 </span><span class="err"></span>  postgres_data:<span class="err">
 </span><span class="err"></span>    external: false<span class="err">
 </span></code></pre></div><p>We can see that we are persisting the Postgres database via Docker volumes. Also, we are taking advantage of the <code>env_file</code> command to load in our previously created file. Finally, we call the <code>entrypoint</code> command to run a shell script instead of running an in-line command.</p>
-<p>The following entrypoint script is a modified version of the one found in José Padilla's <a href="https://github.com/jpadilla/notaso">notaso</a> project. It attempts to use a PostgreSQL cursor every second, and keeps trying until a connection succeeds. Then, it proceeds to migrate the Django models and runs the development server.</p>
+<p>The following entrypoint script is a modified version of the one found in José Padilla&rsquo;s <a href="https://github.com/jpadilla/notaso">notaso</a> project. It attempts to use a PostgreSQL cursor every second, and keeps trying until a connection succeeds. Then, it proceeds to migrate the Django models and runs the development server.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/sh
 </span><span class="cp"></span>
 <span class="c1"># vgstack/docker-entrypoint.sh</span>
@@ -565,13 +565,13 @@ python manage.py runserver 0.0.0.0:8000
 <h3 id="sanity-check">Sanity check</h3>
 <p>We can now use docker-compose to build our images and start our development server!</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ docker-compose up --build
-</code></pre></div><p>Visiting <a href="http://0.0.0.0:8000">http://0.0.0.0:8000</a> on your browser should show&hellip; a 404 page. That's by design! There's no home page yet. Pointing the browser over to <a href="http://0.0.0.0:8000/admin/">http://0.0.0.0:8000/admin/</a> should show a log in screen, which means all is well! You can create a user by opening a new terminal window and using Python inside the running Docker container.</p>
+</code></pre></div><p>Visiting <a href="http://0.0.0.0:8000">http://0.0.0.0:8000</a> on your browser should show&hellip; a 404 page. That&rsquo;s by design! There&rsquo;s no home page yet. Pointing the browser over to <a href="http://0.0.0.0:8000/admin/">http://0.0.0.0:8000/admin/</a> should show a log in screen, which means all is well! You can create a user by opening a new terminal window and using Python inside the running Docker container.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ docker-compose <span class="nb">exec</span> web python manage.py createsuperuser
-</code></pre></div><p>You may want to start the containers in detached mode so you don't have to keep opening terminal windows.</p>
+</code></pre></div><p>You may want to start the containers in detached mode so you don&rsquo;t have to keep opening terminal windows.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ docker-compose up -d
 </code></pre></div><h3 id="applying-a-black-coat-of-paint">Applying a <code>black</code> coat of paint</h3>
-<p>After all that, it's nice to make sure our code looks nice and consistent. For that, we can use the opinionated Python code formatter, black.</p>
-<p>First, create a <code>pyproject.toml</code> file in the root of the project, in order to customize black's settings if we so choose.</p>
+<p>After all that, it&rsquo;s nice to make sure our code looks nice and consistent. For that, we can use the opinionated Python code formatter, black.</p>
+<p>First, create a <code>pyproject.toml</code> file in the root of the project, in order to customize black&rsquo;s settings if we so choose.</p>
 <pre><code># vgstack/pyproject.toml
 
 [tool.black]
@@ -587,7 +587,7 @@ line-length = 88
 <li><a href="https://docs.djangoproject.com/en/2.1/ref/settings/">https://docs.djangoproject.com/en/2.1/ref/settings/</a></li>
 </ul>
 <h1 id="update-2019-03-14">Update (2019-03-14)</h1>
-<p>A previous version of this post mentioned using Angular for the frontend, as this was what my team was using at the time. I've since switched jobs, and I want to focus on using my current team's frontend tech!</p>
+<p>A previous version of this post mentioned using Angular for the frontend, as this was what my team was using at the time. I&rsquo;ve since switched jobs, and I want to focus on using my current team&rsquo;s frontend tech!</p>
 
   </div>
   
@@ -596,16 +596,16 @@ line-length = 88
       <a href="https://raulnegron.me/2018/dev-python-strings-identity-vs-equality/">Identity and Equality in Python</a>
     </h1>
     <span class="post-date">July 27, 2018</span>
-    <p>I would consider <a href="https://www.python.org/">Python</a> to be the programming language I'm most comfortable writing code in. There's plenty to love, and one of its more recognizable features is its simple to read <a href="https://en.wikipedia.org/wiki/Python_syntax_and_semantics">syntax</a>. I've heard the phrase &ldquo;executable pseudocode&rdquo; thrown around before, and its easy to see where the comparisons come from.</p>
+    <p>I would consider <a href="https://www.python.org/">Python</a> to be the programming language I&rsquo;m most comfortable writing code in. There&rsquo;s plenty to love, and one of its more recognizable features is its simple to read <a href="https://en.wikipedia.org/wiki/Python_syntax_and_semantics">syntax</a>. I&rsquo;ve heard the phrase &ldquo;executable pseudocode&rdquo; thrown around before, and its easy to see where the comparisons come from.</p>
 <p>A great side effect of sporting such a relatively simple to understand syntax is its <a href="https://www.economist.com/science-and-technology/2018/07/21/python-has-brought-computer-programming-to-a-vast-new-audience">mass appeal</a>, with people jumping in with little programming knowledge and using Python to jump start their new coding adventures.</p>
 <p>Its not hard to get carried away and forget that, despite the focus on readability, code is not the same as prose. Its always worthwhile to keep the subtleties of a particular language in mind. That being said, this post is about the bug I created when I forgot about the (perhaps not so subtle) distinction between identity and equality in Python, and what I learned from that mistake.</p>
-<p>Let's review the fundamentals before diving into the particulars.</p>
+<p>Let&rsquo;s review the fundamentals before diving into the particulars.</p>
 <h1 id="object-equality">Object Equality</h1>
 <p>Object equality refers to the intuitive notion of equality from mathematics. Sounds simple enough.</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">y</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">x</span> <span class="o">==</span> <span class="n">y</span>  <span class="c1"># True</span>
-</code></pre></div><p>The equality operator is part of Python's built-in <a href="https://docs.python.org/3/library/stdtypes.html?highlight=comparison#comparisons">comparison operators</a>.</p>
+</code></pre></div><p>The equality operator is part of Python&rsquo;s built-in <a href="https://docs.python.org/3/library/stdtypes.html?highlight=comparison#comparisons">comparison operators</a>.</p>
 <p>From the docs, we see that <em>&ldquo;objects of different types, except different numeric types, never compare equal.&quot;</em> We can test this out as follows:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Comparison between objects of different types, one non-numeric</span>
 <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
@@ -671,7 +671,7 @@ line-length = 88
 <span class="n">x</span> <span class="ow">is</span> <span class="n">y</span>  <span class="c1"># False</span>
 </code></pre></div><p>There are some subtleties to this that may not be immediately apparent. For example, <code>[1, 2, 3] is [1, 2, 3]</code> = <code>False</code>. Meanwhile, <code>(1, 2, 3) is (1, 2, 3)</code> = <code>True</code>. The reason is, as you may suspect, that <a href="https://docs.python.org/3/library/stdtypes.html?highlight=comparison#lists">lists</a> are mutable while <a href="https://docs.python.org/3/library/stdtypes.html?highlight=comparison#tuples">tuples</a> are not.</p>
 <h1 id="equality-vs-identity-in-python-strings">Equality vs Identity in Python Strings</h1>
-<p>Well, what about strings? We know that strings in Python are immutable objects. And as we might expect, <code>'hello, world' is 'hello, world'</code> = <code>True</code>! But here's where things start to get interesting&hellip;</p>
+<p>Well, what about strings? We know that strings in Python are immutable objects. And as we might expect, <code>'hello, world' is 'hello, world'</code> = <code>True</code>! But here&rsquo;s where things start to get interesting&hellip;</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Example 1</span>
 <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span> <span class="ow">is</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>  <span class="c1"># True</span>
 
@@ -689,13 +689,13 @@ line-length = 88
 <span class="n">str_1</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>
 <span class="n">str_2</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>
 <span class="n">str_1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">, </span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="n">str_2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">, </span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># False(!?!)</span>
-</code></pre></div><p>What gives? And to make things more interesting, the above code was executed line-by-line on the interactive shell. If you copy the above code into a source file and run the entire file (while printing the results), you will find that the first three conditions are <code>True</code> (the last one remains <code>False</code>). Which means that the second identity operation just changed truth values! And how come removing the comma and whitespace from both strings at the end there didn't make the identity check <code>True</code> again? The key to answering all these questions is: <a href="https://en.wikipedia.org/wiki/String_interning">string interning</a>! Let's talk about it.</p>
+</code></pre></div><p>What gives? And to make things more interesting, the above code was executed line-by-line on the interactive shell. If you copy the above code into a source file and run the entire file (while printing the results), you will find that the first three conditions are <code>True</code> (the last one remains <code>False</code>). Which means that the second identity operation just changed truth values! And how come removing the comma and whitespace from both strings at the end there didn&rsquo;t make the identity check <code>True</code> again? The key to answering all these questions is: <a href="https://en.wikipedia.org/wiki/String_interning">string interning</a>! Let&rsquo;s talk about it.</p>
 <h2 id="string-interning-or-compare-strings-in-o1-instead-of-on">String Interning, or &ldquo;Compare strings in O(1) instead of O(n)!&rdquo;</h2>
 <p>This concept was completely unknown to me until very recently. <em>String interning</em> is the process by which a particular <code>string</code> object can be stored in an internal dictionary for faster lookups. Further assignments of the same string contents will yield a reference to this stored object instead of creating a new object.</p>
-<p>In practical terms, interning a string allows for lower memory usage as well as a performance boost in matching via string equality. That is, instead of relying on <a href="https://en.wikipedia.org/wiki/Category:String_matching_algorithms">standard string matching algorithms</a> to determine whether or not two strings are the same (i.e., contain the same characters in the same order), you can simply check whether or not they are references to the same object. This allows an <em>equality</em> check to be optimized as an <em>identity</em> check, which typically means that an <em>O(n)</em> character-by-character operation has been optimized all the way down to an <em>O(1)</em> numerical address comparison. This is quite the optimization, which is why Python natively interns strings based on a set of internal rules. And if we examine some of these rules, we'll find answers to the questions left unsolved in the previous section.</p>
-<p>For example, it turns out that Python natively interns all strings which contain only <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> letters, digits and the underscore character. This explains what happened in <em>Example 3</em>. Both strings are pure ASCII and therefore got interned by Python (conversely, their comma-and-whitespace-containing <code>hello, world</code> counterparts from <em>Example 2</em> were not interned by this rule). Also, it's important to note that native interning occurs at compilation time. This fact explains why <code>False</code> was the result in <em>Example 4</em>. It would seem that the <code>replace</code> method turned our comma-and-whitespace-containing strings into intern-me-ASCII strings, but in fact the string replacement occurred at runtime, and thus never got the chance to be interned natively.</p>
+<p>In practical terms, interning a string allows for lower memory usage as well as a performance boost in matching via string equality. That is, instead of relying on <a href="https://en.wikipedia.org/wiki/Category:String_matching_algorithms">standard string matching algorithms</a> to determine whether or not two strings are the same (i.e., contain the same characters in the same order), you can simply check whether or not they are references to the same object. This allows an <em>equality</em> check to be optimized as an <em>identity</em> check, which typically means that an <em>O(n)</em> character-by-character operation has been optimized all the way down to an <em>O(1)</em> numerical address comparison. This is quite the optimization, which is why Python natively interns strings based on a set of internal rules. And if we examine some of these rules, we&rsquo;ll find answers to the questions left unsolved in the previous section.</p>
+<p>For example, it turns out that Python natively interns all strings which contain only <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> letters, digits and the underscore character. This explains what happened in <em>Example 3</em>. Both strings are pure ASCII and therefore got interned by Python (conversely, their comma-and-whitespace-containing <code>hello, world</code> counterparts from <em>Example 2</em> were not interned by this rule). Also, it&rsquo;s important to note that native interning occurs at compilation time. This fact explains why <code>False</code> was the result in <em>Example 4</em>. It would seem that the <code>replace</code> method turned our comma-and-whitespace-containing strings into intern-me-ASCII strings, but in fact the string replacement occurred at runtime, and thus never got the chance to be interned natively.</p>
 <p>But how does this explain <em>Example 1</em>? Well, Python was smart enough to realize that <code>'hello, world' is 'hello, world'</code> is an attempt to compare the reference of two immutable objects which happen to be the same and it optimized accordingly. Now, how come the code exhibits completely different behavior when running in the shell versus in a source file for <em>Example 2</em>?  Notice that this same scenario plays out a little differently depending on the execution environment. This is because, in the shell, the code is fed to the Python interpreter line-by-line, as opposed to file execution, where the Python has access to all the code in the file at once. Again, Python was smart enough to optimize the strings when it had forward-lookup capabilities available, but not so when it did not &ldquo;know&rdquo; what the next line would be (which was the case for <em>Example 1</em>, where it did optimize).</p>
-<p>Phew! Now, let's look at how we use manual string interning and get the <code>is</code> operator to work as we expected it to originally:</p>
+<p>Phew! Now, let&rsquo;s look at how we use manual string interning and get the <code>is</code> operator to work as we expected it to originally:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">intern</span>
 
 <span class="n">str_1</span> <span class="o">=</span> <span class="nb">intern</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -716,9 +716,9 @@ line-length = 88
 <span class="k">print</span><span class="p">(</span><span class="n">database</span> <span class="o">==</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">some_database_alias</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># True</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">database</span> <span class="ow">is</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">some_database_alias</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># False</span>
-</code></pre></div><p>It didn't work. I wrote an identity comparison where I should have written an equality comparison instead. The moral of the story here: <strong><code>is</code> is not <code>==</code></strong>.</p>
+</code></pre></div><p>It didn&rsquo;t work. I wrote an identity comparison where I should have written an equality comparison instead. The moral of the story here: <strong><code>is</code> is not <code>==</code></strong>.</p>
 <h1 id="conclusion">Conclusion</h1>
-<p>What started out as a casual review of Python syntax caused by a simple enough bug turned into a curiosity-driven deep dive into Python string internals and comparison operators. All in good fun. The following article by Adrien Guillo was very helpful and goes into the lower-level goings on of CPython's string interning mechanisms: <a href="http://guilload.com/python-string-interning/">The internals of Python string interning</a>. Satwik Kansal wrote another, higher-level introduction to the topic: <a href="https://www.codementor.io/satwikkansal/do-you-really-think-you-know-strings-in-python-fnxh8mtha">Do you really think you know strings in Python?</a></p>
+<p>What started out as a casual review of Python syntax caused by a simple enough bug turned into a curiosity-driven deep dive into Python string internals and comparison operators. All in good fun. The following article by Adrien Guillo was very helpful and goes into the lower-level goings on of CPython&rsquo;s string interning mechanisms: <a href="http://guilload.com/python-string-interning/">The internals of Python string interning</a>. Satwik Kansal wrote another, higher-level introduction to the topic: <a href="https://www.codementor.io/satwikkansal/do-you-really-think-you-know-strings-in-python-fnxh8mtha">Do you really think you know strings in Python?</a></p>
 
   </div>
   
@@ -732,14 +732,14 @@ line-length = 88
 <img src="/img/gameboy.jpg" style="width: 170px;"/>
 </center>
 <br>
-<p>I don't know what inspired it, but recently I got the idea that programming for an old game console would make for a fun project. Apart from giving me an excuse to write code in a language other than Python, it's something I've wanted to do ever since I learned that programming was at the heart of all the great games I've played throughout the years. So, I decided to find out how feasible it would be to program for one of these old school gaming systems.</p>
+<p>I don&rsquo;t know what inspired it, but recently I got the idea that programming for an old game console would make for a fun project. Apart from giving me an excuse to write code in a language other than Python, it&rsquo;s something I&rsquo;ve wanted to do ever since I learned that programming was at the heart of all the great games I&rsquo;ve played throughout the years. So, I decided to find out how feasible it would be to program for one of these old school gaming systems.</p>
 <p>The Game Boy Advance was my first research subject. While reading up on the GBA, I learned that the original Game Boy (model &ldquo;DMG-01&rdquo;) had a more well-established homebrew community, compared to the Game Boy Advance. There is a lot of great documentation out there on developing for the Game Boy! Just visiting the <a href="https://github.com/avivace/awesome-gbdev">awesome-gbdev</a> repo convinced me to choose the original Game Boy as my retro coding platform.</p>
-<p>I'd like to blog about my experience as a form of self-motivation. I'll write about the process from the start and then be able to look back and see how I've progressed along the way! And if someone happens upon these posts, I hope they find them useful.</p>
-<p><strong>NOTE</strong>: I'll be using the following Japanese-language blog post as a template for this one: <a href="https://qiita.com/syano/items/2180da2cfe9ce161e65b">開発環境の導入</a>.</p>
+<p>I&rsquo;d like to blog about my experience as a form of self-motivation. I&rsquo;ll write about the process from the start and then be able to look back and see how I&rsquo;ve progressed along the way! And if someone happens upon these posts, I hope they find them useful.</p>
+<p><strong>NOTE</strong>: I&rsquo;ll be using the following Japanese-language blog post as a template for this one: <a href="https://qiita.com/syano/items/2180da2cfe9ce161e65b">開発環境の導入</a>.</p>
 <h1 id="development-environment-on-macos">Development Environment on MacOS</h1>
-<p>As the title says, I am working towards a functional GB dev environment on MacOS (specifically High Sierra, version 10.13.4). Sadly, most of the good tools for Game Boy development are Windows-only. But that's okay! We can get away with using <a href="https://www.winehq.org/">Wine</a> to run the best of them.</p>
+<p>As the title says, I am working towards a functional GB dev environment on MacOS (specifically High Sierra, version 10.13.4). Sadly, most of the good tools for Game Boy development are Windows-only. But that&rsquo;s okay! We can get away with using <a href="https://www.winehq.org/">Wine</a> to run the best of them.</p>
 <h2 id="an-introduction-to-the-tools">An introduction to the tools</h2>
-<p>The development scene for the Game Boy is centered around two programming languages: C and assembly. My personal preference was to start developing in C. I'm using Harry Mulder's <a href="http://www.devrs.com/gb/hmgd/gbtd.html">Tile Designer</a> as well as his <a href="http://www.devrs.com/gb/hmgd/gbmb.html">Map Builder</a> to manage the graphical aspects of developing for a video game console. Finally, the <a href="http://bgb.bircd.org/">bgb</a> emulator is the standard for testing and debugging Game Boy games.</p>
+<p>The development scene for the Game Boy is centered around two programming languages: C and assembly. My personal preference was to start developing in C. I&rsquo;m using Harry Mulder&rsquo;s <a href="http://www.devrs.com/gb/hmgd/gbtd.html">Tile Designer</a> as well as his <a href="http://www.devrs.com/gb/hmgd/gbmb.html">Map Builder</a> to manage the graphical aspects of developing for a video game console. Finally, the <a href="http://bgb.bircd.org/">bgb</a> emulator is the standard for testing and debugging Game Boy games.</p>
 <h1 id="getting-a-c-compiler-up-and-running">Getting a C compiler up and running:</h1>
 <p>The tool of choice here is the <a href="http://gbdk.sourceforge.net/">Game Boy Developers Kit</a> (GBDK). The installation may be tricky on MacOS. There are a couple of alternative installation methods around, but I went for the following:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ git clone https://github.com/x43x61x69/gbdk-osx
@@ -754,12 +754,12 @@ $ sudo mkdir /opt <span class="o">&amp;&amp;</span> sudo cp -r build/ppc-unknown
 <p><a href="https://github.com/co-me/gbdk/issues/5"><code>sudo mkdir /opt &amp;&amp; sudo cp -r build/ppc-unknown-linux2.2/gbdk /opt</code></a></p>
 <p>Make sure to add the path to the new binaries to your <code>PATH</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="s2">/opt/gbdk/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
-</code></pre></div><p>Ideally, you would include that line in your <code>.bash_profile</code> or similar. The compiler's front-end (called <code>lcc</code>) would then be easily accessible.</p>
+</code></pre></div><p>Ideally, you would include that line in your <code>.bash_profile</code> or similar. The compiler&rsquo;s front-end (called <code>lcc</code>) would then be easily accessible.</p>
 <p>You could also choose to leave the binaries in-place and make a symbolic link, like so:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ sudo ln -s build/ppc-unknown-linux2.2/gbdk /opt
 </code></pre></div><p>In that case, you would have to adjust your <code>PATH</code> accordingly.</p>
 <h1 id="building-a-minimal-game-boy-game-a-sanity-check">Building a minimal Game Boy game: a sanity check</h1>
-<p>Having come this far, let's make something a bit more involved than a <code>printf(&quot;Hello, world!&quot;);</code> for the Game Boy, shall we?</p>
+<p>Having come this far, let&rsquo;s make something a bit more involved than a <code>printf(&quot;Hello, world!&quot;);</code> for the Game Boy, shall we?</p>
 <p>Create a file and then copy-paste (or type by hand!) the following code:</p>
 <div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;stdio.h&gt; 	// printf(), delay()</span><span class="cp">
 </span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;gb/gb.h&gt;  // joypad(), J_UP, J_DOWN, ...</span><span class="cp">
@@ -807,28 +807,28 @@ $ sudo mkdir /opt <span class="o">&amp;&amp;</span> sudo cp -r build/ppc-unknown
 <span class="p">}</span>
 </code></pre></div><p>Save the file as <code>first.c</code> and proceed to build the code:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ lcc first.c -o first.gb
-</code></pre></div><p>Hopefully everything compiled correctly! You'll know it worked if <code>lcc</code> stays quiet after compiling, thus obeying <a href="http://www.linfo.org/rule_of_silence.html">The Rule of Silence</a>.</p>
-<p>Let's run <em>bgb</em> (<code>$ wine bgb.exe</code>), secondary-click the window, open <code>first.gb</code> and check out the results!</p>
+</code></pre></div><p>Hopefully everything compiled correctly! You&rsquo;ll know it worked if <code>lcc</code> stays quiet after compiling, thus obeying <a href="http://www.linfo.org/rule_of_silence.html">The Rule of Silence</a>.</p>
+<p>Let&rsquo;s run <em>bgb</em> (<code>$ wine bgb.exe</code>), secondary-click the window, open <code>first.gb</code> and check out the results!</p>
 <br>
 <center>
 <img src="/img/gb-1-bgb-1.png" style="width: 250px;"/>
 </center>
 <br>
-<p>And that's it! From code to binary that the Game Boy recognizes, built on MacOS. A world of 8-bit possibilities awaits! A more complete version of this example is available at <a href="http://gbdev.gg8.se/wiki/articles/GBDK_Joypad_Tutorial">GBDev</a>.</p>
+<p>And that&rsquo;s it! From code to binary that the Game Boy recognizes, built on MacOS. A world of 8-bit possibilities awaits! A more complete version of this example is available at <a href="http://gbdev.gg8.se/wiki/articles/GBDK_Joypad_Tutorial">GBDev</a>.</p>
 <h2 id="the-c-alternative-rgbds-on-macos">The C alternative: RGBDS on MacOS</h2>
 <p>This post focused on coding in C. For assembly, there exists the <a href="https://github.com/rednex/rgbds">Rednex Game Boy Development System (RGBDS)</a>.
-The best part is that installation couldn't be simpler.</p>
+The best part is that installation couldn&rsquo;t be simpler.</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ brew install rgbds
 </code></pre></div><p>I will definitely get into assembly on the GB at some point in the future!</p>
 <h1 id="further-reading">Further reading</h1>
-<p>If you can read Japanese (or don't mind using Google Translate), I recommend the <a href="https://adventar.org/calendars/2505">Game Boy Advent Calendar 2017</a> series of blog posts.</p>
-<p>Finally, having already mentioned the place to get a lot of good resources (<a href="https://github.com/gbdev/awesome-gbdev">awesome-gbdev</a>), I'll go ahead and highlight a few resources on that list.</p>
+<p>If you can read Japanese (or don&rsquo;t mind using Google Translate), I recommend the <a href="https://adventar.org/calendars/2505">Game Boy Advent Calendar 2017</a> series of blog posts.</p>
+<p>Finally, having already mentioned the place to get a lot of good resources (<a href="https://github.com/gbdev/awesome-gbdev">awesome-gbdev</a>), I&rsquo;ll go ahead and highlight a few resources on that list.</p>
 <ul>
 <li>
 <p><a href="https://media.ccc.de/v/33c3-8029-the_ultimate_game_boy_talk">The Ultimate Game Boy Talk</a> - A must-watch deep-dive tech-talk on the original Game Boy.</p>
 </li>
 <li>
-<p><a href="https://github.com/mrombout/gbdk_playground">Simplified GBDK Examples</a> - Repository containing self-contained examples on GBDK concepts. If you'd like to see the <code>printf(&quot;Hello, world!&quot;);</code> of the Game Boy world, <a href="https://github.com/mrombout/gbdk_playground/tree/master/hello_world">look no further!</a></p>
+<p><a href="https://github.com/mrombout/gbdk_playground">Simplified GBDK Examples</a> - Repository containing self-contained examples on GBDK concepts. If you&rsquo;d like to see the <code>printf(&quot;Hello, world!&quot;);</code> of the Game Boy world, <a href="https://github.com/mrombout/gbdk_playground/tree/master/hello_world">look no further!</a></p>
 </li>
 <li>
 <p><a href="https://github.com/pashutk/flappybird-gameboy">flappybird-gameboy</a> - Reading the source code of other projects is a good way to get started with development in any environment. Flappy Bird is a simple enough game to make for a good first look into GB development in C using GBDK!</p>
@@ -841,7 +841,7 @@ The best part is that installation couldn't be simpler.</p>
 <li><a href="https://www.gamasutra.com/blogs/DoctorLudos/20171207/311143/Making_a_Game_Boy_game_in_2017_A_quotSheep_It_Upquot_PostMortem_part_12.php">Making a Game Boy game in 2017: A &ldquo;Sheep It Up!&rdquo; Post-Mortem&rdquo;</a> - A great read chronicling the development of a Game Boy game which introduces plenty of helpful concepts along the way</li>
 </ul>
 <h1 id="extra-happy-29th">Extra: Happy 29th!</h1>
-<p>Without realizing it, I uploaded this post on the <a href="https://twitter.com/OnThisDayGaming/status/987792880260575232">on the 29th anniversary</a> of the Game Boy's Japanese release date! Since I was not aware of the Game Boy's Japanese release date, there was a $\frac{1}{365} = 0.0027%$ chance of this happening! However, taking into account the time-zone difference, I actually uploaded this post at around 7:30AM on the 22nd, Japan time. Oh well, pretty cool in any case!</p>
+<p>Without realizing it, I uploaded this post on the <a href="https://twitter.com/OnThisDayGaming/status/987792880260575232">on the 29th anniversary</a> of the Game Boy&rsquo;s Japanese release date! Since I was not aware of the Game Boy&rsquo;s Japanese release date, there was a $\frac{1}{365} = 0.0027%$ chance of this happening! However, taking into account the time-zone difference, I actually uploaded this post at around 7:30AM on the 22nd, Japan time. Oh well, pretty cool in any case!</p>
 
   </div>
   

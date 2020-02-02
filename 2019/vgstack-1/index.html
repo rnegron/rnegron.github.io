@@ -194,9 +194,9 @@
   <span class="post-date">January 19, 2019</span>
   <h1 id="motivation">Motivation</h1>
 <p>In the web development space, tools and best-practices change quite frequently. At one point in the not-so-distant past, a <a href="https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29">LAMP</a> stack was the go-to approach for launching a web application. These days, PHP is the #8 most popular programming language (according to a company with the name <a href="https://www.tiobe.com/tiobe-index/">&ldquo;The Importance Of Being Earnest&rdquo;</a>), while Python and JavaScript rank above it.</p>
-<p>One of the reason for this change has to do with the growing trend towards microservice architectures. Together with the need for rapid prototyping and the onset of agile development methodologies, Python and other languages have swept in and stolen the LAMP stack's lunch.</p>
+<p>One of the reason for this change has to do with the growing trend towards microservice architectures. Together with the need for rapid prototyping and the onset of agile development methodologies, Python and other languages have swept in and stolen the LAMP stack&rsquo;s lunch.</p>
 <p>So what is the <em>new stack</em>? A complex question with opinionated answers&hellip; Here is a recent community discussion on Hacker News: <a href="https://news.ycombinator.com/item?id=18829557">Go-to web stack today?</a></p>
-<p>But wow, there are so many things to learn and keep up to date with nowadays! To help alleviate this, I'd like to work on a side-project using full-stack technologies. In particular, I want to use the following tools to build a fullstack app:</p>
+<p>But wow, there are so many things to learn and keep up to date with nowadays! To help alleviate this, I&rsquo;d like to work on a side-project using full-stack technologies. In particular, I want to use the following tools to build a fullstack app:</p>
 <ul>
 <li>Django (backend)</li>
 <li>Ember (frontend)</li>
@@ -208,25 +208,25 @@
 <p>No shame: the project is most definitely a copy of <a href="https://backloggery.com">The Backloggery</a>, a great site that I use often. However, as far as I know, The Backloggery is <a href="https://backloggery.com/about.php">built in PHP</a>, probably on a LAMP stack or similar. So I thought I would take a crack at building a small subset of the Backloggery features, on a more modern stack.</p>
 <p>I like this idea because it comes with a well-defined problem set. I can already envision the database schema and how to build the backend. But as I mentioned, this project is going to involve the entire stack. That means I gotta learn some frontend JavaScript. In this series of blog posts, I document my experience.</p>
 <blockquote>
-<p>I should say, the reason I picked <a href="https://emberjs.com/">Ember</a> and not (the elephant in the room) <a href="https://reactjs.org/">React</a> is that in my <a href="https://www.aliaspayments.com">day job</a>, we work with Ember and so this is a skill I would like to improve! Besides, we all know <a href="https://en.wikipedia.org/wiki/PostgreSQL">Postgres</a> is the real elephant here, right? Let's move on.</p>
+<p>I should say, the reason I picked <a href="https://emberjs.com/">Ember</a> and not (the elephant in the room) <a href="https://reactjs.org/">React</a> is that in my <a href="https://www.aliaspayments.com">day job</a>, we work with Ember and so this is a skill I would like to improve! Besides, we all know <a href="https://en.wikipedia.org/wiki/PostgreSQL">Postgres</a> is the real elephant here, right? Let&rsquo;s move on.</p>
 </blockquote>
 <h1 id="the-app-vg-stack">The app: vg-stack</h1>
 <p>I had to name my repo something!</p>
 <p>In all honestly, I like the name because it hints at the purpose of the project (practicing the web stack) while at the same conjuring a mental image of a bunch of video games stacked on top of each other.</p>
 <h2 id="setting-up">Setting up</h2>
-<p>For this first part, I'm going to build a backend skeleton using Django and the awesome <a href="https://www.django-rest-framework.org/">Django REST framework</a> package. As already mentioned, our database will be the ever-popular PostgreSQL and we are aiming for best practices in all parts of the stack. That includes deployment/development tools and environments! That said, I'm going to assume knowledge of the tools used and explain only the highlights.</p>
+<p>For this first part, I&rsquo;m going to build a backend skeleton using Django and the awesome <a href="https://www.django-rest-framework.org/">Django REST framework</a> package. As already mentioned, our database will be the ever-popular PostgreSQL and we are aiming for best practices in all parts of the stack. That includes deployment/development tools and environments! That said, I&rsquo;m going to assume knowledge of the tools used and explain only the highlights.</p>
 <h2 id="project-structure">Project Structure</h2>
-<p>In fact, I'm going to skip most of the project setup entirely and just go with a pre-built template! I like William Vincent's <a href="https://github.com/wsvincent/drfx">drfx</a>, so let's go ahead and clone that:</p>
+<p>In fact, I&rsquo;m going to skip most of the project setup entirely and just go with a pre-built template! I like William Vincent&rsquo;s <a href="https://github.com/wsvincent/drfx">drfx</a>, so let&rsquo;s go ahead and clone that:</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ git clone https://github.com/wsvincent/drfx vgstack
 </code></pre></div><p>The template provided comes with a lot of best practices built in. We can build on top of it and get going quickly!</p>
 <h3 id="dependencies">Dependencies</h3>
-<p>We're going to install the following extra packages for now:
+<p>We&rsquo;re going to install the following extra packages for now:
 <a href="https://github.com/theskumar/python-dotenv">python-dotenv</a> to comply with <a href="https://12factor.net/config">mandate III</a> of The Twelve-Factor App, <a href="https://github.com/psycopg/psycopg2">psycopg2-binary</a> to use PostgreSQL as our database, <a href="https://github.com/ambv/black">black</a> to format our code and <a href="https://github.com/FactoryBoy/factory_boy">factory_boy</a> to improve our tests maintenance.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ pipenv install python-dotenv psycopg2-binary
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ pipenv install --pre --dev black factory_boy
 </code></pre></div><p>We install <code>black</code> and <code>factory_boy</code> as development dependencies and tell Pipenv to allow the pre-release <code>black</code> package through!</p>
 <h2 id="django-settings">Django Settings</h2>
-<p>Let's get started setting up our project.</p>
+<p>Let&rsquo;s get started setting up our project.</p>
 <p>First, create a <code>.env</code> file for use with <code>python-dotenv</code>.</p>
 <pre><code class="language-env" data-lang="env"># vgstack/.env
 
@@ -287,9 +287,9 @@ DATABASE_PORT=5432
 <span class="p">}</span>
 
 <span class="c1"># ...</span>
-</code></pre></div><p>Notice I replaced the <code>os.path</code> call for the new kid on the block: <code>Pathlib</code>. I'm trying to make that a habit!</p>
+</code></pre></div><p>Notice I replaced the <code>os.path</code> call for the new kid on the block: <code>Pathlib</code>. I&rsquo;m trying to make that a habit!</p>
 <h3 id="docker">Docker</h3>
-<p>Let's build a simple Python Dockerfile!</p>
+<p>Let&rsquo;s build a simple Python Dockerfile!</p>
 <div class="highlight"><pre class="chroma"><code class="language-docker" data-lang="docker"><span class="c"># vgstack/Dockerfile</span><span class="err">
 </span><span class="err"></span><span class="err">
 </span><span class="err"></span><span class="c"># pull the Python official base image, slimmed down</span><span class="err">
@@ -337,7 +337,7 @@ DATABASE_PORT=5432
 </span><span class="err"></span>  postgres_data:<span class="err">
 </span><span class="err"></span>    external: false<span class="err">
 </span></code></pre></div><p>We can see that we are persisting the Postgres database via Docker volumes. Also, we are taking advantage of the <code>env_file</code> command to load in our previously created file. Finally, we call the <code>entrypoint</code> command to run a shell script instead of running an in-line command.</p>
-<p>The following entrypoint script is a modified version of the one found in José Padilla's <a href="https://github.com/jpadilla/notaso">notaso</a> project. It attempts to use a PostgreSQL cursor every second, and keeps trying until a connection succeeds. Then, it proceeds to migrate the Django models and runs the development server.</p>
+<p>The following entrypoint script is a modified version of the one found in José Padilla&rsquo;s <a href="https://github.com/jpadilla/notaso">notaso</a> project. It attempts to use a PostgreSQL cursor every second, and keeps trying until a connection succeeds. Then, it proceeds to migrate the Django models and runs the development server.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/sh
 </span><span class="cp"></span>
 <span class="c1"># vgstack/docker-entrypoint.sh</span>
@@ -373,13 +373,13 @@ python manage.py runserver 0.0.0.0:8000
 <h3 id="sanity-check">Sanity check</h3>
 <p>We can now use docker-compose to build our images and start our development server!</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ docker-compose up --build
-</code></pre></div><p>Visiting <a href="http://0.0.0.0:8000">http://0.0.0.0:8000</a> on your browser should show&hellip; a 404 page. That's by design! There's no home page yet. Pointing the browser over to <a href="http://0.0.0.0:8000/admin/">http://0.0.0.0:8000/admin/</a> should show a log in screen, which means all is well! You can create a user by opening a new terminal window and using Python inside the running Docker container.</p>
+</code></pre></div><p>Visiting <a href="http://0.0.0.0:8000">http://0.0.0.0:8000</a> on your browser should show&hellip; a 404 page. That&rsquo;s by design! There&rsquo;s no home page yet. Pointing the browser over to <a href="http://0.0.0.0:8000/admin/">http://0.0.0.0:8000/admin/</a> should show a log in screen, which means all is well! You can create a user by opening a new terminal window and using Python inside the running Docker container.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ docker-compose <span class="nb">exec</span> web python manage.py createsuperuser
-</code></pre></div><p>You may want to start the containers in detached mode so you don't have to keep opening terminal windows.</p>
+</code></pre></div><p>You may want to start the containers in detached mode so you don&rsquo;t have to keep opening terminal windows.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">$ docker-compose up -d
 </code></pre></div><h3 id="applying-a-black-coat-of-paint">Applying a <code>black</code> coat of paint</h3>
-<p>After all that, it's nice to make sure our code looks nice and consistent. For that, we can use the opinionated Python code formatter, black.</p>
-<p>First, create a <code>pyproject.toml</code> file in the root of the project, in order to customize black's settings if we so choose.</p>
+<p>After all that, it&rsquo;s nice to make sure our code looks nice and consistent. For that, we can use the opinionated Python code formatter, black.</p>
+<p>First, create a <code>pyproject.toml</code> file in the root of the project, in order to customize black&rsquo;s settings if we so choose.</p>
 <pre><code># vgstack/pyproject.toml
 
 [tool.black]
@@ -395,7 +395,7 @@ line-length = 88
 <li><a href="https://docs.djangoproject.com/en/2.1/ref/settings/">https://docs.djangoproject.com/en/2.1/ref/settings/</a></li>
 </ul>
 <h1 id="update-2019-03-14">Update (2019-03-14)</h1>
-<p>A previous version of this post mentioned using Angular for the frontend, as this was what my team was using at the time. I've since switched jobs, and I want to focus on using my current team's frontend tech!</p>
+<p>A previous version of this post mentioned using Angular for the frontend, as this was what my team was using at the time. I&rsquo;ve since switched jobs, and I want to focus on using my current team&rsquo;s frontend tech!</p>
 
 </div>
 

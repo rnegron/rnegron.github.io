@@ -16,8 +16,8 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://raulnegron.me/about/</guid>
-      <description>At Ginzan Onsen     I was born February 5th, 1995. I got my bachelor&#39;s degree in Computer Science from the University of Puerto Rico at Río Piedras in early 2018.
-Apart from computer science and math, I enjoy studying philosophy and different languages. If you&#39;re interested in my resume, you can obtain it here.</description>
+      <description>At Ginzan Onsen     I was born February 5th, 1995. I got my bachelor&amp;rsquo;s degree in Computer Science from the University of Puerto Rico at Río Piedras in early 2018.
+Apart from computer science and math, I enjoy studying philosophy and different languages. If you&amp;rsquo;re interested in my resume, you can obtain it here.</description>
     </item>
     
     <item>
@@ -26,12 +26,13 @@ Apart from computer science and math, I enjoy studying philosophy and different 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://raulnegron.me/projects/</guid>
-      <description>Here are my open-source projects as well as some projects I&#39;ve contributed to.
+      <description>Here are my open-source projects as well as some projects I&amp;rsquo;ve contributed to.
  noticias-pr A command-line interface for reading the latest from local news sites in Puerto Rico.
 Tech Highlights:
  NodeJS Web scraping Available on npm  cc-api An open-source API for Caribbean Cinemas.
 Tech Highlights:
- TypeScript MongoDB Web scraping Available at: http://cc.rauln.com TypeDoc available at: https://raulnegron.me/cc-api/  vgstack (Work-in-progress) Keep track of your video game backlog. My full-stack clone of The Backloggery.</description>
+ TypeScript MongoDB Web scraping Available at: http://cc.rauln.com TypeDoc available at: https://raulnegron.me/cc-api/  django-athm Django app for handling ATH Móvil payments.
+Tech Highlights:</description>
     </item>
     
   </channel>
