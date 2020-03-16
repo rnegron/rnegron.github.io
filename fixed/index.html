@@ -226,23 +226,23 @@
 <p>Simple as pie. For sending requests, I like to use <a href="https://httpie.org/">HTTPie</a>. We&rsquo;ll use it to easily send some query parameters through <code>localhost</code> on port 3000. I should mention that I am running NodeJS v11.7.0 and HTTPie v1.0.2.</p>
 <h2 id="1-nodejs-core">1) NodeJS Core</h2>
 <p>First up, vanilla <a href="https://nodejs.org/">NodeJS</a> style.</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;http&#34;</span><span class="p">)</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;url&#34;</span><span class="p">)</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;http&#34;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;url&#34;</span><span class="p">);</span>
 
 <span class="kr">const</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">;</span>
 
-<span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span> <span class="s2">&#34;content-type&#34;</span><span class="o">:</span> <span class="s2">&#34;application/json&#34;</span> <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">((</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span> <span class="s2">&#34;content-type&#34;</span><span class="o">:</span> <span class="s2">&#34;application/json&#34;</span> <span class="p">});</span>
 
-  <span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span> <span class="p">(</span><span class="nx">parseQueryString</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span><span class="p">)</span><span class="p">.</span><span class="nx">query</span><span class="p">;</span>
+  <span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">url</span><span class="p">,</span> <span class="p">(</span><span class="nx">parseQueryString</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)).</span><span class="nx">query</span><span class="p">;</span>
 
-  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">query</span><span class="p">));</span>
+<span class="p">});</span>
 
 <span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">Now listening at port </span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">...</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Now listening at port </span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">...`</span><span class="p">);</span>
+<span class="p">});</span>
 </code></pre></div><p>Testing it out with <code>http :3000 user==1</code>, we get the following response:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">HTTP/1.1 <span class="m">200</span> OK
 Connection: keep-alive
@@ -257,127 +257,127 @@ Transfer-Encoding: chunked
 <p>Even though the code is quite simple, we still had to work for that echo response. Other packages highlighted in this post will automatically parse the query string from the URL, but we didn&rsquo;t have that luxury here. The response also had to be manually JSON-stringified. Diving a bit deeper (down the prototype chain), we find that our server, from <code>http.createServer()</code>, is an <a href="https://nodejs.org/api/events.html#events_class_eventemitter">EventEmitter</a>. It&rsquo;s been instructed to listen for request events at port 3000. The <code>req</code> and <code>res</code> streams (notice there are two&hellip;) represent the client side request and the server side response, respectively. Moving on to the rest of the server-side flavors&hellip;</p>
 <h2 id="2-nodejs-core-the-sequel">2) NodeJS Core: The Sequel</h2>
 <p>But before that, did you know there is a core NodeJS module called <a href="https://nodejs.org/api/http2.html">http2</a>? Actually, back it up, did you know there is a <a href="https://tools.ietf.org/html/rfc7540">version 2 of HTTP</a>?! In any case, this module is a stable part of NodeJS now, so I believe it should get it&rsquo;s own spot.</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">http2</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;http2&#34;</span><span class="p">)</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http2</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;url&#34;</span><span class="p">)</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">http2</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;http2&#34;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http2</span><span class="p">.</span><span class="nx">createServer</span><span class="p">();</span>
+<span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;url&#34;</span><span class="p">);</span>
 
 <span class="kr">const</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">;</span>
 
-<span class="nx">server</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;error&#34;</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;error&#34;</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">));</span>
 
 <span class="nx">server</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;stream&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">stream</span><span class="p">,</span> <span class="nx">headers</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">headers</span><span class="p">[</span><span class="s2">&#34;:path&#34;</span><span class="p">]</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span><span class="p">.</span><span class="nx">query</span><span class="p">;</span>
+  <span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">url</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">headers</span><span class="p">[</span><span class="s2">&#34;:path&#34;</span><span class="p">],</span> <span class="kc">true</span><span class="p">).</span><span class="nx">query</span><span class="p">;</span>
 
-  <span class="nx">stream</span><span class="p">.</span><span class="nx">respond</span><span class="p">(</span><span class="p">{</span> <span class="s2">&#34;:status&#34;</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&#34;content-type&#34;</span><span class="o">:</span> <span class="s2">&#34;application/json&#34;</span> <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+  <span class="nx">stream</span><span class="p">.</span><span class="nx">respond</span><span class="p">({</span> <span class="s2">&#34;:status&#34;</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&#34;content-type&#34;</span><span class="o">:</span> <span class="s2">&#34;application/json&#34;</span> <span class="p">});</span>
 
-  <span class="nx">stream</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+  <span class="nx">stream</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">));</span>
+<span class="p">});</span>
 
-<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">)</span><span class="p">;</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">HTTP2 Server now listening at port </span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">...</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`HTTP2 Server now listening at port </span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">...`</span><span class="p">);</span>
 </code></pre></div><p>We&rsquo;re in it now. Instead of two separate streams, the server now responds to the <code>stream</code> event and provides a duplex stream. We obtain the query parameters via the <code>headers</code> object, and parse it similarly to how it was done using the original <code>http</code> example.</p>
 <p>By the way, the above code won&rsquo;t work on browsers&hellip; While HTTP/2 <a href="https://http2.github.io/faq/#does-http2-require-encryption">does not</a> enforce encryption, modern browsers seem to have conspired to enforce it. There exists an <code>http2.createSecureServer</code> which can work with browsers. But without setting up a secure server, how will we (taste) test this flavor? Even HTTPie has trouble with it! I tried the experimental <a href="https://github.com/httpie/httpie-http2">HTTP/2</a> plugin, but could not get it to work.</p>
 <p>Let&rsquo;s roll up our sleeves and write a basic HTTP/2 client in Node to get this example to work.</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">http2</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;http2&#34;</span><span class="p">)</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">http2</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;http2&#34;</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">;</span>
 
-<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">http2</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="sb">`</span><span class="sb">http://localhost:</span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">http2</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="sb">`http://localhost:</span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 
-<span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;error&#34;</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;error&#34;</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">));</span>
 
-<span class="kr">const</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="p">{</span>
+<span class="kr">const</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">request</span><span class="p">({</span>
   <span class="s2">&#34;:path&#34;</span><span class="o">:</span> <span class="s2">&#34;/?user=1&#34;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="p">});</span>
 
-<span class="nx">req</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s2">&#34;utf8&#34;</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">req</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s2">&#34;utf8&#34;</span><span class="p">);</span>
 
-<span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[</span><span class="p">]</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[];</span>
 
 <span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;data&#34;</span><span class="p">,</span> <span class="nx">chunk</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">data</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">chunk</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+  <span class="nx">data</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">chunk</span><span class="p">);</span>
+<span class="p">});</span>
 
-<span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;end&#34;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
-  <span class="nx">client</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">req</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&#34;end&#34;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">join</span><span class="p">());</span>
+  <span class="nx">client</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+<span class="p">});</span>
 
-<span class="nx">req</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">req</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
 </code></pre></div><p>It works! This flavor we really had to work for, but it was worth it in the end.</p>
 <p>(P.S. If you noticed the colon to the left of <code>&quot;path&quot;</code> and <code>&quot;status&quot;</code> in the code and don&rsquo;t know what they are, may I introduce you to: <a href="https://http2.github.io/http2-spec/#rfc.section.8.1.2.1">pseudo headers</a>)</p>
 <h2 id="3-express">3) Express</h2>
 <p>Here we have the <a href="https://expressjs.com/">Express</a> framework, probably the most popular of the NodeJS backend libraries.</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;express&#34;</span><span class="p">)</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;express&#34;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
 <span class="kr">const</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">;</span>
 
 <span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">);</span>
+<span class="p">});</span>
 
-<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">Express listening on port </span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">...</span><span class="sb">`</span><span class="p">)</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Express listening on port </span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">...`</span><span class="p">)</span>
+<span class="p">});</span>
 </code></pre></div><p>That <code>app</code> object has access to a lot more than what is seen here, including a powerful method chaining concept called <a href="https://expressjs.com/en/guide/using-middleware.html">middleware</a>.</p>
 <h2 id="4-hapijs">4) Hapi.js</h2>
 <p>I had never heard about Hapi before researching this topic. Here&rsquo;s how it looks.</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">hapi</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;hapi&#34;</span><span class="p">)</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">hapi</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;hapi&#34;</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">;</span>
 
-<span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">hapi</span><span class="p">.</span><span class="nx">server</span><span class="p">(</span><span class="p">{</span>
+<span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">hapi</span><span class="p">.</span><span class="nx">server</span><span class="p">({</span>
   <span class="nx">host</span><span class="o">:</span> <span class="s2">&#34;localhost&#34;</span><span class="p">,</span>
   <span class="nx">port</span><span class="o">:</span> <span class="nx">PORT</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="p">});</span>
 
-<span class="nx">server</span><span class="p">.</span><span class="nx">route</span><span class="p">(</span><span class="p">{</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">route</span><span class="p">({</span>
   <span class="nx">method</span><span class="o">:</span> <span class="s2">&#34;GET&#34;</span><span class="p">,</span>
   <span class="nx">path</span><span class="o">:</span> <span class="s2">&#34;/&#34;</span><span class="p">,</span>
   <span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="nx">headers</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">request</span><span class="p">.</span><span class="nx">query</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="p">});</span>
 
-<span class="kr">const</span> <span class="nx">startPromise</span> <span class="o">=</span> <span class="nx">async</span> <span class="kd">function</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+<span class="kr">const</span> <span class="nx">startPromise</span> <span class="o">=</span> <span class="nx">async</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">try</span> <span class="p">{</span>
-    <span class="nx">await</span> <span class="nx">server</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+    <span class="nx">await</span> <span class="nx">server</span><span class="p">.</span><span class="nx">start</span><span class="p">();</span>
   <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="p">;</span>
-    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
   <span class="p">}</span>
 
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">Hapi running at: </span><span class="si">${</span><span class="nx">server</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">uri</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Hapi running at: </span><span class="si">${</span><span class="nx">server</span><span class="p">.</span><span class="nx">info</span><span class="p">.</span><span class="nx">uri</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">};</span>
 
-<span class="nx">startPromise</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">startPromise</span><span class="p">();</span>
 </code></pre></div><h2 id="5-restify">5) restify</h2>
 <p>Probably the least popular of the frameworks in this list. It strives to be a strict implementation of the REST architectural style.</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">restify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;restify&#34;</span><span class="p">)</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">restify</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;restify&#34;</span><span class="p">);</span>
 <span class="kr">const</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">;</span>
 
-<span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">restify</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-<span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">restify</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">queryParser</span><span class="p">(</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">restify</span><span class="p">.</span><span class="nx">createServer</span><span class="p">();</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">restify</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">queryParser</span><span class="p">());</span>
 
 <span class="nx">server</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">);</span>
+<span class="p">});</span>
 
-<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">Restify listening at port </span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Restify listening at port </span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="p">});</span>
 </code></pre></div><h2 id="6-koa">6) Koa</h2>
 <p>Described as a <a href="https://koajs.com/">&ldquo;next generation framework from the creators of Express&rdquo;</a>, here&rsquo;s Koa.</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">koa</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;koa&#34;</span><span class="p">)</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">koa</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kr">const</span> <span class="nx">koa</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;koa&#34;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">koa</span><span class="p">();</span>
 <span class="kr">const</span> <span class="nx">PORT</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">;</span>
 
-<span class="nx">app</span><span class="p">.</span><span class="nx">callback</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">Koa listening on port </span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">...</span><span class="sb">`</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">callback</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Koa listening on port </span><span class="si">${</span><span class="nx">PORT</span><span class="si">}</span><span class="sb">...`</span><span class="p">));</span>
 
 <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">async</span> <span class="nx">ctx</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">ctx</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="p">{</span> <span class="s2">&#34;content-type&#34;</span><span class="o">:</span> <span class="s2">&#34;application/json&#34;</span><span class="p">,</span> <span class="nx">status</span><span class="o">:</span> <span class="mi">200</span> <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+  <span class="nx">ctx</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span> <span class="s2">&#34;content-type&#34;</span><span class="o">:</span> <span class="s2">&#34;application/json&#34;</span><span class="p">,</span> <span class="nx">status</span><span class="o">:</span> <span class="mi">200</span> <span class="p">});</span>
   <span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">query</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="p">});</span>
 
-<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">PORT</span><span class="p">);</span>
 </code></pre></div><p>From the little time I&rsquo;ve spent with all these frameworks, I think I like the look of Koa the most. This was just a very quick look at making a barebones server in all these different packages. Each one has their own ecosystem and quirks, pros and cons. I recommend going through their documentation to see what they can really offer.</p>
 <p>Next up, a selection of flavors from the server side of Python frameworks.</p>
 
@@ -436,7 +436,7 @@ DATABASE_PORT=5432
 </code></pre><p>Replace the <code>SECRET_KEY</code> with an actual secret key! You can generate one in Python:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">django.core.management.utils</span> <span class="kn">import</span> <span class="n">get_random_secret_key</span>
 
-<span class="n">get_random_secret_key</span><span class="p">(</span><span class="p">)</span>
+<span class="n">get_random_secret_key</span><span class="p">()</span>
 </code></pre></div><p>The database env variables can stay as they are, since those settings happily coincide with the default database, user and password in the <a href="https://hub.docker.com/_/postgres">Postgres Docker Image</a>!</p>
 <p>Now, replace &ldquo;drfx&rdquo; with &ldquo;vgstack&rdquo; everywhere it appears in the project, such as in values for <code>ROOT_URLCONF</code>, <code>WSGI_APPLICATION</code> and even the main &ldquo;drfx&rdquo; directory!</p>
 <p>We also modify our settings file in order to use <code>python-dotenv</code>. In the end, it should look like this:</p>
@@ -447,38 +447,38 @@ DATABASE_PORT=5432
 <span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
 
 
-<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
-<span class="n">dotenv_path</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">.env</span><span class="s1">&#39;</span>
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">dotenv_path</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s1">&#39;.env&#39;</span>
 <span class="n">load_dotenv</span><span class="p">(</span><span class="n">dotenv_path</span><span class="o">=</span><span class="n">dotenv_path</span><span class="p">)</span>
 
 
 <span class="c1"># SECURITY WARNING: don&#39;t run with debug turned on in production!</span>
-<span class="n">DEBUG</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DEBUG</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="n">DEBUG</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;DEBUG&#34;</span><span class="p">)</span>
 
 <span class="c1"># SECURITY WARNING: keep the secret key used in production secret!</span>
-<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">SECRET_KEY</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;SECRET_KEY&#34;</span><span class="p">)</span>
 
 <span class="c1"># Allow communicaiton from our Docker container if DEBUG=True</span>
-<span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">0.0.0.0</span><span class="s2">&#34;</span><span class="p">]</span> <span class="k">if</span> <span class="n">DEBUG</span> <span class="k">else</span> <span class="p">[</span><span class="p">]</span>
+<span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">]</span> <span class="k">if</span> <span class="n">DEBUG</span> <span class="k">else</span> <span class="p">[]</span>
 
 <span class="c1"># ...</span>
 
-<span class="n">ROOT_URLCONF</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">vgstack.urls</span><span class="s2">&#34;</span>
+<span class="n">ROOT_URLCONF</span> <span class="o">=</span> <span class="s2">&#34;vgstack.urls&#34;</span>
 
 <span class="c1"># ...</span>
 
-<span class="n">WSGI_APPLICATION</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">vgstack.wsgi.application</span><span class="s2">&#34;</span>
+<span class="n">WSGI_APPLICATION</span> <span class="o">=</span> <span class="s2">&#34;vgstack.wsgi.application&#34;</span>
 
 <span class="c1"># Database</span>
 <span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="sa"></span><span class="s2">&#34;</span><span class="s2">default</span><span class="s2">&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">ENGINE</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">django.db.backends.postgresql</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">NAME</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DATABASE_NAME</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">USER</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DATABASE_USER</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">PASSWORD</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DATABASE_PASSWORD</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">HOST</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DATABASE_HOST</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">PORT</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DATABASE_PORT</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">CONN_MAX_AGE</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">7200</span><span class="p">,</span>
+  <span class="s2">&#34;default&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&#34;ENGINE&#34;</span><span class="p">:</span> <span class="s2">&#34;django.db.backends.postgresql&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;NAME&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;DATABASE_NAME&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;USER&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;DATABASE_USER&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;PASSWORD&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;DATABASE_PASSWORD&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;HOST&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;DATABASE_HOST&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;PORT&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;DATABASE_PORT&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;CONN_MAX_AGE&#34;</span><span class="p">:</span> <span class="mi">7200</span><span class="p">,</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
@@ -487,38 +487,38 @@ DATABASE_PORT=5432
 <h3 id="docker">Docker</h3>
 <p>Let&rsquo;s build a simple Python Dockerfile!</p>
 <div class="highlight"><pre class="chroma"><code class="language-docker" data-lang="docker"><span class="c"># vgstack/Dockerfile</span><span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># pull the Python official base image, slimmed down</span><span class="err">
 </span><span class="err"></span><span class="k">FROM</span><span class="s"> python:3.7-slim</span><span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># set environment varibles</span><span class="err">
 </span><span class="err"></span><span class="k">ENV</span> PYTHONDONTWRITEBYTECODE <span class="m">1</span><span class="err">
 </span><span class="err"></span><span class="k">ENV</span> PYTHONUNBUFFERED <span class="m">1</span><span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># set work directory</span><span class="err">
 </span><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /usr/src/app</span><span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># install dependencies with Pipenv</span><span class="err">
 </span><span class="err"></span><span class="k">RUN</span> pip install --upgrade pip <span class="o">&amp;&amp;</span> pip install pipenv<span class="err">
 </span><span class="err"></span><span class="k">COPY</span> ./Pipfile /usr/src/app/Pipfile<span class="err">
 </span><span class="err"></span><span class="k">RUN</span> pipenv install --system --skip-lock<span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># copy project over to image</span><span class="err">
 </span><span class="err"></span><span class="k">COPY</span> . /usr/src/app/<span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># specify our entrypoint</span><span class="err">
 </span><span class="err"></span><span class="k">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&#34;./docker-entrypoint.sh&#34;</span><span class="p">]</span><span class="err">
 </span></code></pre></div><p>And a nice docker-compose file to help us run the project and related services.</p>
 <div class="highlight"><pre class="chroma"><code class="language-docker" data-lang="docker"><span class="c"># vgstack/docker-compose.yml</span><span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span>version: <span class="s1">&#39;3.7&#39;</span><span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span>services:<span class="err">
 </span><span class="err"></span>  database:<span class="err">
 </span><span class="err"></span>    image: postgres:11-alpine<span class="err">
 </span><span class="err"></span>    volumes:<span class="err">
 </span><span class="err"></span>      - postgres_data:/var/lib/postgresql/data/<span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span>  web:<span class="err">
 </span><span class="err"></span>    build: .<span class="err">
 </span><span class="err"></span>    entrypoint: /usr/src/app/docker-entrypoint.sh<span class="err">
@@ -540,7 +540,7 @@ DATABASE_PORT=5432
 
 <span class="nb">set</span> -e
 
-postgres_ready<span class="o">(</span><span class="o">)</span><span class="o">{</span>
+postgres_ready<span class="o">(){</span>
 python manage.py shell <span class="s">&lt;&lt; END
 </span><span class="s">import sys
 </span><span class="s">import psycopg2
@@ -613,7 +613,7 @@ line-length = 88
 <p>From the docs, we see that <em>&ldquo;objects of different types, except different numeric types, never compare equal.&quot;</em> We can test this out as follows:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Comparison between objects of different types, one non-numeric</span>
 <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">y</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">1</span><span class="s1">&#39;</span>
+<span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
 <span class="n">x</span> <span class="o">==</span> <span class="n">y</span>  <span class="c1"># False, x and y are different objects</span>
 
 <span class="c1"># Comparison between different numeric types</span>
@@ -623,25 +623,25 @@ line-length = 88
 <span class="n">x</span> <span class="o">==</span> <span class="n">y</span>   <span class="c1"># True</span>
 </code></pre></div><p>We can also define equality on our own objects by writing an <code>__eq__()</code> dunder method:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Goomba</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="p">:</span>
-        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
-</span><span class="s2"></span><span class="s2">        Goomba is equal to other if the sum of their values is even </span><span class="s2">
-</span><span class="s2"></span><span class="s2">        </span><span class="s2">&#34;&#34;&#34;</span>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">        Goomba is equal to other if the sum of their values is even 
+</span><span class="s2">        &#34;&#34;&#34;</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">True</span>
         <span class="k">return</span> <span class="bp">False</span>
 
 <span class="k">class</span> <span class="nc">Koopa</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="p">:</span>
-        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
-</span><span class="s2"></span><span class="s2">        Koopa is equal to other if the sum of their values is odd</span><span class="s2">
-</span><span class="s2"></span><span class="s2">        </span><span class="s2">&#34;&#34;&#34;</span>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">        Koopa is equal to other if the sum of their values is odd
+</span><span class="s2">        &#34;&#34;&#34;</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">False</span>
         <span class="k">return</span> <span class="bp">True</span>
@@ -677,22 +677,22 @@ line-length = 88
 <h1 id="equality-vs-identity-in-python-strings">Equality vs Identity in Python Strings</h1>
 <p>Well, what about strings? We know that strings in Python are immutable objects. And as we might expect, <code>'hello, world' is 'hello, world'</code> = <code>True</code>! But here&rsquo;s where things start to get interesting&hellip;</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Example 1</span>
-<span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span> <span class="ow">is</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>  <span class="c1"># True</span>
+<span class="s1">&#39;hello, world&#39;</span> <span class="ow">is</span> <span class="s1">&#39;hello, world&#39;</span>  <span class="c1"># True</span>
 
 <span class="c1"># Example 2</span>
-<span class="n">str_1</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>
-<span class="n">str_2</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>
+<span class="n">str_1</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
+<span class="n">str_2</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
 <span class="n">str_1</span> <span class="ow">is</span> <span class="n">str_2</span>  <span class="c1"># False (!)</span>
 
 <span class="c1"># Example 3</span>
-<span class="n">str_1</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">helloworld</span><span class="s1">&#39;</span>
-<span class="n">str_2</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">helloworld</span><span class="s1">&#39;</span>
+<span class="n">str_1</span> <span class="o">=</span> <span class="s1">&#39;helloworld&#39;</span>
+<span class="n">str_2</span> <span class="o">=</span> <span class="s1">&#39;helloworld&#39;</span>
 <span class="n">str_1</span> <span class="ow">is</span> <span class="n">str_2</span>  <span class="c1"># True (?!)</span>
 
 <span class="c1"># Example 4</span>
-<span class="n">str_1</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>
-<span class="n">str_2</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>
-<span class="n">str_1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">, </span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="n">str_2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">, </span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># False(!?!)</span>
+<span class="n">str_1</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
+<span class="n">str_2</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
+<span class="n">str_1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="n">str_2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>  <span class="c1"># False(!?!)</span>
 </code></pre></div><p>What gives? And to make things more interesting, the above code was executed line-by-line on the interactive shell. If you copy the above code into a source file and run the entire file (while printing the results), you will find that the first three conditions are <code>True</code> (the last one remains <code>False</code>). Which means that the second identity operation just changed truth values! And how come removing the comma and whitespace from both strings at the end there didn&rsquo;t make the identity check <code>True</code> again? The key to answering all these questions is: <a href="https://en.wikipedia.org/wiki/String_interning">string interning</a>! Let&rsquo;s talk about it.</p>
 <h2 id="string-interning-or-compare-strings-in-o1-instead-of-on">String Interning, or &ldquo;Compare strings in O(1) instead of O(n)!&rdquo;</h2>
 <p>This concept was completely unknown to me until very recently. <em>String interning</em> is the process by which a particular <code>string</code> object can be stored in an internal dictionary for faster lookups. Further assignments of the same string contents will yield a reference to this stored object instead of creating a new object.</p>
@@ -702,24 +702,24 @@ line-length = 88
 <p>Phew! Now, let&rsquo;s look at how we use manual string interning and get the <code>is</code> operator to work as we expected it to originally:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">intern</span>
 
-<span class="n">str_1</span> <span class="o">=</span> <span class="nb">intern</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">str_2</span> <span class="o">=</span> <span class="nb">intern</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">str_1</span> <span class="o">=</span> <span class="nb">intern</span><span class="p">(</span><span class="s1">&#39;hello, world&#39;</span><span class="p">)</span>
+<span class="n">str_2</span> <span class="o">=</span> <span class="nb">intern</span><span class="p">(</span><span class="s1">&#39;hello, world&#39;</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">str_1</span><span class="p">)</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">str_2</span><span class="p">)</span><span class="p">)</span>  <span class="c1"># &lt;class &#39;str&#39;&gt; &lt;class &#39;str&#39;&gt;</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">str_1</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">str_2</span><span class="p">))</span>  <span class="c1"># &lt;class &#39;str&#39;&gt; &lt;class &#39;str&#39;&gt;</span>
 <span class="k">print</span><span class="p">(</span><span class="n">str_1</span> <span class="ow">is</span> <span class="n">str_2</span><span class="p">)</span>  <span class="c1"># True</span>
 </code></pre></div><p>There it is! Two different references to the same object. We saved memory by not creating two different objects for the same string, we achieved a performance boost by comparing references instead of the contents of the strings, and we learned a lot about Python strings and objects along the way.</p>
 <h1 id="from-a-bug-knowledge">From a bug, knowledge</h1>
 <p>I mentioned at the top that I became interested in this whole string identity vs equality thing because of a bug I found (a.k.a created) at work. Here it is, in all its glory:</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">if</span> <span class="n">database</span> <span class="ow">is</span> <span class="ow">not</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">some_database_alias</span><span class="s1">&#39;</span><span class="p">:</span>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">if</span> <span class="n">database</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;some_database_alias&#39;</span><span class="p">:</span>
     <span class="c1"># ...</span>
 </code></pre></div><p>At first glance, there may not seem to be much of a problem here. However, if the code that is expected to run after the conditional expression is of critical importance, then it pays to make sure that the conditions under which the expression evaluates to true are well understood.</p>
 <p>Then came the time for that line of code to do its one job&hellip;</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">database</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">database</span>
 <span class="k">print</span><span class="p">(</span><span class="n">database</span><span class="p">)</span>  <span class="c1"># &#39;some_database_alias&#39;</span>
-<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">database</span><span class="p">)</span><span class="p">)</span>  <span class="c1"># &lt;class &#39;str&#39;&gt;</span>
-<span class="k">print</span><span class="p">(</span><span class="n">database</span> <span class="o">==</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">some_database_alias</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># True</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">database</span><span class="p">))</span>  <span class="c1"># &lt;class &#39;str&#39;&gt;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">database</span> <span class="o">==</span> <span class="s1">&#39;some_database_alias&#39;</span><span class="p">)</span>  <span class="c1"># True</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">database</span> <span class="ow">is</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">some_database_alias</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># False</span>
+<span class="k">print</span><span class="p">(</span><span class="n">database</span> <span class="ow">is</span> <span class="s1">&#39;some_database_alias&#39;</span><span class="p">)</span>  <span class="c1"># False</span>
 </code></pre></div><p>It didn&rsquo;t work. I wrote an identity comparison where I should have written an equality comparison instead. The moral of the story here: <strong><code>is</code> is not <code>==</code></strong>.</p>
 <h1 id="conclusion">Conclusion</h1>
 <p>What started out as a casual review of Python syntax caused by a simple enough bug turned into a curiosity-driven deep dive into Python string internals and comparison operators. All in good fun. The following article by Adrien Guillo was very helpful and goes into the lower-level goings on of CPython&rsquo;s string interning mechanisms: <a href="http://guilload.com/python-string-interning/">The internals of Python string interning</a>. Satwik Kansal wrote another, higher-level introduction to the topic: <a href="https://www.codementor.io/satwikkansal/do-you-really-think-you-know-strings-in-python-fnxh8mtha">Do you really think you know strings in Python?</a></p>
@@ -757,7 +757,7 @@ $ sudo mkdir /opt <span class="o">&amp;&amp;</span> sudo cp -r build/ppc-unknown
 <p><a href="https://github.com/x43x61x69/gbdk-osx/issues/2"><code>sed -i '' -e '1005d' sdcc/src/SDCC.y</code></a></p>
 <p><a href="https://github.com/co-me/gbdk/issues/5"><code>sudo mkdir /opt &amp;&amp; sudo cp -r build/ppc-unknown-linux2.2/gbdk /opt</code></a></p>
 <p>Make sure to add the path to the new binaries to your <code>PATH</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="s2">/opt/gbdk/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;/opt/gbdk/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
 </code></pre></div><p>Ideally, you would include that line in your <code>.bash_profile</code> or similar. The compiler&rsquo;s front-end (called <code>lcc</code>) would then be easily accessible.</p>
 <p>You could also choose to leave the binaries in-place and make a symbolic link, like so:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ sudo ln -s build/ppc-unknown-linux2.2/gbdk /opt
@@ -765,43 +765,43 @@ $ sudo mkdir /opt <span class="o">&amp;&amp;</span> sudo cp -r build/ppc-unknown
 <h1 id="building-a-minimal-game-boy-game-a-sanity-check">Building a minimal Game Boy game: a sanity check</h1>
 <p>Having come this far, let&rsquo;s make something a bit more involved than a <code>printf(&quot;Hello, world!&quot;);</code> for the Game Boy, shall we?</p>
 <p>Create a file and then copy-paste (or type by hand!) the following code:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;stdio.h&gt; 	// printf(), delay()</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;gb/gb.h&gt;  // joypad(), J_UP, J_DOWN, ...</span><span class="cp">
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt; 	// printf(), delay()</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;gb/gb.h&gt;  // joypad(), J_UP, J_DOWN, ...</span><span class="cp">
 </span><span class="cp"></span>
-<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
 	<span class="c1">// Loop forever
 </span><span class="c1"></span>	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 
 		<span class="c1">// Check the status of the Game Boy Joy Pad
-</span><span class="c1"></span>		<span class="k">switch</span><span class="p">(</span><span class="n">joypad</span><span class="p">(</span><span class="p">)</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="c1"></span>		<span class="k">switch</span><span class="p">(</span><span class="n">joypad</span><span class="p">())</span> <span class="p">{</span>
 
 			<span class="c1">// If the UP button is pressed...
 </span><span class="c1"></span>			<span class="k">case</span> <span class="nl">J_UP</span><span class="p">:</span>
 
 				<span class="c1">// Display &#34;Up!&#34; on the screen
-</span><span class="c1"></span>				<span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;</span><span class="s">Up!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)</span><span class="p">;</span>
+</span><span class="c1"></span>				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Up!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 
 				<span class="c1">// Then wait for half a second...
-</span><span class="c1"></span>				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="p">;</span>
+</span><span class="c1"></span>				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 
 				<span class="c1">// Go back to checking the status of the Joy Pad
 </span><span class="c1"></span>				<span class="k">break</span><span class="p">;</span>
 
 			<span class="c1">// And so on
 </span><span class="c1"></span>			<span class="k">case</span> <span class="nl">J_DOWN</span><span class="p">:</span>
-				<span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;</span><span class="s">Down!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)</span><span class="p">;</span>
-				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="p">;</span>
+				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Down!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 				<span class="k">break</span><span class="p">;</span>
 
 			<span class="k">case</span> <span class="nl">J_LEFT</span><span class="p">:</span>
-				<span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;</span><span class="s">Left!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)</span><span class="p">;</span>
-				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="p">;</span>
+				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Left!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 				<span class="k">break</span><span class="p">;</span>
 
 			<span class="k">case</span> <span class="nl">J_RIGHT</span><span class="p">:</span>
-				<span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;</span><span class="s">Right!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)</span><span class="p">;</span>
-				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="p">;</span>
+				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Right!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 				<span class="k">break</span><span class="p">;</span>
 
 			<span class="k">default</span><span class="o">:</span>

@@ -209,7 +209,7 @@
 <p>From the docs, we see that <em>&ldquo;objects of different types, except different numeric types, never compare equal.&quot;</em> We can test this out as follows:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Comparison between objects of different types, one non-numeric</span>
 <span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">y</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">1</span><span class="s1">&#39;</span>
+<span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>
 <span class="n">x</span> <span class="o">==</span> <span class="n">y</span>  <span class="c1"># False, x and y are different objects</span>
 
 <span class="c1"># Comparison between different numeric types</span>
@@ -219,25 +219,25 @@
 <span class="n">x</span> <span class="o">==</span> <span class="n">y</span>   <span class="c1"># True</span>
 </code></pre></div><p>We can also define equality on our own objects by writing an <code>__eq__()</code> dunder method:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Goomba</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="p">:</span>
-        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
-</span><span class="s2"></span><span class="s2">        Goomba is equal to other if the sum of their values is even </span><span class="s2">
-</span><span class="s2"></span><span class="s2">        </span><span class="s2">&#34;&#34;&#34;</span>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">        Goomba is equal to other if the sum of their values is even 
+</span><span class="s2">        &#34;&#34;&#34;</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">True</span>
         <span class="k">return</span> <span class="bp">False</span>
 
 <span class="k">class</span> <span class="nc">Koopa</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span><span class="p">:</span>
-        <span class="sa"></span><span class="s2">&#34;&#34;&#34;</span><span class="s2">
-</span><span class="s2"></span><span class="s2">        Koopa is equal to other if the sum of their values is odd</span><span class="s2">
-</span><span class="s2"></span><span class="s2">        </span><span class="s2">&#34;&#34;&#34;</span>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">        Koopa is equal to other if the sum of their values is odd
+</span><span class="s2">        &#34;&#34;&#34;</span>
         <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">False</span>
         <span class="k">return</span> <span class="bp">True</span>
@@ -273,22 +273,22 @@
 <h1 id="equality-vs-identity-in-python-strings">Equality vs Identity in Python Strings</h1>
 <p>Well, what about strings? We know that strings in Python are immutable objects. And as we might expect, <code>'hello, world' is 'hello, world'</code> = <code>True</code>! But here&rsquo;s where things start to get interesting&hellip;</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Example 1</span>
-<span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span> <span class="ow">is</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>  <span class="c1"># True</span>
+<span class="s1">&#39;hello, world&#39;</span> <span class="ow">is</span> <span class="s1">&#39;hello, world&#39;</span>  <span class="c1"># True</span>
 
 <span class="c1"># Example 2</span>
-<span class="n">str_1</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>
-<span class="n">str_2</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>
+<span class="n">str_1</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
+<span class="n">str_2</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
 <span class="n">str_1</span> <span class="ow">is</span> <span class="n">str_2</span>  <span class="c1"># False (!)</span>
 
 <span class="c1"># Example 3</span>
-<span class="n">str_1</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">helloworld</span><span class="s1">&#39;</span>
-<span class="n">str_2</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">helloworld</span><span class="s1">&#39;</span>
+<span class="n">str_1</span> <span class="o">=</span> <span class="s1">&#39;helloworld&#39;</span>
+<span class="n">str_2</span> <span class="o">=</span> <span class="s1">&#39;helloworld&#39;</span>
 <span class="n">str_1</span> <span class="ow">is</span> <span class="n">str_2</span>  <span class="c1"># True (?!)</span>
 
 <span class="c1"># Example 4</span>
-<span class="n">str_1</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>
-<span class="n">str_2</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span>
-<span class="n">str_1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">, </span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="n">str_2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">, </span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># False(!?!)</span>
+<span class="n">str_1</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
+<span class="n">str_2</span> <span class="o">=</span> <span class="s1">&#39;hello, world&#39;</span>
+<span class="n">str_1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="n">str_2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>  <span class="c1"># False(!?!)</span>
 </code></pre></div><p>What gives? And to make things more interesting, the above code was executed line-by-line on the interactive shell. If you copy the above code into a source file and run the entire file (while printing the results), you will find that the first three conditions are <code>True</code> (the last one remains <code>False</code>). Which means that the second identity operation just changed truth values! And how come removing the comma and whitespace from both strings at the end there didn&rsquo;t make the identity check <code>True</code> again? The key to answering all these questions is: <a href="https://en.wikipedia.org/wiki/String_interning">string interning</a>! Let&rsquo;s talk about it.</p>
 <h2 id="string-interning-or-compare-strings-in-o1-instead-of-on">String Interning, or &ldquo;Compare strings in O(1) instead of O(n)!&rdquo;</h2>
 <p>This concept was completely unknown to me until very recently. <em>String interning</em> is the process by which a particular <code>string</code> object can be stored in an internal dictionary for faster lookups. Further assignments of the same string contents will yield a reference to this stored object instead of creating a new object.</p>
@@ -298,24 +298,24 @@
 <p>Phew! Now, let&rsquo;s look at how we use manual string interning and get the <code>is</code> operator to work as we expected it to originally:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sys</span> <span class="kn">import</span> <span class="nb">intern</span>
 
-<span class="n">str_1</span> <span class="o">=</span> <span class="nb">intern</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">str_2</span> <span class="o">=</span> <span class="nb">intern</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">hello, world</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">str_1</span> <span class="o">=</span> <span class="nb">intern</span><span class="p">(</span><span class="s1">&#39;hello, world&#39;</span><span class="p">)</span>
+<span class="n">str_2</span> <span class="o">=</span> <span class="nb">intern</span><span class="p">(</span><span class="s1">&#39;hello, world&#39;</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">str_1</span><span class="p">)</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">str_2</span><span class="p">)</span><span class="p">)</span>  <span class="c1"># &lt;class &#39;str&#39;&gt; &lt;class &#39;str&#39;&gt;</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">str_1</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">str_2</span><span class="p">))</span>  <span class="c1"># &lt;class &#39;str&#39;&gt; &lt;class &#39;str&#39;&gt;</span>
 <span class="k">print</span><span class="p">(</span><span class="n">str_1</span> <span class="ow">is</span> <span class="n">str_2</span><span class="p">)</span>  <span class="c1"># True</span>
 </code></pre></div><p>There it is! Two different references to the same object. We saved memory by not creating two different objects for the same string, we achieved a performance boost by comparing references instead of the contents of the strings, and we learned a lot about Python strings and objects along the way.</p>
 <h1 id="from-a-bug-knowledge">From a bug, knowledge</h1>
 <p>I mentioned at the top that I became interested in this whole string identity vs equality thing because of a bug I found (a.k.a created) at work. Here it is, in all its glory:</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">if</span> <span class="n">database</span> <span class="ow">is</span> <span class="ow">not</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">some_database_alias</span><span class="s1">&#39;</span><span class="p">:</span>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">if</span> <span class="n">database</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;some_database_alias&#39;</span><span class="p">:</span>
     <span class="c1"># ...</span>
 </code></pre></div><p>At first glance, there may not seem to be much of a problem here. However, if the code that is expected to run after the conditional expression is of critical importance, then it pays to make sure that the conditions under which the expression evaluates to true are well understood.</p>
 <p>Then came the time for that line of code to do its one job&hellip;</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">database</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">database</span>
 <span class="k">print</span><span class="p">(</span><span class="n">database</span><span class="p">)</span>  <span class="c1"># &#39;some_database_alias&#39;</span>
-<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">database</span><span class="p">)</span><span class="p">)</span>  <span class="c1"># &lt;class &#39;str&#39;&gt;</span>
-<span class="k">print</span><span class="p">(</span><span class="n">database</span> <span class="o">==</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">some_database_alias</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># True</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">database</span><span class="p">))</span>  <span class="c1"># &lt;class &#39;str&#39;&gt;</span>
+<span class="k">print</span><span class="p">(</span><span class="n">database</span> <span class="o">==</span> <span class="s1">&#39;some_database_alias&#39;</span><span class="p">)</span>  <span class="c1"># True</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">database</span> <span class="ow">is</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">some_database_alias</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># False</span>
+<span class="k">print</span><span class="p">(</span><span class="n">database</span> <span class="ow">is</span> <span class="s1">&#39;some_database_alias&#39;</span><span class="p">)</span>  <span class="c1"># False</span>
 </code></pre></div><p>It didn&rsquo;t work. I wrote an identity comparison where I should have written an equality comparison instead. The moral of the story here: <strong><code>is</code> is not <code>==</code></strong>.</p>
 <h1 id="conclusion">Conclusion</h1>
 <p>What started out as a casual review of Python syntax caused by a simple enough bug turned into a curiosity-driven deep dive into Python string internals and comparison operators. All in good fun. The following article by Adrien Guillo was very helpful and goes into the lower-level goings on of CPython&rsquo;s string interning mechanisms: <a href="http://guilload.com/python-string-interning/">The internals of Python string interning</a>. Satwik Kansal wrote another, higher-level introduction to the topic: <a href="https://www.codementor.io/satwikkansal/do-you-really-think-you-know-strings-in-python-fnxh8mtha">Do you really think you know strings in Python?</a></p>

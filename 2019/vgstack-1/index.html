@@ -244,7 +244,7 @@ DATABASE_PORT=5432
 </code></pre><p>Replace the <code>SECRET_KEY</code> with an actual secret key! You can generate one in Python:</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">django.core.management.utils</span> <span class="kn">import</span> <span class="n">get_random_secret_key</span>
 
-<span class="n">get_random_secret_key</span><span class="p">(</span><span class="p">)</span>
+<span class="n">get_random_secret_key</span><span class="p">()</span>
 </code></pre></div><p>The database env variables can stay as they are, since those settings happily coincide with the default database, user and password in the <a href="https://hub.docker.com/_/postgres">Postgres Docker Image</a>!</p>
 <p>Now, replace &ldquo;drfx&rdquo; with &ldquo;vgstack&rdquo; everywhere it appears in the project, such as in values for <code>ROOT_URLCONF</code>, <code>WSGI_APPLICATION</code> and even the main &ldquo;drfx&rdquo; directory!</p>
 <p>We also modify our settings file in order to use <code>python-dotenv</code>. In the end, it should look like this:</p>
@@ -255,38 +255,38 @@ DATABASE_PORT=5432
 <span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
 
 
-<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
-<span class="n">dotenv_path</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">.env</span><span class="s1">&#39;</span>
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">dotenv_path</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s1">&#39;.env&#39;</span>
 <span class="n">load_dotenv</span><span class="p">(</span><span class="n">dotenv_path</span><span class="o">=</span><span class="n">dotenv_path</span><span class="p">)</span>
 
 
 <span class="c1"># SECURITY WARNING: don&#39;t run with debug turned on in production!</span>
-<span class="n">DEBUG</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DEBUG</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="n">DEBUG</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;DEBUG&#34;</span><span class="p">)</span>
 
 <span class="c1"># SECURITY WARNING: keep the secret key used in production secret!</span>
-<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">SECRET_KEY</span><span class="s2">&#34;</span><span class="p">)</span>
+<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;SECRET_KEY&#34;</span><span class="p">)</span>
 
 <span class="c1"># Allow communicaiton from our Docker container if DEBUG=True</span>
-<span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">0.0.0.0</span><span class="s2">&#34;</span><span class="p">]</span> <span class="k">if</span> <span class="n">DEBUG</span> <span class="k">else</span> <span class="p">[</span><span class="p">]</span>
+<span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">]</span> <span class="k">if</span> <span class="n">DEBUG</span> <span class="k">else</span> <span class="p">[]</span>
 
 <span class="c1"># ...</span>
 
-<span class="n">ROOT_URLCONF</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">vgstack.urls</span><span class="s2">&#34;</span>
+<span class="n">ROOT_URLCONF</span> <span class="o">=</span> <span class="s2">&#34;vgstack.urls&#34;</span>
 
 <span class="c1"># ...</span>
 
-<span class="n">WSGI_APPLICATION</span> <span class="o">=</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">vgstack.wsgi.application</span><span class="s2">&#34;</span>
+<span class="n">WSGI_APPLICATION</span> <span class="o">=</span> <span class="s2">&#34;vgstack.wsgi.application&#34;</span>
 
 <span class="c1"># Database</span>
 <span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="sa"></span><span class="s2">&#34;</span><span class="s2">default</span><span class="s2">&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">ENGINE</span><span class="s2">&#34;</span><span class="p">:</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">django.db.backends.postgresql</span><span class="s2">&#34;</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">NAME</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DATABASE_NAME</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">USER</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DATABASE_USER</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">PASSWORD</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DATABASE_PASSWORD</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">HOST</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DATABASE_HOST</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">PORT</span><span class="s2">&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;</span><span class="s2">DATABASE_PORT</span><span class="s2">&#34;</span><span class="p">)</span><span class="p">,</span>
-    <span class="sa"></span><span class="s2">&#34;</span><span class="s2">CONN_MAX_AGE</span><span class="s2">&#34;</span><span class="p">:</span> <span class="mi">7200</span><span class="p">,</span>
+  <span class="s2">&#34;default&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&#34;ENGINE&#34;</span><span class="p">:</span> <span class="s2">&#34;django.db.backends.postgresql&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;NAME&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;DATABASE_NAME&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;USER&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;DATABASE_USER&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;PASSWORD&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;DATABASE_PASSWORD&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;HOST&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;DATABASE_HOST&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;PORT&#34;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;DATABASE_PORT&#34;</span><span class="p">),</span>
+    <span class="s2">&#34;CONN_MAX_AGE&#34;</span><span class="p">:</span> <span class="mi">7200</span><span class="p">,</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
@@ -295,38 +295,38 @@ DATABASE_PORT=5432
 <h3 id="docker">Docker</h3>
 <p>Let&rsquo;s build a simple Python Dockerfile!</p>
 <div class="highlight"><pre class="chroma"><code class="language-docker" data-lang="docker"><span class="c"># vgstack/Dockerfile</span><span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># pull the Python official base image, slimmed down</span><span class="err">
 </span><span class="err"></span><span class="k">FROM</span><span class="s"> python:3.7-slim</span><span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># set environment varibles</span><span class="err">
 </span><span class="err"></span><span class="k">ENV</span> PYTHONDONTWRITEBYTECODE <span class="m">1</span><span class="err">
 </span><span class="err"></span><span class="k">ENV</span> PYTHONUNBUFFERED <span class="m">1</span><span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># set work directory</span><span class="err">
 </span><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /usr/src/app</span><span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># install dependencies with Pipenv</span><span class="err">
 </span><span class="err"></span><span class="k">RUN</span> pip install --upgrade pip <span class="o">&amp;&amp;</span> pip install pipenv<span class="err">
 </span><span class="err"></span><span class="k">COPY</span> ./Pipfile /usr/src/app/Pipfile<span class="err">
 </span><span class="err"></span><span class="k">RUN</span> pipenv install --system --skip-lock<span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># copy project over to image</span><span class="err">
 </span><span class="err"></span><span class="k">COPY</span> . /usr/src/app/<span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># specify our entrypoint</span><span class="err">
 </span><span class="err"></span><span class="k">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&#34;./docker-entrypoint.sh&#34;</span><span class="p">]</span><span class="err">
 </span></code></pre></div><p>And a nice docker-compose file to help us run the project and related services.</p>
 <div class="highlight"><pre class="chroma"><code class="language-docker" data-lang="docker"><span class="c"># vgstack/docker-compose.yml</span><span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span>version: <span class="s1">&#39;3.7&#39;</span><span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span>services:<span class="err">
 </span><span class="err"></span>  database:<span class="err">
 </span><span class="err"></span>    image: postgres:11-alpine<span class="err">
 </span><span class="err"></span>    volumes:<span class="err">
 </span><span class="err"></span>      - postgres_data:/var/lib/postgresql/data/<span class="err">
-</span><span class="err"></span><span class="err">
+</span><span class="err">
 </span><span class="err"></span>  web:<span class="err">
 </span><span class="err"></span>    build: .<span class="err">
 </span><span class="err"></span>    entrypoint: /usr/src/app/docker-entrypoint.sh<span class="err">
@@ -348,7 +348,7 @@ DATABASE_PORT=5432
 
 <span class="nb">set</span> -e
 
-postgres_ready<span class="o">(</span><span class="o">)</span><span class="o">{</span>
+postgres_ready<span class="o">(){</span>
 python manage.py shell <span class="s">&lt;&lt; END
 </span><span class="s">import sys
 </span><span class="s">import psycopg2

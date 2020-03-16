@@ -222,7 +222,7 @@ $ sudo mkdir /opt <span class="o">&amp;&amp;</span> sudo cp -r build/ppc-unknown
 <p><a href="https://github.com/x43x61x69/gbdk-osx/issues/2"><code>sed -i '' -e '1005d' sdcc/src/SDCC.y</code></a></p>
 <p><a href="https://github.com/co-me/gbdk/issues/5"><code>sudo mkdir /opt &amp;&amp; sudo cp -r build/ppc-unknown-linux2.2/gbdk /opt</code></a></p>
 <p>Make sure to add the path to the new binaries to your <code>PATH</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="s2">/opt/gbdk/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;/opt/gbdk/bin:</span><span class="nv">$PATH</span><span class="s2">&#34;</span>
 </code></pre></div><p>Ideally, you would include that line in your <code>.bash_profile</code> or similar. The compiler&rsquo;s front-end (called <code>lcc</code>) would then be easily accessible.</p>
 <p>You could also choose to leave the binaries in-place and make a symbolic link, like so:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ sudo ln -s build/ppc-unknown-linux2.2/gbdk /opt
@@ -230,43 +230,43 @@ $ sudo mkdir /opt <span class="o">&amp;&amp;</span> sudo cp -r build/ppc-unknown
 <h1 id="building-a-minimal-game-boy-game-a-sanity-check">Building a minimal Game Boy game: a sanity check</h1>
 <p>Having come this far, let&rsquo;s make something a bit more involved than a <code>printf(&quot;Hello, world!&quot;);</code> for the Game Boy, shall we?</p>
 <p>Create a file and then copy-paste (or type by hand!) the following code:</p>
-<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;stdio.h&gt; 	// printf(), delay()</span><span class="cp">
-</span><span class="cp"></span><span class="cp">#</span><span class="cp">include</span> <span class="cpf">&lt;gb/gb.h&gt;  // joypad(), J_UP, J_DOWN, ...</span><span class="cp">
+<div class="highlight"><pre class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt; 	// printf(), delay()</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;gb/gb.h&gt;  // joypad(), J_UP, J_DOWN, ...</span><span class="cp">
 </span><span class="cp"></span>
-<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+<span class="kt">void</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 
 	<span class="c1">// Loop forever
 </span><span class="c1"></span>	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 
 		<span class="c1">// Check the status of the Game Boy Joy Pad
-</span><span class="c1"></span>		<span class="k">switch</span><span class="p">(</span><span class="n">joypad</span><span class="p">(</span><span class="p">)</span><span class="p">)</span> <span class="p">{</span>
+</span><span class="c1"></span>		<span class="k">switch</span><span class="p">(</span><span class="n">joypad</span><span class="p">())</span> <span class="p">{</span>
 
 			<span class="c1">// If the UP button is pressed...
 </span><span class="c1"></span>			<span class="k">case</span> <span class="nl">J_UP</span><span class="p">:</span>
 
 				<span class="c1">// Display &#34;Up!&#34; on the screen
-</span><span class="c1"></span>				<span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;</span><span class="s">Up!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)</span><span class="p">;</span>
+</span><span class="c1"></span>				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Up!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 
 				<span class="c1">// Then wait for half a second...
-</span><span class="c1"></span>				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="p">;</span>
+</span><span class="c1"></span>				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 
 				<span class="c1">// Go back to checking the status of the Joy Pad
 </span><span class="c1"></span>				<span class="k">break</span><span class="p">;</span>
 
 			<span class="c1">// And so on
 </span><span class="c1"></span>			<span class="k">case</span> <span class="nl">J_DOWN</span><span class="p">:</span>
-				<span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;</span><span class="s">Down!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)</span><span class="p">;</span>
-				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="p">;</span>
+				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Down!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 				<span class="k">break</span><span class="p">;</span>
 
 			<span class="k">case</span> <span class="nl">J_LEFT</span><span class="p">:</span>
-				<span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;</span><span class="s">Left!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)</span><span class="p">;</span>
-				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="p">;</span>
+				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Left!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 				<span class="k">break</span><span class="p">;</span>
 
 			<span class="k">case</span> <span class="nl">J_RIGHT</span><span class="p">:</span>
-				<span class="n">printf</span><span class="p">(</span><span class="sa"></span><span class="s">&#34;</span><span class="s">Right!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)</span><span class="p">;</span>
-				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span><span class="p">;</span>
+				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Right!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 				<span class="k">break</span><span class="p">;</span>
 
 			<span class="k">default</span><span class="o">:</span>
