@@ -6,7 +6,7 @@
     <description>Recent content in Fixeds on Raúl Negrón&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://raulnegron.me/fixed/index.xml" rel="self" type="application/rss+xml" />
     
@@ -44,6 +44,15 @@ Tech Highlights:
 Tech Highlights:
  TypeScript MongoDB Web scraping Available at: http://cc.rauln.com TypeDoc available at: https://raulnegron.me/cc-api/  django-athm Django app for handling ATH Móvil payments.
 Tech Highlights:</description>
+    </item>
+    
+    <item>
+      <title>Translations</title>
+      <link>https://raulnegron.me/translations/</link>
+      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://raulnegron.me/translations/</guid>
+      <description> Paper Mario Japanese Website  </description>
     </item>
     
   </channel>
