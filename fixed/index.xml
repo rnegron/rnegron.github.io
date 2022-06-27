@@ -6,18 +6,14 @@
     <description>Recent content in Fixeds on Raúl Negrón&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 05 Jul 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://raulnegron.me/fixed/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 05 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://raulnegron.me/fixed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Me</title>
       <link>https://raulnegron.me/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://raulnegron.me/about/</guid>
-      <description>At Ginzan Onsen     I was born February 5th, 1995. I got my bachelor&amp;rsquo;s degree in Computer Science from the University of Puerto Rico at Río Piedras in early 2018.
+      <description>At Ginzan Onsen I was born February 5th, 1995. I got my bachelor&amp;rsquo;s degree in Computer Science from the University of Puerto Rico at Río Piedras in early 2018.
 Apart from computer science and math, I enjoy studying philosophy and different languages. If you&amp;rsquo;re interested in my resume, you can obtain it here.</description>
     </item>
     
@@ -38,12 +34,13 @@ So, I thought I would contribute by making my own /uses!</description>
       
       <guid>https://raulnegron.me/projects/</guid>
       <description>Here are my open-source projects as well as some projects I&amp;rsquo;ve contributed to.
- noticias-pr A command-line interface for reading the latest from local news sites in Puerto Rico.
+noticias-pr A command-line interface for reading the latest from local news sites in Puerto Rico.
 Tech Highlights:
- NodeJS Web scraping Available on npm  cc-api An open-source API for Caribbean Cinemas.
+NodeJS Web scraping Available on npm cc-api An open-source API for Caribbean Cinemas.
 Tech Highlights:
- TypeScript MongoDB Web scraping Available at: http://cc.rauln.com TypeDoc available at: https://raulnegron.me/cc-api/  django-athm Django app for handling ATH Móvil payments.
-Tech Highlights:</description>
+TypeScript MongoDB Web scraping Available at: http://cc.rauln.com TypeDoc available at: https://raulnegron.me/cc-api/ django-athm Django app for handling ATH Móvil payments.
+Tech Highlights:
+Django Templates Available on PyPI and Django Packages dino-gb A Nintendo Game Boy port of the Google Chrome T-Rex game.</description>
     </item>
     
     <item>
@@ -52,7 +49,7 @@ Tech Highlights:</description>
       <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://raulnegron.me/translations/</guid>
-      <description> Paper Mario Japanese Website  </description>
+      <description> Paper Mario Japanese Website </description>
     </item>
     
   </channel>

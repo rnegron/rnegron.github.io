@@ -6,11 +6,7 @@
     <description>Recent content in docker on Raúl Negrón&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Jan 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://raulnegron.me/tags/docker/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 19 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://raulnegron.me/tags/docker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Full-Stack Project: vg-stack (Part 1)</title>
       <link>https://raulnegron.me/2019/vgstack-1/</link>
