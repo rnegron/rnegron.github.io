@@ -1,49 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>programming on Raúl Negrón&#39;s Website</title>
+    <title>Programming on Raúl Negrón&#39;s Website</title>
     <link>https://raulnegron.me/tags/programming/</link>
-    <description>Recent content in programming on Raúl Negrón&#39;s Website</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Programming on Raúl Negrón&#39;s Website</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 26 Jan 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://raulnegron.me/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://raulnegron.me/tags/programming/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Server-side JavaScript, available in 6 flavors</title>
       <link>https://raulnegron.me/2019/server-side-javascript-flavors/</link>
       <pubDate>Sat, 26 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/2019/server-side-javascript-flavors/</guid>
-      <description>I&amp;rsquo;ve been reading up on JavaScript these past few months. I feel like there used to be a stigma against the language during my time at university, and maybe there still is. I dug up and read a book I once bought called JavaScript: The Good Parts by Douglas Crockford. It&amp;rsquo;s outdated now, but I used to joke that if &amp;ldquo;The Good Parts&amp;rdquo; could be described in 172 pages&amp;hellip; Well, suffice it to say, I was not very encouraged.</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve been reading up on JavaScript these past few months. I feel like there used to be a stigma against the language during my time at university, and maybe there still is. I dug up and read a book I once bought called &lt;a href=&#34;http://shop.oreilly.com/product/9780596517748.do&#34;&gt;JavaScript: The Good Parts&lt;/a&gt; by Douglas Crockford. It&amp;rsquo;s outdated now, but I used to joke that if &amp;ldquo;The Good Parts&amp;rdquo; could be described in 172 pages&amp;hellip; Well, suffice it to say, I was not very encouraged.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Full-Stack Project: vg-stack (Part 1)</title>
       <link>https://raulnegron.me/2019/vgstack-1/</link>
       <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/2019/vgstack-1/</guid>
-      <description>Motivation In the web development space, tools and best-practices change quite frequently. At one point in the not-so-distant past, a LAMP stack was the go-to approach for launching a web application. These days, PHP is the #8 most popular programming language (according to a company with the name &amp;ldquo;The Importance Of Being Earnest&amp;rdquo;), while Python and JavaScript rank above it.
-One of the reason for this change has to do with the growing trend towards microservice architectures.</description>
+      <description>&lt;h1 id=&#34;motivation&#34;&gt;Motivation&lt;/h1&gt;&#xA;&lt;p&gt;In the web development space, tools and best-practices change quite frequently. At one point in the not-so-distant past, a &lt;a href=&#34;https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29&#34;&gt;LAMP&lt;/a&gt; stack was the go-to approach for launching a web application. These days, PHP is the #8 most popular programming language (according to a company with the name &lt;a href=&#34;https://www.tiobe.com/tiobe-index/&#34;&gt;&amp;ldquo;The Importance Of Being Earnest&amp;rdquo;&lt;/a&gt;), while Python and JavaScript rank above it.&lt;/p&gt;&#xA;&lt;p&gt;One of the reason for this change has to do with the growing trend towards microservice architectures. Together with the need for rapid prototyping and the onset of agile development methodologies, Python and other languages have swept in and stolen the LAMP stack&amp;rsquo;s lunch.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Identity and Equality in Python</title>
       <link>https://raulnegron.me/2018/dev-python-strings-identity-vs-equality/</link>
       <pubDate>Fri, 27 Jul 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/2018/dev-python-strings-identity-vs-equality/</guid>
-      <description>I would consider Python to be the programming language I&amp;rsquo;m most comfortable writing code in. There&amp;rsquo;s plenty to love, and one of its more recognizable features is its simple to read syntax. I&amp;rsquo;ve heard the phrase &amp;ldquo;executable pseudocode&amp;rdquo; thrown around before, and its easy to see where the comparisons come from.
-A great side effect of sporting such a relatively simple to understand syntax is its mass appeal, with people jumping in with little programming knowledge and using Python to jump start their new coding adventures.</description>
+      <description>&lt;p&gt;I would consider &lt;a href=&#34;https://www.python.org/&#34;&gt;Python&lt;/a&gt; to be the programming language I&amp;rsquo;m most comfortable writing code in. There&amp;rsquo;s plenty to love, and one of its more recognizable features is its simple to read &lt;a href=&#34;https://en.wikipedia.org/wiki/Python_syntax_and_semantics&#34;&gt;syntax&lt;/a&gt;. I&amp;rsquo;ve heard the phrase &amp;ldquo;executable pseudocode&amp;rdquo; thrown around before, and its easy to see where the comparisons come from.&lt;/p&gt;&#xA;&lt;p&gt;A great side effect of sporting such a relatively simple to understand syntax is its &lt;a href=&#34;https://www.economist.com/science-and-technology/2018/07/21/python-has-brought-computer-programming-to-a-vast-new-audience&#34;&gt;mass appeal&lt;/a&gt;, with people jumping in with little programming knowledge and using Python to jump start their new coding adventures.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Getting started with Game Boy development on Mac</title>
       <link>https://raulnegron.me/2018/starting-gb-dev/</link>
       <pubDate>Sat, 21 Apr 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/2018/starting-gb-dev/</guid>
-      <description>I don&amp;rsquo;t know what inspired it, but recently I got the idea that programming for an old game console would make for a fun project. Apart from giving me an excuse to write code in a language other than Python, it&amp;rsquo;s something I&amp;rsquo;ve wanted to do ever since I learned that programming was at the heart of all the great games I&amp;rsquo;ve played throughout the years. So, I decided to find out how feasible it would be to program for one of these old school gaming systems.</description>
+      <description>&lt;br&gt;&#xA;&lt;center&gt;&#xA;&lt;img src=&#34;https://raulnegron.me/img/gameboy.jpg&#34; style=&#34;width: 170px;&#34;/&gt;&#xA;&lt;/center&gt;&#xA;&lt;br&gt;&#xA;&lt;p&gt;I don&amp;rsquo;t know what inspired it, but recently I got the idea that programming for an old game console would make for a fun project. Apart from giving me an excuse to write code in a language other than Python, it&amp;rsquo;s something I&amp;rsquo;ve wanted to do ever since I learned that programming was at the heart of all the great games I&amp;rsquo;ve played throughout the years. So, I decided to find out how feasible it would be to program for one of these old school gaming systems.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

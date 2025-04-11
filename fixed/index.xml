@@ -4,53 +4,37 @@
     <title>Fixeds on Raúl Negrón&#39;s Website</title>
     <link>https://raulnegron.me/fixed/</link>
     <description>Recent content in Fixeds on Raúl Negrón&#39;s Website</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 05 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://raulnegron.me/fixed/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Jul 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://raulnegron.me/fixed/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Me</title>
       <link>https://raulnegron.me/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/about/</guid>
-      <description>At Ginzan Onsen I was born February 5th, 1995. I got my bachelor&amp;rsquo;s degree in Computer Science from the University of Puerto Rico at Río Piedras in early 2018.
-Apart from computer science and math, I enjoy studying philosophy and different languages. If you&amp;rsquo;re interested in my resume, you can obtain it here.</description>
+      <description>&lt;center&gt;&#xA;  &lt;figure&gt;&#xA;  &lt;img src=&#34;https://raulnegron.me/img/ginzan.jpg&#34; alt=&#34;At Ginzan Onsen in Japan&#34; style=&#34;float: left; margin: 0px 40px 30px 0px; max-width: 20%; max-height: 20%;&#34;/&gt;&#xA;  &lt;figcaption style=&#34;clear: left; float: left; font-size: .7em;&#34;&gt;&#xA;    &lt;em&gt;At &lt;a href=&#34;http://www.japan-guide.com/e/e7975.html&#34;&gt;Ginzan Onsen&lt;/a&gt;&#xA;    &lt;/em&gt;&#xA;  &lt;/figcaption&gt;&#xA;  &lt;/figure&gt;&#xA;&lt;/center&gt;&#xA;&lt;p&gt;I was born February 5th, 1995. I got my bachelor&amp;rsquo;s degree in Computer Science from the &lt;a href=&#34;https://en.wikipedia.org/wiki/University_of_Puerto_Rico,_R%C3%ADo_Piedras_Campus&#34;&gt;University of Puerto Rico at Río Piedras&lt;/a&gt; in early 2018.&lt;/p&gt;&#xA;&lt;p&gt;Apart from computer science and math, I enjoy studying philosophy and different languages. If you&amp;rsquo;re interested in my resume, you can obtain it &lt;a href=&#34;https://github.com/rnegron/resume/blob/master/rnegron_resume.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Uses</title>
       <link>https://raulnegron.me/uses/</link>
-      <pubDate>Sun, 02 Feb 2020 00:00:00 +0000</pubDate>
-      
+      <pubDate>Sat, 15 Jul 2023 00:00:00 +0000</pubDate>
       <guid>https://raulnegron.me/uses/</guid>
-      <description>Whenever I&amp;rsquo;m faced with a decision on what software to use, I always try to find similar tools for comparison&amp;rsquo;s sake before picking one. In the past, I&amp;rsquo;ve used alternativeto and stackshare. Just recently, I found out about the whole /uses list. Crowdsourcing what other developers are using is a good way to pick up some new and better tools, I think.
-So, I thought I would contribute by making my own /uses!</description>
+      <description>&lt;p&gt;Whenever I&amp;rsquo;m faced with a decision on what software to use, I always try to find similar tools for comparison&amp;rsquo;s sake before picking one. In the past, I&amp;rsquo;ve used &lt;a href=&#34;https://alternativeto.net/&#34;&gt;alternativeto&lt;/a&gt; and &lt;a href=&#34;https://stackshare.io/&#34;&gt;stackshare&lt;/a&gt;. Just recently, I found out about the whole &lt;a href=&#34;https://uses.tech/&#34;&gt;/uses&lt;/a&gt; list. Crowdsourcing what other developers are using is a good way to pick up some new and better tools, I think.&lt;/p&gt;&#xA;&lt;p&gt;So, I thought I would contribute by making my own &lt;code&gt;/uses&lt;/code&gt;!&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Open Source Projects</title>
       <link>https://raulnegron.me/projects/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/projects/</guid>
-      <description>Here are my open-source projects as well as some projects I&amp;rsquo;ve contributed to.
-noticias-pr A command-line interface for reading the latest from local news sites in Puerto Rico.
-Tech Highlights:
-NodeJS Web scraping Available on npm cc-api An open-source API for Caribbean Cinemas.
-Tech Highlights:
-TypeScript MongoDB Web scraping Available at: http://cc.rauln.com TypeDoc available at: https://raulnegron.me/cc-api/ django-athm Django app for handling ATH Móvil payments.
-Tech Highlights:
-Django Templates Available on PyPI and Django Packages dino-gb A Nintendo Game Boy port of the Google Chrome T-Rex game.</description>
+      <description>&lt;p&gt;Here are my open-source projects as well as some projects I&amp;rsquo;ve contributed to.&lt;/p&gt;&#xA;&lt;hr/&gt;&#xA;&lt;h2 id=&#34;noticias-pr&#34;&gt;&lt;a href=&#34;https://github.com/rnegron/noticias-pr-cli&#34;&gt;noticias-pr&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;A command-line interface for reading the latest from local news sites in Puerto Rico.&lt;/p&gt;&#xA;&lt;p&gt;Tech Highlights:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;NodeJS&lt;/li&gt;&#xA;&lt;li&gt;Web scraping&lt;/li&gt;&#xA;&lt;li&gt;Available on &lt;a href=&#34;https://www.npmjs.com/package/noticias-pr&#34;&gt;npm&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;cc-api&#34;&gt;&lt;a href=&#34;https://github.com/rnegron/cc-api&#34;&gt;cc-api&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;An open-source API for &lt;a href=&#34;https://caribbeancinemas.com&#34;&gt;Caribbean Cinemas&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Tech Highlights:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;TypeScript&lt;/li&gt;&#xA;&lt;li&gt;MongoDB&lt;/li&gt;&#xA;&lt;li&gt;Web scraping&lt;/li&gt;&#xA;&lt;li&gt;Available at: &lt;a href=&#34;http://cc.rauln.com&#34;&gt;http://cc.rauln.com&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;TypeDoc available at: &lt;a href=&#34;https://raulnegron.me/cc-api/&#34;&gt;https://raulnegron.me/cc-api/&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;django-athm&#34;&gt;&lt;a href=&#34;https://github.com/django-athm/django-athm&#34;&gt;django-athm&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;Django app for handling ATH Móvil payments.&lt;/p&gt;&#xA;&lt;p&gt;Tech Highlights:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Django Templates&lt;/li&gt;&#xA;&lt;li&gt;Available on &lt;a href=&#34;https://pypi.org/project/django-athm/&#34;&gt;PyPI&lt;/a&gt; and &lt;a href=&#34;https://djangopackages.org/packages/p/django-athm/&#34;&gt;Django Packages&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;dino-gb&#34;&gt;&lt;a href=&#34;https://github.com/rnegron/dino-gb&#34;&gt;dino-gb&lt;/a&gt;&lt;/h2&gt;&#xA;&lt;p&gt;A Nintendo Game Boy port of the Google Chrome T-Rex game.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Translations</title>
       <link>https://raulnegron.me/translations/</link>
       <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/translations/</guid>
-      <description> Paper Mario Japanese Website </description>
+      <description>&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://raulnegron.me/translations/html/paper-mario/&#34;&gt;Paper Mario Japanese Website&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
     </item>
-    
   </channel>
 </rss>

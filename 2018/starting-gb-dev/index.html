@@ -176,7 +176,7 @@
 </div>
 
 <div class="sidebar-item">
-  <p>&copy; 2020. All rights reserved.</p>
+  <p>&copy; 2023. All rights reserved.</p>
 </div>
 </div>
 
@@ -241,34 +241,34 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1">// Check the status of the Game Boy Joy Pad
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">switch</span><span class="p">(</span><span class="n">joypad</span><span class="p">())</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">switch</span><span class="p">(</span><span class="nf">joypad</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">// If the UP button is pressed...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">case</span> <span class="nl">J_UP</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">				<span class="c1">// Display &#34;Up!&#34; on the screen
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Up!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Up!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">				<span class="c1">// Then wait for half a second...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="nf">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">				<span class="c1">// Go back to checking the status of the Joy Pad
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">// And so on
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">case</span> <span class="nl">J_DOWN</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Down!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Down!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">				<span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="k">case</span> <span class="nl">J_LEFT</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Left!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Left!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">				<span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="k">case</span> <span class="nl">J_RIGHT</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Right!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Right!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">				<span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="k">default</span><span class="o">:</span>

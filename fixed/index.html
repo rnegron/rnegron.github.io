@@ -176,7 +176,7 @@
 </div>
 
 <div class="sidebar-item">
-  <p>&copy; 2020. All rights reserved.</p>
+  <p>&copy; 2023. All rights reserved.</p>
 </div>
 </div>
 
@@ -406,8 +406,7 @@
 <p>No shame: the project is most definitely a copy of <a href="https://backloggery.com">The Backloggery</a>, a great site that I use often. However, as far as I know, The Backloggery is <a href="https://backloggery.com/about.php">built in PHP</a>, probably on a LAMP stack or similar. So I thought I would take a crack at building a small subset of the Backloggery features, on a more modern stack.</p>
 <p>I like this idea because it comes with a well-defined problem set. I can already envision the database schema and how to build the backend. But as I mentioned, this project is going to involve the entire stack. That means I gotta learn some frontend JavaScript. In this series of blog posts, I document my experience.</p>
 <blockquote>
-<p>I should say, the reason I picked <a href="https://emberjs.com/">Ember</a> and not (the elephant in the room) <a href="https://reactjs.org/">React</a> is that in my <a href="https://www.aliaspayments.com">day job</a>, we work with Ember and so this is a skill I would like to improve! Besides, we all know <a href="https://en.wikipedia.org/wiki/PostgreSQL">Postgres</a> is the real elephant here, right? Let&rsquo;s move on.</p>
-</blockquote>
+<p>I should say, the reason I picked <a href="https://emberjs.com/">Ember</a> and not (the elephant in the room) <a href="https://reactjs.org/">React</a> is that in my <a href="https://www.aliaspayments.com">day job</a>, we work with Ember and so this is a skill I would like to improve! Besides, we all know <a href="https://en.wikipedia.org/wiki/PostgreSQL">Postgres</a> is the real elephant here, right? Let&rsquo;s move on.</p></blockquote>
 <h1 id="the-app-vg-stack">The app: vg-stack</h1>
 <p>I had to name my repo something!</p>
 <p>In all honestly, I like the name because it hints at the purpose of the project (practicing the web stack) while at the same conjuring a mental image of a bunch of video games stacked on top of each other.</p>
@@ -776,34 +775,34 @@ line-length = 88
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1">// Check the status of the Game Boy Joy Pad
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">switch</span><span class="p">(</span><span class="n">joypad</span><span class="p">())</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">switch</span><span class="p">(</span><span class="nf">joypad</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">// If the UP button is pressed...
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">case</span> <span class="nl">J_UP</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">				<span class="c1">// Display &#34;Up!&#34; on the screen
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Up!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Up!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">				<span class="c1">// Then wait for half a second...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="nf">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">				<span class="c1">// Go back to checking the status of the Joy Pad
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">// And so on
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">case</span> <span class="nl">J_DOWN</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Down!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Down!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">				<span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="k">case</span> <span class="nl">J_LEFT</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Left!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Left!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">				<span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="k">case</span> <span class="nl">J_RIGHT</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">				<span class="n">printf</span><span class="p">(</span><span class="s">&#34;Right!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">				<span class="n">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Right!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">				<span class="nf">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">				<span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="k">default</span><span class="o">:</span>

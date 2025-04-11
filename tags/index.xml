@@ -4,152 +4,121 @@
     <title>Tags on Raúl Negrón&#39;s Website</title>
     <link>https://raulnegron.me/tags/</link>
     <description>Recent content in Tags on Raúl Negrón&#39;s Website</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 05 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://raulnegron.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://raulnegron.me/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>blog-post</title>
+      <title>Blog-Post</title>
       <link>https://raulnegron.me/tags/blog-post/</link>
       <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/blog-post/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>backend</title>
+      <title>Backend</title>
       <link>https://raulnegron.me/tags/backend/</link>
       <pubDate>Sat, 26 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/backend/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>express</title>
+      <title>Express</title>
       <link>https://raulnegron.me/tags/express/</link>
       <pubDate>Sat, 26 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/express/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>javascript</title>
+      <title>Javascript</title>
       <link>https://raulnegron.me/tags/javascript/</link>
       <pubDate>Sat, 26 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/javascript/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>js</title>
+      <title>Js</title>
       <link>https://raulnegron.me/tags/js/</link>
       <pubDate>Sat, 26 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/js/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>node</title>
+      <title>Node</title>
       <link>https://raulnegron.me/tags/node/</link>
       <pubDate>Sat, 26 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/node/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>programming</title>
+      <title>Programming</title>
       <link>https://raulnegron.me/tags/programming/</link>
       <pubDate>Sat, 26 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/programming/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>django</title>
+      <title>Django</title>
       <link>https://raulnegron.me/tags/django/</link>
       <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/django/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>docker</title>
+      <title>Docker</title>
       <link>https://raulnegron.me/tags/docker/</link>
       <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/docker/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>python</title>
+      <title>Python</title>
       <link>https://raulnegron.me/tags/python/</link>
       <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/python/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>vgstack</title>
+      <title>Vgstack</title>
       <link>https://raulnegron.me/tags/vgstack/</link>
       <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/vgstack/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>web</title>
+      <title>Web</title>
       <link>https://raulnegron.me/tags/web/</link>
       <pubDate>Sat, 19 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/web/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>assembly</title>
+      <title>Assembly</title>
       <link>https://raulnegron.me/tags/assembly/</link>
       <pubDate>Sat, 21 Apr 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/assembly/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>c</title>
+      <title>C</title>
       <link>https://raulnegron.me/tags/c/</link>
       <pubDate>Sat, 21 Apr 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/c/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>gameboy</title>
+      <title>Gameboy</title>
       <link>https://raulnegron.me/tags/gameboy/</link>
       <pubDate>Sat, 21 Apr 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/gameboy/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>mac</title>
+      <title>Mac</title>
       <link>https://raulnegron.me/tags/mac/</link>
       <pubDate>Sat, 21 Apr 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://raulnegron.me/tags/mac/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>
