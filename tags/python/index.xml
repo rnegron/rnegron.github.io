@@ -1,6 +1,6 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Raúl Negrón&#39;s Website </title>
+    <title>Raúl Negrón-Otero&#39;s Blog </title>
     <link>https://raulnegron.me/tags/python/</link>
     <language>en-us</language>
     <author></author>
@@ -192,7 +192,7 @@
       </item>
     
       <item>
-        <title>Full-Stack Project: vg-stack (Part 1)</title>
+        <title>Starting a new full-stack project: vg-stack</title>
         <link>https://raulnegron.me/2019/vgstack-1/</link>
         <pubDate>Sat, 19 Jan 2019 00:00:00 UTC</pubDate>
         <author></author>
