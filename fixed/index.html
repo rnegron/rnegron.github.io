@@ -193,6 +193,20 @@
     
       
     
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
 <a class="sidebar-nav-item" href="https://github.com/rnegron" target="_blank">github</a>
 <a class="sidebar-nav-item" href="https://www.linkedin.com/in/raulnegron/" target="_blank">linkedin</a>
 <a class="sidebar-nav-item" href="https://raulnegron.me/index.xml" target="_blank">rss</a>
@@ -236,6 +250,324 @@
 </div>
 
 <div class="posts">
+  
+  <div class="post">
+    <h1 class="post-title">
+      <a href="https://raulnegron.me/2025/wii-news-pr/">Patching the Wii News Channel to serve local news in 2025</a>
+    </h1>
+    <span class="post-date">August 25, 2025</span>
+    <style>
+img.with-border {
+ box-shadow: 0 3px 10px rgba(0,0,0,0.16),
+              0 3px 10px rgba(0,0,0,0.23);
+  border-radius: 4px;
+}
+</style>
+<p>🎧 <a href="https://share.m.nintendo.com/en-US/US/tracks/d0ef0907-3709-4850-af8a-b1cf5c63cc6e">Now Playing: Menu (News Channel) via Nintendo Music App</a></p>
+<img src="/img/wiinews-pr/wii-news-pr.png" alt="wii system plus PR flag and rolled up newspaper emoji">
+<p>In keeping with my passion (?) for <a href="https://github.com/rnegron/noticias-pr-cli">displaying local news articles in unexpected places</a>, I figured it would be a fun project to try and see what it would take to display current local news on the Nintendo Wii console&rsquo;s <a href="https://en.wikipedia.org/wiki/Wii_system_software#News_Channel">News Channel</a>.</p>
+<p>Here&rsquo;s a sneak peek at the result:</p>
+<img src="/img/wiinews-pr/wiinewspr-article.png" alt="Wii News Channel showing a contemporary news article from El Nuevo Día">
+<p>In this post, I&rsquo;d like to share my research and process for getting this all to work.</p>
+ <details>
+  <summary><strong>tl;dr - click to expand</strong></summary>
+<ul>
+<li>
+<p>Patched the News Channel&rsquo;s hardcoded Nintendo URL to point to an S3 storage bucket using Go and <code>wadlib</code> to extract the necessary binary file and edit it in-memory</p>
+</li>
+<li>
+<p>Modified WiiLink&rsquo;s open-source news file generator to add &ldquo;El Nuevo Día&rdquo; as a news source</p>
+</li>
+<li>
+<p>Set up AWS Lambda + EventBridge to regenerate the necessary news binary files hourly</p>
+</li>
+<li>
+<p>Source code: <a href="https://github.com/rnegron/WiiNewsPR">WiiNewsPR</a> and
+<a href="https://github.com/rnegron/WiiNewsPR-Patcher">WiiNewsPR-Patcher</a></p>
+</li>
+</ul>
+  </details>
+<!-- We'll get a chance to see console-specific file storage formats, proxy the Wii's HTTP requests, search for strings in binary files  -->
+<h2 id="the-wiis-news-channel">The Wii&rsquo;s News Channel</h2>
+<p>The News Channel debuted in North America on January 26, 2007, a little over two months after the Wii&rsquo;s launch. Since that date, it mostly came pre-installed with Wii consoles and was a novel way to read news from all over the world. Together with other &ldquo;utility&rdquo; channels like the Forecast Channel, it tried to position the Wii as more than just a gaming console.</p>
+<p>Check out a video recording of the service from right before it was discontinued on June 27th, 2013:</p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/vP70ioijK6U?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=15" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"></iframe>
+    </div>
+
+<h3 id="how-the-news-channel-fetches-content">How the News Channel fetches content</h3>
+<p>Before we can consider displaying custom news on it, we have to figure out how the News Channel actually fetches content. We know that it must have fetched news somehow since it displays a &ldquo;Downloading&hellip;&rdquo; splash screen on startup.</p>
+<img src="/img/wiinews-pr/downloading.png" alt="wii news channel downloading splash screen">
+<p>Luckily for us, the Wii natively supports proxying via its internet connection configuration settings! Meaning we can set up something like <a href="https://www.mitmproxy.org/">mitmproxy</a> on a local machine and observe its HTTP behavior.</p>
+<img src="/img/wiinews-pr/proxy-settings.png" alt="wii system internet connection menu showing available proxy settings">
+<p>We can start <code>mitmproxy</code>&rsquo;s web interface for a more screenshot-friendly UI:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mitmweb --listen-port <span class="m">8080</span>
+</span></span></code></pre></div><p>If we run a man-in-the-middle proxy for the News Channel on an unmodified Wii, we will observe that, on channel startup, it attempts to obtain a <code>news.bin.00</code> file from <code>http://news.wapp.wii.com/v2/1/049/news.bin.00</code> via a plain HTTP request.</p>
+<img class="with-border" src="/img/wiinews-pr/original-requests.png" alt="mitmproxy web showing two HTTP requests from the Wii to http://news.wapp.wii.com/v2/1/049/news.bin.00">
+<blockquote>
+<p>URL path explainer (we&rsquo;ll see later how I found this out):</p>
+<ul>
+<li>
+<p><code>1</code> corresponds to &ldquo;English&rdquo; as the configured console language. See <a href="https://github.com/devkitPro/libogc/blob/9d99fec85cbc27b6ab4f3d785764de611112dbaf/gc/ogc/conf.h#L108">conf.h</a> in <code>devkitPro</code> (the Wii homebrew community&rsquo;s de-facto development toolchain) for the possible values.</p>
+</li>
+<li>
+<p><code>049</code> is the Wii&rsquo;s country code for &ldquo;United States&rdquo;. Check out the full list of Wii country codes on <a href="https://wiibrew.org/wiki/Country_Codes">wiibrew.org</a>.</p>
+</li>
+</ul></blockquote>
+<p>Once it fails to fetch this file, the News Channel displays an error. What might these binary files be? In any case, seeing the Wii perform an HTTP request to fetch news data is a good sign for us. It means we might be able to serve our own data.</p>
+<img src="/img/wiinews-pr/wiiconnect24-error.png" alt="wii news channel error screen">
+<hr>
+<p>By the way, if you run an internet connection test after configuring the proxy settings correctly, you&rsquo;ll spot the Wii performing an HTTP request to <a href="http://conntest.nintendowifi.net">http://conntest.nintendowifi.net</a>. Turns out, this page is actually still online (see for yourself!)</p>
+<img class="with-border" src="/img/wiinews-pr/conn-check.png" alt="mitmproxy web showing an HTTP requests from the Wii to http://conntest.nintendowifi.net">
+<p>The Wii&rsquo;s internet connection test still passes to this day without any modification required. Thanks, Nintendo!</p>
+<hr>
+<h2 id="enter-wiilink-the-homebrew-community-keeping-wii-online-services-alive">Enter WiiLink: the homebrew community keeping Wii online services alive</h2>
+<p>Up to this point, this is how we would expect the Wii would behave if you were running a stock console. More than 12 years ago, <a href="https://www.nintendo.com/en-gb/Support/Wii/Wii-Channels/Wii-Network-Services-Partial-Discontinuation/Wii-Network-Services-Partial-Discontinuation-748396.html">Nintendo discontinued support</a> for the online functionality of the News Channel.</p>
+<p>Today, the <a href="https://wiilink.ca/#intro/">WiiLink</a> team maintains servers and software that brings support back to the Wii&rsquo;s online connectivity features (including some previously region exclusive channels!)</p>
+<blockquote>
+<p>By the way, if you&rsquo;re curious about how to get started with Wii console homebrew, check out <a href="https://wii.hacks.guide">https://wii.hacks.guide</a>.</p></blockquote>
+<p>Now for what we&rsquo;re really interested in for this project: thanks to WiiLink, we can <a href="https://wiilink.ca/guide/news/">revive the News Channel</a> and browse up-to-date news!</p>
+<img src="/img/wiinews-pr/wiilink-news-tech.png" alt="wii news channel showing technology stories after patching with wiilink">
+<h3 id="how-wiilink-patches-the-news-channel">How WiiLink patches the News Channel</h3>
+<p>After going through the WiiLink install process, if we fire up <code>mitmproxy</code> and take a look at what the Wii is doing now, we&rsquo;ll see that it&rsquo;s actually requesting files from a different domain: &ldquo;news.wiilink.ca&rdquo;. But this time, it manages to fetch <code>news.bin.00</code> and keeps requesting files all the way up to <code>news.bin.23</code>.</p>
+<p>The News Channel just successfully fetched 24 hours worth of news from this server.</p>
+<img class="with-border" src="/img/wiinews-pr/wiilink-requests.png" alt="mitmproxy web showing HTTP requests from the Wii to http://news.wiilink.ca/v2/1/049/news.bin.00, etc.">
+<p>Great, so somehow the WiiLink folks got this all to work. And, best of all, they&rsquo;ve opened-sourced their work (<a href="https://github.com/WiiLink24">GitHub</a>). The plan is looking really feasible at this point!</p>
+<p>At a high-level, there are two steps to tackle, then:</p>
+<ol>
+<li>We have to make the News Channel fetch files from a server we control</li>
+<li>We need to actually generate binary files with the content we want</li>
+</ol>
+<h2 id="step-1-patching-the-news-channel-to-redirect-to-our-domain">Step 1: Patching the News Channel to redirect to our domain</h2>
+<p>If we follow along with <a href="https://wiilink.ca/guide/install/">WiiLink&rsquo;s installation guide</a>, the critical step seems to be installing a patched version of the News Channel. Looking at their GitHub org, we find a <a href="https://github.com/WiiLink24/WiiLink24-Patcher/">WiiLink24-Patcher</a> project. Searching for the &ldquo;News Channel&rdquo; in the source code, we find <a href="https://github.com/WiiLink24/WiiLink24-Patcher/blob/033ccb9a3be574dad76f57ac82f3af226eef0fdb/WiiLink-Patcher-CLI/patch.cs#L538">this line in patch.cs</a> which references a <a href="https://en.wikipedia.org/wiki/VCDIFF">VCDIFF</a> encoded <code>News_1.delta</code> patch.</p>
+<blockquote>
+<p>Side note - it&rsquo;s only while writing this blog post that I realized I had been looking at the &ldquo;wrong&rdquo; repo; WiiLink&rsquo;s guide now recommends using the Python-based <a href="https://github.com/WiiLink24/WiiLink-Patcher-GUI">WiiLink-Patcher-GUI</a> instead of the CLI patcher.</p></blockquote>
+<!-- > This newer repo which uses a `bsdiff` based patch (see [news channel specific data](https://github.com/WiiLink24/WiiLink-Patcher-GUI/blob/master/data/patches.json#L89) in JSON, used by the [download_patch](https://github.com/WiiLink24/WiiLink-Patcher-GUI/blob/6a51dff3c28aa5d2687ff0f97c18aa2eb93f047a/setup/download.py#L274) function). -->
+<p>After downloading the <code>.delta</code> file locally, we can use the <a href="https://en.wikipedia.org/wiki/Xdelta">xdelta</a> CLI to print out some information on what the patch is supposed to do:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">xdelta3 printdelta News_1.delta
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">VCDIFF version:               <span class="m">0</span>
+</span></span><span class="line"><span class="cl">VCDIFF header size:           <span class="m">29</span>
+</span></span><span class="line"><span class="cl">VCDIFF header indicator:      VCD_APPHEADER
+</span></span><span class="line"><span class="cl">VCDIFF secondary compressor:  lzma
+</span></span><span class="line"><span class="cl">VCDIFF application header:    news.dol//0000000b.app/
+</span></span><span class="line"><span class="cl">XDELTA filename <span class="o">(</span>output<span class="o">)</span>:     news.dol
+</span></span><span class="line"><span class="cl">XDELTA filename <span class="o">(</span><span class="nb">source</span><span class="o">)</span>:     0000000b.app
+</span></span><span class="line"><span class="cl">...
+</span></span></code></pre></div><p>Okay, so we&rsquo;re looking for a <code>0000000b.app</code> file and want to save the patched binary as <code>news.dol</code>.. Based on the WiiLink install instructions, we know we should be dealing with a <code>WAD</code> file, so let&rsquo;s keep digging to see if we can find out where <code>0000000b.app</code> might be hiding.</p>
+<blockquote>
+<p>Learn more about the WAD file format on <a href="https://wiibrew.org/wiki/WAD_files">wiibrew.org</a>.</p></blockquote>
+<p>From the repo&rsquo;s <code>README.md</code>, we know the patcher uses <a href="https://github.com/TheShadowEevee/libWiiSharp">libWiiSharp</a> for it&rsquo;s WAD file management during the file patching processing (<a href="(https://github.com/WiiLink24/WiiLink24-Patcher/blob/033ccb9a3be574dad76f57ac82f3af226eef0fdb/WiiLink-Patcher-CLI/patch.cs#L396)">source</a>). But at this point, I&rsquo;d rather avoid using C# if I can. And besides, I know for a fact we&rsquo;ll want to use Go in order to more easily leverage existing tooling from the WiiLink team.</p>
+<p>Thankfully, there&rsquo;s a really handy Go library called <a href="https://pkg.go.dev/github.com/wii-tools/wadlib">wadlib</a> that comes to the rescue here. We&rsquo;ll be using it for all our WAD management needs.</p>
+<p>So, where is <code>0000000b.app</code>? Looking at LibWiiSharp&rsquo;s <code>WAD.cs</code> file, we can spot how it unpacks <code>.app</code> files from a WAD file. Namely, it defaults to using the numeric &ldquo;Content ID&rdquo; inside each &ldquo;Content&rdquo; metadata and then converts it to an 8-digit hexadecimal string (<a href="https://github.com/TheShadowEevee/libWiiSharp/blob/23d477a3f83d0400d73393b2febde7912968b1dc/WAD.cs#L863-L874">source</a>).</p>
+<blockquote>
+<p>You can read more about Title metadata (&ldquo;TMD&rdquo;) and Content metadata (&ldquo;CMD&rdquo;) on <a href="https://wiibrew.org/wiki/Title_metadata#Content_metadata_(CMD)">wiibrew.org</a></p></blockquote>
+<p>Armed with this knowledge, we can use <code>wadlib</code> to create a quick file extraction script and see if we can find our <code>0000000b.app</code>. It can go something like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ignore error handling for brevity</span>
+</span></span><span class="line"><span class="cl"><span class="nx">wad</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">wadlib</span><span class="p">.</span><span class="nf">LoadWADFromFile</span><span class="p">(</span><span class="s">&#34;news.wad&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">titleMetadata</span> <span class="o">:=</span> <span class="nx">wad</span><span class="p">.</span><span class="nx">TMD</span>
+</span></span><span class="line"><span class="cl"><span class="nx">contentMetadata</span> <span class="o">:=</span> <span class="nx">titleMetadata</span><span class="p">.</span><span class="nx">Contents</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">outputDir</span> <span class="o">:=</span> <span class="s">&#34;extracted_wad/&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">os</span><span class="p">.</span><span class="nf">MkdirAll</span><span class="p">(</span><span class="nx">outputDir</span><span class="p">,</span> <span class="mo">0755</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">wad</span><span class="p">.</span><span class="nx">Data</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">wad</span><span class="p">.</span><span class="nf">GetContent</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">contentID</span> <span class="o">:=</span> <span class="nx">contentMetadata</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ID</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// &#34;%08x&#34; means 0-padded 8 digit hex</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">filename</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">outputDir</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%08x.app&#34;</span><span class="p">,</span> <span class="nx">contentID</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">_</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">WriteFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Extracted: %08x.app (size: %d bytes)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">contentID</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><!--  ([obtainable from Vimm's lair](https://vimm.net/vault/36744)) -->
+<p>When <code>news.wad</code> is the official (v7) News Channel WAD file, this script successfully extracts 12 <code>.app</code> files.</p>
+<img class="with-border" src="/img/wiinews-pr/extracted-wads.png" alt="macos finder view showing extracted files">
+<p>There&rsquo;s definitely a <code>0000000b.app</code> there, but could it be the file we&rsquo;re looking for?</p>
+<p>What we really need to do at this point is go ahead and apply the <code>News_1.delta</code> patch to this <code>0000000b.app</code> file manually. That way, we can compare the before/after binaries and see what changed. We can use <code>xdelta</code> again to actually apply the patch. Running <code>xdelta3 --help</code> says:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apply patch:
+</span></span><span class="line"><span class="cl">  xdelta3.exe -d -s old_file delta_file decoded_new_file
+</span></span></code></pre></div><p>So we can go ahead and run:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">xdelta3 -d -s extracted_wad/0000000b.app News_1.delta news.dol
+</span></span></code></pre></div><p>And that&hellip; seemed to work? We have a <code>news.dol</code> file, as expected. Now what?</p>
+<h3 id="investigating-binary-file-changes">Investigating binary file changes</h3>
+<p>We could do a binary diff of these files and start going through each change, but we already know at least one thing that should have changed based on our previous <code>mitmproxy</code> experiments: instead of performing requests to &ldquo;news.wapp.wii.com&rdquo;, the patched WAD should instead use &ldquo;news.wiilink.ca&rdquo;.</p>
+<p>Using a tool like <a href="https://hexfiend.com/">Hex Fiend</a> (which also has binary diffing capabilities in case we need them), we can try searching for text inside the binary. If we try searching for &ldquo;news.wapp.wii.com&rdquo; on the original <code>0000000b.app</code> file, we can actually find a match!</p>
+<img src="/img/wiinews-pr/original-url-in-binary.png" alt="hex fiend UI showing original Wii News Channel data URL in search results">
+<p>Sure enough, if we inspect the patched <code>news.dol</code> file we will find no mention of the original URL. Instead, the &ldquo;<a href="http://news.wiilink.ca">http://news.wiilink.ca</a>&rdquo; domain is visible at the same location (offset <code>0x1AC37C</code>).</p>
+<img src="/img/wiinews-pr/patched-url-in-binary.png" alt="hex fiend UI showing modified Wii News Channel data URL in search results">
+<blockquote>
+<p>Note that the URL contains only two printf-style format strings (<code>%d</code> and <code>%03d</code>); the News Channel itself must be appending the hourly suffix (like <code>.00</code>) when fetching data.</p></blockquote>
+<p>If we&rsquo;re lucky, simply overwriting the binary file&rsquo;s original URL with our own custom URL might do the trick. It&rsquo;s worth a try!</p>
+<p>In order to validate this hypothesis, I wrote a small Go utility for performing this binary text replacement: <a href="https://github.com/rnegron/WiiNewsPR-Patcher">WiiNewsPR-Patcher</a>. Here&rsquo;s an excerpt of the important bits:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ignoring error handling for brevity</span>
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">OriginalURL</span> <span class="p">=</span> <span class="s">&#34;http://news.wapp.wii.com/v2/%d/%03d/news.bin&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">NewURL</span> <span class="p">=</span> <span class="s">&#34;http://wii.rauln.com/news/%d/%03d/news.bin&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">wad</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">wadlib</span><span class="p">.</span><span class="nf">LoadWADFromFile</span><span class="p">(</span><span class="nx">wadPath</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Get decrypted content at index 1 (record with ID &#34;0000000b&#34;)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">content</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">wad</span><span class="p">.</span><span class="nf">GetContent</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// byte slice of 44 bytes</span>
+</span></span><span class="line"><span class="cl"><span class="nx">originalContent</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">OriginalURL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 43 bytes in our URL&#39;s case</span>
+</span></span><span class="line"><span class="cl"><span class="nx">newContent</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">NewURL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Pad the new URL to match original length (44 bytes)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">paddedURL</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">originalContent</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">copy</span><span class="p">(</span><span class="nx">paddedURL</span><span class="p">,</span> <span class="nx">newContent</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Find the offset (index) of the URL to patch inside the byte slice</span>
+</span></span><span class="line"><span class="cl"><span class="nx">offset</span> <span class="o">:=</span> <span class="nx">bytes</span><span class="p">.</span><span class="nf">Index</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="nx">originalContent</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Patch the URL</span>
+</span></span><span class="line"><span class="cl"><span class="nb">copy</span><span class="p">(</span><span class="nx">content</span><span class="p">[</span><span class="nx">offset</span><span class="p">:</span><span class="nx">offset</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="nx">originalContent</span><span class="p">)],</span> <span class="nx">paddedURL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">_</span> <span class="p">=</span> <span class="nx">wad</span><span class="p">.</span><span class="nf">UpdateContent</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Save the updated WAD file</span>
+</span></span><span class="line"><span class="cl"><span class="nx">_</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">WriteFile</span><span class="p">(</span><span class="nx">outputPath</span><span class="p">,</span> <span class="nx">wadBytes</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
+</span></span></code></pre></div><blockquote>
+<p>Check out the full source on GitHub: <a href="https://github.com/rnegron/WiiNewsPR-Patcher">WiiNewsPR-Patcher</a></p></blockquote>
+<p>If we run the utility like:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">go build
+</span></span><span class="line"><span class="cl">wiinewspr-patcher news.wad patched_news.wad
+</span></span></code></pre></div><p>It should perform the URL rewriting in memory and provide us with a valid WAD file (<code>patched_news.wad</code>) we can then go ahead and install on Wii hardware.</p>
+<p>We can install the patched WAD on our Wii console using <a href="https://wii.hacks.guide/yawmme">YAWM (ModMii Edition)</a>.</p>
+<img src="/img/wiinews-pr/yawm-patched.png" alt="yawmme showing patched WAD installation succeeded">
+<p>Finally, we can go back to running <code>mitmproxy</code> and opening the newly patched News Channel. Once the channel shows the &ldquo;Downloading&hellip;&rdquo; splash screen, we&rsquo;ll spot requests going out to our expected domain.</p>
+<img class="with-border" src="/img/wiinews-pr/custom-request-failed.png" alt="mitmproxy showing http 404 on our custom server from a News Channel request">
+<p>It works! Now all we need is to&hellip; actually generate valid news files for the News Channel to work.</p>
+<h2 id="step-2-generating-news-channel-compatible-news-files">Step 2: Generating News Channel compatible news files</h2>
+<p>I mentioned previously that I knew using Go would come in handy later, and it&rsquo;s specifically because the WiiLink team has a project called <a href="https://github.com/WiiLink24/NewsChannel">NewsChannel</a> written in Go which contains the source code for generating the binary news files they serve from &ldquo;news.wiilink.ca&rdquo;.</p>
+<p>I&rsquo;m not going to go over all the implementation details here. I just want to highlight some of the main file creation steps in case you&rsquo;d like to read more:</p>
+<ul>
+<li>obtain country-specific configuration (<a href="https://github.com/WiiLink24/NewsChannel/blob/cd676d7aa8f9b80ab9ee4fa32c21a80d3a65c38d/countries.json">source</a>)</li>
+<li>obtain articles and metadata from configured sources (like NHK, <a href="https://github.com/WiiLink24/NewsChannel/blob/cd676d7aa8f9b80ab9ee4fa32c21a80d3a65c38d/news/nhk/articles.go#L7-L46">source</a>)</li>
+<li>process all data in a specific order into a bytes buffer (<a href="https://github.com/WiiLink24/NewsChannel/blob/cd676d7aa8f9b80ab9ee4fa32c21a80d3a65c38d/main.go#L77-L90">source</a>)</li>
+<li>compress the data using LZ10, sign it with RSA, then write to disk (<a href="https://github.com/WiiLink24/NewsChannel/blob/cd676d7aa8f9b80ab9ee4fa32c21a80d3a65c38d/main.go#L126-L142">source</a>)
+<ul>
+<li>the file name is written using a specific string interpolation (<a href="https://github.com/WiiLink24/NewsChannel/blob/cd676d7aa8f9b80ab9ee4fa32c21a80d3a65c38d/main.go#L108">source</a>, this is how I first found out about the language/country codes used in the News Channel data URL!)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Fun fact: LZ10 is apparently a Nintendo-specific variant of the <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78">LZ77</a> compression algorithm, used in some form or another on Game Boy Advance, Nintendo DS and Wii systems. <a href="https://github.com/wii-tools/lzx/blob/4c1183c96cc616e6b3312072e7f1ad984edd109f/lz10/compress.go">wii-tools/lzx</a> has the Go source for the LZ10 compression used here.</p></blockquote>
+<p>In any case, for our purposes, it&rsquo;s doing more than we need in terms of source handling: it can generate news binaries from a variety of sources and supports different languages and regions.</p>
+<p>For this project, I am making the following assumptions and tradeoffs:</p>
+<ul>
+<li>
+<p>I will be using &ldquo;English&rdquo; as the language and &ldquo;US&rdquo; as the country code for the source URL path since my Wii console is configured as such. There is no separate Puerto Rico country code option, which is curious considering that there is a separate option for the US Virgin Islands.</p>
+</li>
+<li>
+<p>I am not interested in supporting any other news sources from around the world, so the &ldquo;Globe&rdquo; feature for the News Channel will not be useful.</p>
+</li>
+<li>
+<p>I&rsquo;m hardcoding the latitude and longitude of Puerto Rico&rsquo;s capital into the binary file to avoid having to process or guess location data from each article entry.</p>
+</li>
+</ul>
+<h3 id="modifying-wiilinks-generator-to-support-puerto-rican-news">Modifying WiiLink&rsquo;s generator to support Puerto Rican news</h3>
+<p>I forked the <code>NewsChannel</code> repo into <a href="https://github.com/rnegron/WiiNewsPR">WiiNewsPR</a>, added flag support for cache directory and output path (you&rsquo;ll see why later) removed all the existing sources and added a new one: <a href="https://www.elnuevodia.com/">El Nuevo Día (&ldquo;ENDI&rdquo;)</a>.</p>
+<p>I picked ENDI only because it&rsquo;s the only local newspaper website I could find which still <a href="https://www.elnuevodia.com/rss/">supports RSS</a>. Unfortunately, the feeds only contain a snippet of the actual article. On the bright side, most articles do contain images and we can use separate feeds to help categorize articles in the News Channel (<a href="https://github.com/rnegron/WiiNewsPR/blob/11df0e242bb1f4134e61ff0b35587372a5fd0564/news/endi/articles.go#L72-L79">source</a>).</p>
+<blockquote>
+<p>By the way, I experimented with <a href="https://github.com/advancedlogic/GoOse">GoOse</a> for (spanish language) article extraction on other news websites and the results were&hellip; unsatisfying to say the least.</p></blockquote>
+<h3 id="final-setup-requirements-for-proper-news-channel-support">Final setup requirements for proper News Channel support</h3>
+<p>Two quick things we&rsquo;ll need in order to get this all to work:</p>
+<ol>
+<li>We need to sign each binary news file with a custom RSA key for the Wii to process the file (<a href="(https://github.com/rnegron/WiiNewsPR/blob/11df0e242bb1f4134e61ff0b35587372a5fd0564/utils.go#L20)">source</a>). We can use <code>openssl</code> for this (note the <code>-traditional</code> option):</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> openssl genrsa -traditional -out Private.pem <span class="m">2048</span>
+</span></span></code></pre></div><ol start="2">
+<li>We need a (really) low quality logo for our source. <a href="https://imagemagick.org/script/command-line-processing.php">ImageMagick</a> easily solves for this:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">magick logo.svg -quality <span class="m">30</span> -resize 200x200 -strip logo.jpg
+</span></span></code></pre></div><p>Then, we can use <a href="https://pkg.go.dev/embed">Go embeds</a> to include the logo in the Go binary (<a href="https://github.com/rnegron/WiiNewsPR/blob/11df0e242bb1f4134e61ff0b35587372a5fd0564/news/endi/articles.go#L18-L19">source</a>).</p>
+<p>Finally, we can build the Go binary and run it in order to generate a news binary in <code>./v2/1/049</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">go build
+</span></span><span class="line"><span class="cl">./WiiNewsPR
+</span></span></code></pre></div><p>This successfully generates a <code>news.bin.NN</code> file.</p>
+<p>Now we just need 24 of these, since the News Channel will actually fail to load if not provided with all 24 files. We could run this script every hour for the next 24 hours&hellip; or, we could take the shortcut of copying the current hour&rsquo;s file into all other hourly values.</p>
+<p>Regardless, it&rsquo;s about time to test out all this effort. With 24 files uploaded to our storage provider, and the patched News Channel configured to fetch these from our custom domain, we can start up the channel and observe the fruits of our labor.</p>
+<img class="with-border" src="/img/wiinews-pr/custom-requests-success.png" alt="mitmproxy showing successful http 200 requests on our custom server from a News Channel request">
+<p>After the (slow!) requests finish one by one, seeing the articles pop up was immensely satisfying. Being able to tinker with and learn more about these nostalgic consoles so many years later is a real joy for me.</p>
+<img src="/img/wiinews-pr/wiinewspr-business-section.png" alt="">
+<h2 id="bonus-step-automating-hourly-news-updates-with-aws-lambda">Bonus step: Automating hourly news updates with AWS Lambda</h2>
+<p>Copying files into the storage solution is all well and good, but it would be great to have a continuously-updating, hands-off solution that generates the news binaries for us. A quick-and-easy way to solve for this would be to bundle up the <code>WiiNewsPR</code> Go executable into an AWS Lambda function and have that run hourly, uploading news binaries over to our S3 storage solution.</p>
+<p>Here is where the extra flags for <code>WiiNewsPR</code> come in: we need to be able to control file creation because <code>/tmp</code> is a Lambda&rsquo;s only writeable file system.</p>
+<p>Here is a snippet of the Lambda handler logic:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Handler</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">CommandContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="s">&#34;./WiiNewsPR&#34;</span><span class="p">,</span> <span class="s">&#34;-o&#34;</span><span class="p">,</span> <span class="s">&#34;/tmp&#34;</span><span class="p">,</span> <span class="s">&#34;-c&#34;</span><span class="p">,</span> <span class="s">&#34;/tmp/cache&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">uploader</span><span class="p">.</span><span class="nf">Upload</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">s3</span><span class="p">.</span><span class="nx">PutObjectInput</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">Bucket</span><span class="p">:</span>      <span class="nx">aws</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="nx">bucketName</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">Key</span><span class="p">:</span>         <span class="nx">aws</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%snews.bin.%s&#34;</span><span class="p">,</span> <span class="nx">keyPrefix</span><span class="p">,</span> <span class="nx">hour</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">Body</span><span class="p">:</span>        <span class="nx">file</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ContentType</span><span class="p">:</span> <span class="nx">aws</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;application/octet-stream&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">	<span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">lambda</span><span class="p">.</span><span class="nf">Start</span><span class="p">(</span><span class="nx">Handler</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><blockquote>
+<p>See full Lambda handler source on GitHub: <a href="https://github.com/rnegron/WiiNewsPR/blob/master/deploy/handler.go">handler.go</a></p></blockquote>
+<p>We can use then leverage the <a href="https://www.serverless.com/">Serverless</a> framework for a quick infra-as-code setup. Here is a snippet of the configuration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l">wiinewspr-generator</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">provider</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">aws</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">TZ</span><span class="p">:</span><span class="w"> </span><span class="l">America/Puerto_Rico</span><span class="w"> </span><span class="c"># we need Lambda to generate files postfixed with the correct &#34;currentHour&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">events</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">schedule</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">rate</span><span class="p">:</span><span class="w"> </span><span class="l">cron(30 * * * ? *)</span><span class="w"> </span><span class="c"># run every hour:30</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">wiinewspr-every-30pasthour</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">Generate Wii News PR binary file every hour at 30 minutes past</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">package</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">patterns</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">bootstrap</span><span class="w"> </span><span class="c"># compiled Lambda handler</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">WiiNewsPR</span><span class="w"> </span><span class="c"># compiled binary news generator</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">../Private.pem</span><span class="w"> </span><span class="c"># we need to include the Private.pem file for file signing</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>See full <code>serverless</code> configuration on GitHub: <a href="https://github.com/rnegron/WiiNewsPR/blob/master/deploy/serverless.yml">serverless.yml</a></p></blockquote>
+<p>Some things to call out here:</p>
+<ul>
+<li>We want to make sure to run the Lambda in Puerto Rico&rsquo;s timezone so that <code>time.Now()</code> returns the expected hourly integer.</li>
+<li>We want to give the Lambda a higher than expected <code>memorySize</code> so that its CPU scales accordingly; turns out <code>lz10</code> compression is a big bottleneck on the smallest supported Lambda CPU and can easily time out at 30 seconds.</li>
+</ul>
+<p>If we leave this setup running for 24 hours, our storage solution will get populated with 24 files and continuously be updated with the latest news!</p>
+<img class="with-border" src="/img/wiinews-pr/hourly-generated-files.png" alt="s3 bucket view showing binary news files generated automatically at hourly intervals">
+<p>Now we can get up in the morning, grab a coffee, and check out the local news like it&rsquo;s 2007.</p>
+<p>Thanks for reading!</p>
+<h2 id="credits">Credits</h2>
+<p>This experiment would have likely ended in frustration if not for the amazing work by the Wii homebrew community, specifically: <a href="https://github.com/riiconnect24">RiiConnect24 Team</a>, <a href="https://github.com/wiilink24">WiiLink Team</a> and <a href="https://wiibrew.org/wiki/Main_Page">wiibrew.org Contributors</a>.</p>
+<!--
+* The `main` package contains the `news` type t
+* `sources.go` defines the `GetNewsArticles` method for the `news` type, along with source-specific metadata like logo
+* The [news/](https://github.com/WiiLink24/NewsChannel/tree/cd676d7aa8f9b80ab9ee4fa32c21a80d3a65c38d/news) subdirectory contains code for implement the `GetArticles`
+* The News Channel reads binary files containing (created using methods like `MakeSourceTable` and `MakeArticleTable`) -->
+<!-- ### Dolphin
+
+- `Tools` -> `Perform Online System Update`
+
+- `Tools` -> `Install WAD...`
+
+- `Tools` -> `Load Wii System Menu 4.3U`
+
+The Dolphin emulator
+
+- Enable System Menu and update -->
+
+  </div>
   
   <div class="post">
     <h1 class="post-title">
