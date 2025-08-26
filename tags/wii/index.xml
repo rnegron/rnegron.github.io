@@ -28,7 +28,7 @@ img.with-border {
 &lt;img src=&#34;https://raulnegron.me/img/wiinews-pr/wiinewspr-article.png&#34; alt=&#34;Wii News Channel showing a contemporary news article from El Nuevo Día&#34;&gt;
 &lt;p&gt;In this post, I&amp;rsquo;d like to share my research and process for getting this all to work.&lt;/p&gt;
  &lt;details&gt;
-  &lt;summary&gt;&lt;strong&gt;tl;dr - click to expand&lt;/strong&gt;&lt;/summary&gt;
+  &lt;summary&gt;&lt;strong&gt;tl;dr - click to expand (spoilers)&lt;/strong&gt;&lt;/summary&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Patched the News Channel&amp;rsquo;s hardcoded Nintendo URL to point to an S3 storage bucket using Go and &lt;code&gt;wadlib&lt;/code&gt; to extract the necessary binary file and edit it in-memory&lt;/p&gt;
@@ -81,16 +81,17 @@ img.with-border {
 &lt;hr&gt;
 &lt;h2 id=&#34;enter-wiilink-the-homebrew-community-keeping-wii-online-services-alive&#34;&gt;Enter WiiLink: the homebrew community keeping Wii online services alive&lt;/h2&gt;
 &lt;p&gt;Up to this point, this is how we would expect the Wii would behave if you were running a stock console. More than 12 years ago, &lt;a href=&#34;https://www.nintendo.com/en-gb/Support/Wii/Wii-Channels/Wii-Network-Services-Partial-Discontinuation/Wii-Network-Services-Partial-Discontinuation-748396.html&#34;&gt;Nintendo discontinued support&lt;/a&gt; for the online functionality of the News Channel.&lt;/p&gt;
-&lt;p&gt;Today, the &lt;a href=&#34;https://wiilink.ca/#intro/&#34;&gt;WiiLink&lt;/a&gt; team maintains servers and software that brings support back to the Wii&amp;rsquo;s online connectivity features (including some previously region exclusive channels!)&lt;/p&gt;
+&lt;p&gt;But as expected for a beloved retro console, community efforts have sprung up to try and preserve the previously existing functionality and allow users to continue enjoying these systems well past their intended expiration date. These sorts of unofficial software for gaming consoles are commonly referred to as &amp;ldquo;homebrew&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;Importantly for this project, the &lt;a href=&#34;https://wiilink.ca/#intro/&#34;&gt;WiiLink&lt;/a&gt; team maintains servers and develops software that allows us to experience the Wii&amp;rsquo;s online connectivity features even today.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;By the way, if you&amp;rsquo;re curious about how to get started with Wii console homebrew, check out &lt;a href=&#34;https://wii.hacks.guide&#34;&gt;https://wii.hacks.guide&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;Now for what we&amp;rsquo;re really interested in for this project: thanks to WiiLink, we can &lt;a href=&#34;https://wiilink.ca/guide/news/&#34;&gt;revive the News Channel&lt;/a&gt; and browse up-to-date news!&lt;/p&gt;
+&lt;p&gt;Thanks to WiiLink, we can &lt;a href=&#34;https://wiilink.ca/guide/news/&#34;&gt;revive the News Channel&lt;/a&gt; and browse up-to-date news! Just not the local news, which is our real goal.&lt;/p&gt;
 &lt;img src=&#34;https://raulnegron.me/img/wiinews-pr/wiilink-news-tech.png&#34; alt=&#34;wii news channel showing technology stories after patching with wiilink&#34;&gt;
 &lt;h3 id=&#34;how-wiilink-patches-the-news-channel&#34;&gt;How WiiLink patches the News Channel&lt;/h3&gt;
 &lt;p&gt;After going through the WiiLink install process, if we fire up &lt;code&gt;mitmproxy&lt;/code&gt; and take a look at what the Wii is doing now, we&amp;rsquo;ll see that it&amp;rsquo;s actually requesting files from a different domain: &amp;ldquo;news.wiilink.ca&amp;rdquo;. But this time, it manages to fetch &lt;code&gt;news.bin.00&lt;/code&gt; and keeps requesting files all the way up to &lt;code&gt;news.bin.23&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;The News Channel just successfully fetched 24 hours worth of news from this server.&lt;/p&gt;
 &lt;img class=&#34;with-border&#34; src=&#34;https://raulnegron.me/img/wiinews-pr/wiilink-requests.png&#34; alt=&#34;mitmproxy web showing HTTP requests from the Wii to http://news.wiilink.ca/v2/1/049/news.bin.00, etc.&#34;&gt;
-&lt;p&gt;Great, so somehow the WiiLink folks got this all to work. And, best of all, they&amp;rsquo;ve opened-sourced their work (&lt;a href=&#34;https://github.com/WiiLink24&#34;&gt;GitHub&lt;/a&gt;). The plan is looking really feasible at this point!&lt;/p&gt;
+&lt;p&gt;Great! Somehow, the WiiLink folks got this all to work. And, best of all, they&amp;rsquo;ve opened-sourced their work (&lt;a href=&#34;https://github.com/WiiLink24&#34;&gt;GitHub&lt;/a&gt;). The plan is looking really feasible at this point!&lt;/p&gt;
 &lt;p&gt;At a high-level, there are two steps to tackle, then:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;We have to make the News Channel fetch files from a server we control&lt;/li&gt;
@@ -112,7 +113,7 @@ img.with-border {
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;XDELTA filename &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;output&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:     news.dol
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;XDELTA filename &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;source&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;:     0000000b.app
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;...
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Okay, so we&amp;rsquo;re looking for a &lt;code&gt;0000000b.app&lt;/code&gt; file and want to save the patched binary as &lt;code&gt;news.dol&lt;/code&gt;.. Based on the WiiLink install instructions, we know we should be dealing with a &lt;code&gt;WAD&lt;/code&gt; file, so let&amp;rsquo;s keep digging to see if we can find out where &lt;code&gt;0000000b.app&lt;/code&gt; might be hiding.&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Okay, so we&amp;rsquo;re looking for a &lt;code&gt;0000000b.app&lt;/code&gt; file and want to save the patched binary as &lt;code&gt;news.dol&lt;/code&gt;. Based on the WiiLink install instructions, we know we should be dealing with a &lt;code&gt;WAD&lt;/code&gt; file, so let&amp;rsquo;s keep digging to see if we can find out where &lt;code&gt;0000000b.app&lt;/code&gt; might be hiding.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Learn more about the WAD file format on &lt;a href=&#34;https://wiibrew.org/wiki/WAD_files&#34;&gt;wiibrew.org&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;From the repo&amp;rsquo;s &lt;code&gt;README.md&lt;/code&gt;, we know the patcher uses &lt;a href=&#34;https://github.com/TheShadowEevee/libWiiSharp&#34;&gt;libWiiSharp&lt;/a&gt; for it&amp;rsquo;s WAD file management during the file patching processing (&lt;a href=&#34;(https://github.com/WiiLink24/WiiLink24-Patcher/blob/033ccb9a3be574dad76f57ac82f3af226eef0fdb/WiiLink-Patcher-CLI/patch.cs#L396)&#34;&gt;source&lt;/a&gt;). But at this point, I&amp;rsquo;d rather avoid using C# if I can. And besides, I know for a fact we&amp;rsquo;ll want to use Go in order to more easily leverage existing tooling from the WiiLink team.&lt;/p&gt;
@@ -160,7 +161,7 @@ img.with-border {
 &lt;blockquote&gt;
 &lt;p&gt;Note that the URL contains only two printf-style format strings (&lt;code&gt;%d&lt;/code&gt; and &lt;code&gt;%03d&lt;/code&gt;); the News Channel itself must be appending the hourly suffix (like &lt;code&gt;.00&lt;/code&gt;) when fetching data.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;If we&amp;rsquo;re lucky, simply overwriting the binary file&amp;rsquo;s original URL with our own custom URL might do the trick. It&amp;rsquo;s worth a try!&lt;/p&gt;
-&lt;p&gt;In order to validate this hypothesis, I wrote a small Go utility for performing this binary text replacement: &lt;a href=&#34;https://github.com/rnegron/WiiNewsPR-Patcher&#34;&gt;WiiNewsPR-Patcher&lt;/a&gt;. Here&amp;rsquo;s an excerpt of the important bits:&lt;/p&gt;
+&lt;p&gt;In order to validate this hypothesis, I wrote a small Go utility for performing the necessary text replacement. Here&amp;rsquo;s an excerpt of the important bits:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// ignoring error handling for brevity&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;OriginalURL&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;http://news.wapp.wii.com/v2/%d/%03d/news.bin&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;NewURL&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;http://wii.rauln.com/news/%d/%03d/news.bin&amp;#34;&lt;/span&gt;
@@ -229,10 +230,10 @@ img.with-border {
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;modifying-wiilinks-generator-to-support-puerto-rican-news&#34;&gt;Modifying WiiLink&amp;rsquo;s generator to support Puerto Rican news&lt;/h3&gt;
-&lt;p&gt;I forked the &lt;code&gt;NewsChannel&lt;/code&gt; repo into &lt;a href=&#34;https://github.com/rnegron/WiiNewsPR&#34;&gt;WiiNewsPR&lt;/a&gt;, added flag support for cache directory and output path (you&amp;rsquo;ll see why later) removed all the existing sources and added a new one: &lt;a href=&#34;https://www.elnuevodia.com/&#34;&gt;El Nuevo Día (&amp;ldquo;ENDI&amp;rdquo;)&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I went ahead and forked the &lt;code&gt;NewsChannel&lt;/code&gt; repo into &lt;a href=&#34;https://github.com/rnegron/WiiNewsPR&#34;&gt;WiiNewsPR&lt;/a&gt;, added flag support to control article caching and binary output paths (you&amp;rsquo;ll see why this was necessary soon), removed all the existing sources and added a new one: &lt;a href=&#34;https://www.elnuevodia.com/&#34;&gt;El Nuevo Día (&amp;ldquo;ENDI&amp;rdquo;)&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;I picked ENDI only because it&amp;rsquo;s the only local newspaper website I could find which still &lt;a href=&#34;https://www.elnuevodia.com/rss/&#34;&gt;supports RSS&lt;/a&gt;. Unfortunately, the feeds only contain a snippet of the actual article. On the bright side, most articles do contain images and we can use separate feeds to help categorize articles in the News Channel (&lt;a href=&#34;https://github.com/rnegron/WiiNewsPR/blob/11df0e242bb1f4134e61ff0b35587372a5fd0564/news/endi/articles.go#L72-L79&#34;&gt;source&lt;/a&gt;).&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;By the way, I experimented with &lt;a href=&#34;https://github.com/advancedlogic/GoOse&#34;&gt;GoOse&lt;/a&gt; for (spanish language) article extraction on other news websites and the results were&amp;hellip; unsatisfying to say the least.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;By the way, I experimented with &lt;a href=&#34;https://github.com/advancedlogic/GoOse&#34;&gt;GoOse&lt;/a&gt; for (spanish language) article extraction on other news websites and the results were&amp;hellip; unsatisfying, to say the least.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;final-setup-requirements-for-proper-news-channel-support&#34;&gt;Final setup requirements for proper News Channel support&lt;/h3&gt;
 &lt;p&gt;Two quick things we&amp;rsquo;ll need in order to get this all to work:&lt;/p&gt;
 &lt;ol&gt;
@@ -249,12 +250,12 @@ img.with-border {
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;./WiiNewsPR
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This successfully generates a &lt;code&gt;news.bin.NN&lt;/code&gt; file.&lt;/p&gt;
 &lt;p&gt;Now we just need 24 of these, since the News Channel will actually fail to load if not provided with all 24 files. We could run this script every hour for the next 24 hours&amp;hellip; or, we could take the shortcut of copying the current hour&amp;rsquo;s file into all other hourly values.&lt;/p&gt;
-&lt;p&gt;Regardless, it&amp;rsquo;s about time to test out all this effort. With 24 files uploaded to our storage provider, and the patched News Channel configured to fetch these from our custom domain, we can start up the channel and observe the fruits of our labor.&lt;/p&gt;
+&lt;p&gt;Regardless, it&amp;rsquo;s about time to test out all this effort. With 24 files uploaded to our storage provider (AWS S3), and the patched News Channel configured to fetch these from our custom domain, we can start up the channel and observe the fruits of our labor.&lt;/p&gt;
 &lt;img class=&#34;with-border&#34; src=&#34;https://raulnegron.me/img/wiinews-pr/custom-requests-success.png&#34; alt=&#34;mitmproxy showing successful http 200 requests on our custom server from a News Channel request&#34;&gt;
 &lt;p&gt;After the (slow!) requests finish one by one, seeing the articles pop up was immensely satisfying. Being able to tinker with and learn more about these nostalgic consoles so many years later is a real joy for me.&lt;/p&gt;
 &lt;img src=&#34;https://raulnegron.me/img/wiinews-pr/wiinewspr-business-section.png&#34; alt=&#34;&#34;&gt;
 &lt;h2 id=&#34;bonus-step-automating-hourly-news-updates-with-aws-lambda&#34;&gt;Bonus step: Automating hourly news updates with AWS Lambda&lt;/h2&gt;
-&lt;p&gt;Copying files into the storage solution is all well and good, but it would be great to have a continuously-updating, hands-off solution that generates the news binaries for us. A quick-and-easy way to solve for this would be to bundle up the &lt;code&gt;WiiNewsPR&lt;/code&gt; Go executable into an AWS Lambda function and have that run hourly, uploading news binaries over to our S3 storage solution.&lt;/p&gt;
+&lt;p&gt;Copying files into the S3 storage bucket is all well and good, but it would be great to have a continuously-updating, hands-off solution that generates the news binaries for us. A simple (and basically free) way to solve for this would be to bundle up the &lt;code&gt;WiiNewsPR&lt;/code&gt; Go executable into an AWS Lambda function and have that run hourly via EventBride, and then uploading the generated news binaries over to our storage bucket.&lt;/p&gt;
 &lt;p&gt;Here is where the extra flags for &lt;code&gt;WiiNewsPR&lt;/code&gt; come in: we need to be able to control file creation because &lt;code&gt;/tmp&lt;/code&gt; is a Lambda&amp;rsquo;s only writeable file system.&lt;/p&gt;
 &lt;p&gt;Here is a snippet of the Lambda handler logic:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Handler&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;ctx&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -275,7 +276,7 @@ img.with-border {
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;See full Lambda handler source on GitHub: &lt;a href=&#34;https://github.com/rnegron/WiiNewsPR/blob/master/deploy/handler.go&#34;&gt;handler.go&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;We can use then leverage the &lt;a href=&#34;https://www.serverless.com/&#34;&gt;Serverless&lt;/a&gt; framework for a quick infra-as-code setup. Here is a snippet of the configuration:&lt;/p&gt;
+&lt;p&gt;We can then leverage the &lt;a href=&#34;https://www.serverless.com/&#34;&gt;Serverless&lt;/a&gt; framework for a quick infra-as-code setup. Here is a snippet of the configuration:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;service&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;wiinewspr-generator&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;provider&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -300,14 +301,14 @@ img.with-border {
 &lt;p&gt;Some things to call out here:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;We want to make sure to run the Lambda in Puerto Rico&amp;rsquo;s timezone so that &lt;code&gt;time.Now()&lt;/code&gt; returns the expected hourly integer.&lt;/li&gt;
-&lt;li&gt;We want to give the Lambda a higher than expected &lt;code&gt;memorySize&lt;/code&gt; so that its CPU scales accordingly; turns out &lt;code&gt;lz10&lt;/code&gt; compression is a big bottleneck on the smallest supported Lambda CPU and can easily time out at 30 seconds.&lt;/li&gt;
+&lt;li&gt;We want to give the Lambda a higher than expected &lt;code&gt;memorySize&lt;/code&gt; so that its CPU scales accordingly; it turns out that &lt;code&gt;lz10&lt;/code&gt; compression is a big bottleneck on the smallest supported Lambda CPU and can easily time out at 30 seconds.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;If we leave this setup running for 24 hours, our storage solution will get populated with 24 files and continuously be updated with the latest news!&lt;/p&gt;
+&lt;p&gt;If we leave this setup running for 24 hours, our storage bucket will get populated with 24 files and continuously be updated with the latest news!&lt;/p&gt;
 &lt;img class=&#34;with-border&#34; src=&#34;https://raulnegron.me/img/wiinews-pr/hourly-generated-files.png&#34; alt=&#34;s3 bucket view showing binary news files generated automatically at hourly intervals&#34;&gt;
-&lt;p&gt;Now we can get up in the morning, grab a coffee, and check out the local news like it&amp;rsquo;s 2007.&lt;/p&gt;
+&lt;p&gt;Now I can get up in the morning, grab a coffee, and browse the local news on my Nintendo Wii like it&amp;rsquo;s 2007.&lt;/p&gt;
 &lt;p&gt;Thanks for reading!&lt;/p&gt;
 &lt;h2 id=&#34;credits&#34;&gt;Credits&lt;/h2&gt;
-&lt;p&gt;This experiment would have likely ended in frustration if not for the amazing work by the Wii homebrew community, specifically: &lt;a href=&#34;https://github.com/riiconnect24&#34;&gt;RiiConnect24 Team&lt;/a&gt;, &lt;a href=&#34;https://github.com/wiilink24&#34;&gt;WiiLink Team&lt;/a&gt; and &lt;a href=&#34;https://wiibrew.org/wiki/Main_Page&#34;&gt;wiibrew.org Contributors&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This experiment would have likely ended in disappointment if not for the amazing work by the Wii homebrew community, specifically: &lt;a href=&#34;https://github.com/riiconnect24&#34;&gt;RiiConnect24 Team&lt;/a&gt;, &lt;a href=&#34;https://github.com/wiilink24&#34;&gt;WiiLink Team&lt;/a&gt; and &lt;a href=&#34;https://wiibrew.org/wiki/Main_Page&#34;&gt;wiibrew.org Contributors&lt;/a&gt;.&lt;/p&gt;
 &lt;!--
 * The `main` package contains the `news` type t
 * `sources.go` defines the `GetNewsArticles` method for the `news` type, along with source-specific metadata like logo
