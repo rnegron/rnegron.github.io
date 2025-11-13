@@ -59,15 +59,15 @@
 
 
     
-        <link rel="preconnect" href="https://plausible.io">
+        <link rel="preconnect" href="https://analytics.kuribosoft.com">
     
         
             
-            <script defer  data-domain="raulnegron.me" src="https://plausible.io/js/script.js" ></script>
+            <script defer  data-domain="raulnegron.me" src="https://analytics.kuribosoft.com/js/script.js" ></script>
 
 <!-- If you are using Content-Security-Policy, do not forget to add this code to your CSP : 
-  script-src 'unsafe-inline' https://plausible.io
-  connect-src 'unsafe-inline' https://plausible.io
+  script-src 'unsafe-inline' https://analytics.kuribosoft.com
+  connect-src 'unsafe-inline' https://analytics.kuribosoft.com
   or just add the partial 'plausible_csp.html' to those 2 csp directives in your 'index.headers' file
 -->
 
@@ -205,6 +205,10 @@
     
     
     
+    
+    
+    
+    
     <a class="sidebar-nav-item" href="https://raulnegron.me/index.xml" target="_blank">feed</a>
     <a class="sidebar-nav-item" href="https://github.com/rnegron" target="_blank">github</a>
     <a class="sidebar-nav-item" href="https://www.linkedin.com/in/raulnegron/" target="_blank">linkedin</a>
@@ -243,6 +247,8 @@
 <article class="post">
   <h1 class="post-title">Patching the Wii News Channel to serve local news in 2025</h1>
   <span class="post-date">August 25, 2025</span>
+  
+
   <style>
 img.with-border {
  box-shadow: 0 3px 10px rgba(0,0,0,0.16),
@@ -300,7 +306,8 @@ img.with-border {
 <li>
 <p><code>049</code> is the Wii&rsquo;s country code for &ldquo;United States&rdquo;. Check out the full list of Wii country codes on <a href="https://wiibrew.org/wiki/Country_Codes">wiibrew.org</a>.</p>
 </li>
-</ul></blockquote>
+</ul>
+</blockquote>
 <p>Once it fails to fetch this file, the News Channel displays an error. What might these binary files be? In any case, seeing the Wii perform an HTTP request to fetch news data is a good sign for us. It means we might be able to serve our own data.</p>
 <img src="/img/wiinews-pr/wiiconnect24-error.png" alt="wii news channel error screen">
 <hr>
@@ -313,7 +320,8 @@ img.with-border {
 <p>But as expected for a beloved retro console, community efforts have sprung up to try and preserve the previously existing functionality and allow users to continue enjoying these systems well past their intended expiration date. These sorts of unofficial software for gaming consoles are commonly referred to as &ldquo;homebrew&rdquo;.</p>
 <p>Importantly for this project, the <a href="https://wiilink.ca/#intro/">WiiLink</a> team maintains servers and develops software that allows us to experience the Wii&rsquo;s online connectivity features even today.</p>
 <blockquote>
-<p>By the way, if you&rsquo;re curious about how to get started with Wii console homebrew, check out <a href="https://wii.hacks.guide">https://wii.hacks.guide</a>.</p></blockquote>
+<p>By the way, if you&rsquo;re curious about how to get started with Wii console homebrew, check out <a href="https://wii.hacks.guide">https://wii.hacks.guide</a>.</p>
+</blockquote>
 <p>Thanks to WiiLink, we can <a href="https://wiilink.ca/guide/news/">revive the News Channel</a> and browse up-to-date news! Just not the local news, which is our real goal.</p>
 <img src="/img/wiinews-pr/wiilink-news-tech.png" alt="wii news channel showing technology stories after patching with wiilink">
 <h3 id="how-wiilink-patches-the-news-channel">How WiiLink patches the News Channel</h3>
@@ -329,7 +337,8 @@ img.with-border {
 <h2 id="step-1-patching-the-news-channel-to-redirect-to-our-domain">Step 1: Patching the News Channel to redirect to our domain</h2>
 <p>If we follow along with <a href="https://wiilink.ca/guide/install/">WiiLink&rsquo;s installation guide</a>, the critical step seems to be installing a patched version of the News Channel. Looking at their GitHub org, we find a <a href="https://github.com/WiiLink24/WiiLink24-Patcher/">WiiLink24-Patcher</a> project. Searching for the &ldquo;News Channel&rdquo; in the source code, we find <a href="https://github.com/WiiLink24/WiiLink24-Patcher/blob/033ccb9a3be574dad76f57ac82f3af226eef0fdb/WiiLink-Patcher-CLI/patch.cs#L538">this line in patch.cs</a> which references a <a href="https://en.wikipedia.org/wiki/VCDIFF">VCDIFF</a> encoded <code>News_1.delta</code> patch.</p>
 <blockquote>
-<p>Side note - it&rsquo;s only while writing this blog post that I realized I had been looking at the &ldquo;wrong&rdquo; repo; WiiLink&rsquo;s guide now recommends using the Python-based <a href="https://github.com/WiiLink24/WiiLink-Patcher-GUI">WiiLink-Patcher-GUI</a> instead of the CLI patcher.</p></blockquote>
+<p>Side note - it&rsquo;s only while writing this blog post that I realized I had been looking at the &ldquo;wrong&rdquo; repo; WiiLink&rsquo;s guide now recommends using the Python-based <a href="https://github.com/WiiLink24/WiiLink-Patcher-GUI">WiiLink-Patcher-GUI</a> instead of the CLI patcher.</p>
+</blockquote>
 <!-- > This newer repo which uses a `bsdiff` based patch (see [news channel specific data](https://github.com/WiiLink24/WiiLink-Patcher-GUI/blob/master/data/patches.json#L89) in JSON, used by the [download_patch](https://github.com/WiiLink24/WiiLink-Patcher-GUI/blob/6a51dff3c28aa5d2687ff0f97c18aa2eb93f047a/setup/download.py#L274) function). -->
 <p>After downloading the <code>.delta</code> file locally, we can use the <a href="https://en.wikipedia.org/wiki/Xdelta">xdelta</a> CLI to print out some information on what the patch is supposed to do:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">xdelta3 printdelta News_1.delta
@@ -344,34 +353,36 @@ img.with-border {
 </span></span><span class="line"><span class="cl">...
 </span></span></code></pre></div><p>Okay, so we&rsquo;re looking for a <code>0000000b.app</code> file and want to save the patched binary as <code>news.dol</code>. Based on the WiiLink install instructions, we know we should be dealing with a <code>WAD</code> file, so let&rsquo;s keep digging to see if we can find out where <code>0000000b.app</code> might be hiding.</p>
 <blockquote>
-<p>Learn more about the WAD file format on <a href="https://wiibrew.org/wiki/WAD_files">wiibrew.org</a>.</p></blockquote>
+<p>Learn more about the WAD file format on <a href="https://wiibrew.org/wiki/WAD_files">wiibrew.org</a>.</p>
+</blockquote>
 <p>From the repo&rsquo;s <code>README.md</code>, we know the patcher uses <a href="https://github.com/TheShadowEevee/libWiiSharp">libWiiSharp</a> for it&rsquo;s WAD file management during the file patching processing (<a href="(https://github.com/WiiLink24/WiiLink24-Patcher/blob/033ccb9a3be574dad76f57ac82f3af226eef0fdb/WiiLink-Patcher-CLI/patch.cs#L396)">source</a>). But at this point, I&rsquo;d rather avoid using C# if I can. And besides, I know for a fact we&rsquo;ll want to use Go in order to more easily leverage existing tooling from the WiiLink team.</p>
 <p>Thankfully, there&rsquo;s a really handy Go library called <a href="https://pkg.go.dev/github.com/wii-tools/wadlib">wadlib</a> that comes to the rescue here. We&rsquo;ll be using it for all our WAD management needs.</p>
 <p>So, where is <code>0000000b.app</code>? Looking at LibWiiSharp&rsquo;s <code>WAD.cs</code> file, we can spot how it unpacks <code>.app</code> files from a WAD file. Namely, it defaults to using the numeric &ldquo;Content ID&rdquo; inside each &ldquo;Content&rdquo; metadata and then converts it to an 8-digit hexadecimal string (<a href="https://github.com/TheShadowEevee/libWiiSharp/blob/23d477a3f83d0400d73393b2febde7912968b1dc/WAD.cs#L863-L874">source</a>).</p>
 <blockquote>
-<p>You can read more about Title metadata (&ldquo;TMD&rdquo;) and Content metadata (&ldquo;CMD&rdquo;) on <a href="https://wiibrew.org/wiki/Title_metadata#Content_metadata_(CMD)">wiibrew.org</a></p></blockquote>
+<p>You can read more about Title metadata (&ldquo;TMD&rdquo;) and Content metadata (&ldquo;CMD&rdquo;) on <a href="https://wiibrew.org/wiki/Title_metadata#Content_metadata_(CMD)">wiibrew.org</a></p>
+</blockquote>
 <p>Armed with this knowledge, we can use <code>wadlib</code> to create a quick file extraction script and see if we can find our <code>0000000b.app</code>. It can go something like this:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ignore error handling for brevity</span>
-</span></span><span class="line"><span class="cl"><span class="nx">wad</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">wadlib</span><span class="p">.</span><span class="nf">LoadWADFromFile</span><span class="p">(</span><span class="s">&#34;news.wad&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">titleMetadata</span> <span class="o">:=</span> <span class="nx">wad</span><span class="p">.</span><span class="nx">TMD</span>
-</span></span><span class="line"><span class="cl"><span class="nx">contentMetadata</span> <span class="o">:=</span> <span class="nx">titleMetadata</span><span class="p">.</span><span class="nx">Contents</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">outputDir</span> <span class="o">:=</span> <span class="s">&#34;extracted_wad/&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nx">os</span><span class="p">.</span><span class="nf">MkdirAll</span><span class="p">(</span><span class="nx">outputDir</span><span class="p">,</span> <span class="mo">0755</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">wad</span><span class="p">.</span><span class="nx">Data</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">data</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">wad</span><span class="p">.</span><span class="nf">GetContent</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">contentID</span> <span class="o">:=</span> <span class="nx">contentMetadata</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ID</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="c1">// &#34;%08x&#34; means 0-padded 8 digit hex</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">filename</span> <span class="o">:=</span> <span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">outputDir</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%08x.app&#34;</span><span class="p">,</span> <span class="nx">contentID</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">_</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">WriteFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Extracted: %08x.app (size: %d bytes)&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">contentID</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><!--  ([obtainable from Vimm's lair](https://vimm.net/vault/36744)) -->
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ignore error handling for brevity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">wad</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">wadlib</span><span class="p">.</span><span class="nf">LoadWADFromFile</span><span class="p">(</span><span class="s">&#34;news.wad&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">titleMetadata</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">wad</span><span class="p">.</span><span class="nx">TMD</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">contentMetadata</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">titleMetadata</span><span class="p">.</span><span class="nx">Contents</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">outputDir</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="s">&#34;extracted_wad/&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">os</span><span class="p">.</span><span class="nf">MkdirAll</span><span class="p">(</span><span class="nx">outputDir</span><span class="p">,</span><span class="w"> </span><span class="mo">0755</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">wad</span><span class="p">.</span><span class="nx">Data</span><span class="p">);</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">wad</span><span class="p">.</span><span class="nf">GetContent</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">contentID</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">contentMetadata</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">ID</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">// &#34;%08x&#34; means 0-padded 8 digit hex</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">filename</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">filepath</span><span class="p">.</span><span class="nf">Join</span><span class="p">(</span><span class="nx">outputDir</span><span class="p">,</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%08x.app&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">contentID</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nf">WriteFile</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="mo">0644</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">log</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Extracted: %08x.app (size: %d bytes)&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">contentID</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">data</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><!--  ([obtainable from Vimm's lair](https://vimm.net/vault/36744)) -->
 <p>When <code>news.wad</code> is the official (v7) News Channel WAD file, this script successfully extracts 12 <code>.app</code> files.</p>
 <img class="with-border" src="/img/wiinews-pr/extracted-wads.png" alt="macos finder view showing extracted files">
 <p>There&rsquo;s definitely a <code>0000000b.app</code> there, but could it be the file we&rsquo;re looking for?</p>
@@ -388,39 +399,41 @@ img.with-border {
 <p>Sure enough, if we inspect the patched <code>news.dol</code> file we will find no mention of the original URL. Instead, the &ldquo;<a href="http://news.wiilink.ca">http://news.wiilink.ca</a>&rdquo; domain is visible at the same location (offset <code>0x1AC37C</code>).</p>
 <img src="/img/wiinews-pr/patched-url-in-binary.png" alt="hex fiend UI showing modified Wii News Channel data URL in search results">
 <blockquote>
-<p>Note that the URL contains only two printf-style format strings (<code>%d</code> and <code>%03d</code>); the News Channel itself must be appending the hourly suffix (like <code>.00</code>) when fetching data.</p></blockquote>
+<p>Note that the URL contains only two printf-style format strings (<code>%d</code> and <code>%03d</code>); the News Channel itself must be appending the hourly suffix (like <code>.00</code>) when fetching data.</p>
+</blockquote>
 <p>If we&rsquo;re lucky, simply overwriting the binary file&rsquo;s original URL with our own custom URL might do the trick. It&rsquo;s worth a try!</p>
 <p>In order to validate this hypothesis, I wrote a small Go utility for performing the necessary text replacement. Here&rsquo;s an excerpt of the important bits:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ignoring error handling for brevity</span>
-</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">OriginalURL</span> <span class="p">=</span> <span class="s">&#34;http://news.wapp.wii.com/v2/%d/%03d/news.bin&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">NewURL</span> <span class="p">=</span> <span class="s">&#34;http://wii.rauln.com/news/%d/%03d/news.bin&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nx">wad</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">wadlib</span><span class="p">.</span><span class="nf">LoadWADFromFile</span><span class="p">(</span><span class="nx">wadPath</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Get decrypted content at index 1 (record with ID &#34;0000000b&#34;)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">content</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">wad</span><span class="p">.</span><span class="nf">GetContent</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// byte slice of 44 bytes</span>
-</span></span><span class="line"><span class="cl"><span class="nx">originalContent</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">OriginalURL</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// 43 bytes in our URL&#39;s case</span>
-</span></span><span class="line"><span class="cl"><span class="nx">newContent</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">NewURL</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Pad the new URL to match original length (44 bytes)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">paddedURL</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">originalContent</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="nb">copy</span><span class="p">(</span><span class="nx">paddedURL</span><span class="p">,</span> <span class="nx">newContent</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Find the offset (index) of the URL to patch inside the byte slice</span>
-</span></span><span class="line"><span class="cl"><span class="nx">offset</span> <span class="o">:=</span> <span class="nx">bytes</span><span class="p">.</span><span class="nf">Index</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span> <span class="nx">originalContent</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Patch the URL</span>
-</span></span><span class="line"><span class="cl"><span class="nb">copy</span><span class="p">(</span><span class="nx">content</span><span class="p">[</span><span class="nx">offset</span><span class="p">:</span><span class="nx">offset</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="nx">originalContent</span><span class="p">)],</span> <span class="nx">paddedURL</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">_</span> <span class="p">=</span> <span class="nx">wad</span><span class="p">.</span><span class="nf">UpdateContent</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">content</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Save the updated WAD file</span>
-</span></span><span class="line"><span class="cl"><span class="nx">_</span> <span class="p">=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">WriteFile</span><span class="p">(</span><span class="nx">outputPath</span><span class="p">,</span> <span class="nx">wadBytes</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
-</span></span></code></pre></div><blockquote>
-<p>Check out the full source on GitHub: <a href="https://github.com/rnegron/WiiNewsPR-Patcher">WiiNewsPR-Patcher</a></p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// ignoring error handling for brevity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">const</span><span class="w"> </span><span class="nx">OriginalURL</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#34;http://news.wapp.wii.com/v2/%d/%03d/news.bin&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">const</span><span class="w"> </span><span class="nx">NewURL</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#34;http://wii.rauln.com/news/%d/%03d/news.bin&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">wad</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">wadlib</span><span class="p">.</span><span class="nf">LoadWADFromFile</span><span class="p">(</span><span class="nx">wadPath</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// Get decrypted content at index 1 (record with ID &#34;0000000b&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">content</span><span class="p">,</span><span class="w"> </span><span class="nx">_</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">wad</span><span class="p">.</span><span class="nf">GetContent</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// byte slice of 44 bytes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">originalContent</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">OriginalURL</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 43 bytes in our URL&#39;s case</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">newContent</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">NewURL</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// Pad the new URL to match original length (44 bytes)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">paddedURL</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">originalContent</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nb">copy</span><span class="p">(</span><span class="nx">paddedURL</span><span class="p">,</span><span class="w"> </span><span class="nx">newContent</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// Find the offset (index) of the URL to patch inside the byte slice</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">offset</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">bytes</span><span class="p">.</span><span class="nf">Index</span><span class="p">(</span><span class="nx">content</span><span class="p">,</span><span class="w"> </span><span class="nx">originalContent</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// Patch the URL</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nb">copy</span><span class="p">(</span><span class="nx">content</span><span class="p">[</span><span class="nx">offset</span><span class="p">:</span><span class="nx">offset</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="nx">originalContent</span><span class="p">)],</span><span class="w"> </span><span class="nx">paddedURL</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">wad</span><span class="p">.</span><span class="nf">UpdateContent</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// Save the updated WAD file</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nx">_</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">os</span><span class="p">.</span><span class="nf">WriteFile</span><span class="p">(</span><span class="nx">outputPath</span><span class="p">,</span><span class="w"> </span><span class="nx">wadBytes</span><span class="p">,</span><span class="w"> </span><span class="mo">0644</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>Check out the full source on GitHub: <a href="https://github.com/rnegron/WiiNewsPR-Patcher">WiiNewsPR-Patcher</a></p>
+</blockquote>
 <p>If we run the utility like:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">go build
 </span></span><span class="line"><span class="cl">wiinewspr-patcher news.wad patched_news.wad
@@ -444,7 +457,8 @@ img.with-border {
 </li>
 </ul>
 <blockquote>
-<p>Fun fact: LZ10 is apparently a Nintendo-specific variant of the <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78">LZ77</a> compression algorithm, used in some form or another on Game Boy Advance, Nintendo DS and Wii systems. <a href="https://github.com/wii-tools/lzx/blob/4c1183c96cc616e6b3312072e7f1ad984edd109f/lz10/compress.go">wii-tools/lzx</a> has the Go source for the LZ10 compression used here.</p></blockquote>
+<p>Fun fact: LZ10 is apparently a Nintendo-specific variant of the <a href="https://en.wikipedia.org/wiki/LZ77_and_LZ78">LZ77</a> compression algorithm, used in some form or another on Game Boy Advance, Nintendo DS and Wii systems. <a href="https://github.com/wii-tools/lzx/blob/4c1183c96cc616e6b3312072e7f1ad984edd109f/lz10/compress.go">wii-tools/lzx</a> has the Go source for the LZ10 compression used here.</p>
+</blockquote>
 <p>In any case, for our purposes, it&rsquo;s doing more than we need in terms of source handling: it can generate news binaries from a variety of sources and supports different languages and regions.</p>
 <p>For this project, I am making the following assumptions and tradeoffs:</p>
 <ul>
@@ -462,7 +476,8 @@ img.with-border {
 <p>I went ahead and forked the <code>NewsChannel</code> repo into <a href="https://github.com/rnegron/WiiNewsPR">WiiNewsPR</a>, added flag support to control article caching and binary output paths (you&rsquo;ll see why this was necessary soon), removed all the existing sources and added a new one: <a href="https://www.elnuevodia.com/">El Nuevo Día (&ldquo;ENDI&rdquo;)</a>.</p>
 <p>I picked ENDI only because it&rsquo;s the only local newspaper website I could find which still <a href="https://www.elnuevodia.com/rss/">supports RSS</a>. Unfortunately, the feeds only contain a snippet of the actual article. On the bright side, most articles do contain images and we can use separate feeds to help categorize articles in the News Channel (<a href="https://github.com/rnegron/WiiNewsPR/blob/11df0e242bb1f4134e61ff0b35587372a5fd0564/news/endi/articles.go#L72-L79">source</a>).</p>
 <blockquote>
-<p>By the way, I experimented with <a href="https://github.com/advancedlogic/GoOse">GoOse</a> for (spanish language) article extraction on other news websites and the results were&hellip; unsatisfying, to say the least.</p></blockquote>
+<p>By the way, I experimented with <a href="https://github.com/advancedlogic/GoOse">GoOse</a> for (spanish language) article extraction on other news websites and the results were&hellip; unsatisfying, to say the least.</p>
+</blockquote>
 <h3 id="final-setup-requirements-for-proper-news-channel-support">Final setup requirements for proper News Channel support</h3>
 <p>Two quick things we&rsquo;ll need in order to get this all to work:</p>
 <ol>
@@ -487,24 +502,25 @@ img.with-border {
 <p>Copying files into the S3 storage bucket is all well and good, but it would be great to have a continuously-updating, hands-off solution that generates the news binaries for us. A simple (and basically free) way to solve for this would be to bundle up the <code>WiiNewsPR</code> Go executable into an AWS Lambda function and have that run hourly via EventBride, and then uploading the generated news binaries over to our storage bucket.</p>
 <p>Here is where the extra flags for <code>WiiNewsPR</code> come in: we need to be able to control file creation because <code>/tmp</code> is a Lambda&rsquo;s only writeable file system.</p>
 <p>Here is a snippet of the Lambda handler logic:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Handler</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">cmd</span> <span class="o">:=</span> <span class="nx">exec</span><span class="p">.</span><span class="nf">CommandContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="s">&#34;./WiiNewsPR&#34;</span><span class="p">,</span> <span class="s">&#34;-o&#34;</span><span class="p">,</span> <span class="s">&#34;/tmp&#34;</span><span class="p">,</span> <span class="s">&#34;-c&#34;</span><span class="p">,</span> <span class="s">&#34;/tmp/cache&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// ...</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">uploader</span><span class="p">.</span><span class="nf">Upload</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">s3</span><span class="p">.</span><span class="nx">PutObjectInput</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">Bucket</span><span class="p">:</span>      <span class="nx">aws</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="nx">bucketName</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">Key</span><span class="p">:</span>         <span class="nx">aws</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%snews.bin.%s&#34;</span><span class="p">,</span> <span class="nx">keyPrefix</span><span class="p">,</span> <span class="nx">hour</span><span class="p">)),</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">Body</span><span class="p">:</span>        <span class="nx">file</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">ContentType</span><span class="p">:</span> <span class="nx">aws</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;application/octet-stream&#34;</span><span class="p">),</span>
-</span></span><span class="line"><span class="cl">	<span class="p">})</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// ...</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nx">lambda</span><span class="p">.</span><span class="nf">Start</span><span class="p">(</span><span class="nx">Handler</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><blockquote>
-<p>See full Lambda handler source on GitHub: <a href="https://github.com/rnegron/WiiNewsPR/blob/master/deploy/handler.go">handler.go</a></p></blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">Handler</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">cmd</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">exec</span><span class="p">.</span><span class="nf">CommandContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;./WiiNewsPR&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;-o&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;/tmp&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;-c&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;/tmp/cache&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">uploader</span><span class="p">.</span><span class="nf">Upload</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">s3</span><span class="p">.</span><span class="nx">PutObjectInput</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">Bucket</span><span class="p">:</span><span class="w">      </span><span class="nx">aws</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="nx">bucketName</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">Key</span><span class="p">:</span><span class="w">         </span><span class="nx">aws</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;%snews.bin.%s&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">keyPrefix</span><span class="p">,</span><span class="w"> </span><span class="nx">hour</span><span class="p">)),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">Body</span><span class="p">:</span><span class="w">        </span><span class="nx">file</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">ContentType</span><span class="p">:</span><span class="w"> </span><span class="nx">aws</span><span class="p">.</span><span class="nf">String</span><span class="p">(</span><span class="s">&#34;application/octet-stream&#34;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">lambda</span><span class="p">.</span><span class="nf">Start</span><span class="p">(</span><span class="nx">Handler</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>See full Lambda handler source on GitHub: <a href="https://github.com/rnegron/WiiNewsPR/blob/master/deploy/handler.go">handler.go</a></p>
+</blockquote>
 <p>We can then leverage the <a href="https://www.serverless.com/">Serverless</a> framework for a quick infra-as-code setup. Here is a snippet of the configuration:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l">wiinewspr-generator</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
@@ -526,7 +542,8 @@ img.with-border {
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">WiiNewsPR</span><span class="w"> </span><span class="c"># compiled binary news generator</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">../Private.pem</span><span class="w"> </span><span class="c"># we need to include the Private.pem file for file signing</span><span class="w">
 </span></span></span></code></pre></div><blockquote>
-<p>See full <code>serverless</code> configuration on GitHub: <a href="https://github.com/rnegron/WiiNewsPR/blob/master/deploy/serverless.yml">serverless.yml</a></p></blockquote>
+<p>See full <code>serverless</code> configuration on GitHub: <a href="https://github.com/rnegron/WiiNewsPR/blob/master/deploy/serverless.yml">serverless.yml</a></p>
+</blockquote>
 <p>Some things to call out here:</p>
 <ul>
 <li>We want to make sure to run the Lambda in Puerto Rico&rsquo;s timezone so that <code>time.Now()</code> returns the expected hourly integer.</li>

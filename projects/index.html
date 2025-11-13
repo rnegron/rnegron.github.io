@@ -59,15 +59,15 @@
 
 
     
-        <link rel="preconnect" href="https://plausible.io">
+        <link rel="preconnect" href="https://analytics.kuribosoft.com">
     
         
             
-            <script defer  data-domain="raulnegron.me" src="https://plausible.io/js/script.js" ></script>
+            <script defer  data-domain="raulnegron.me" src="https://analytics.kuribosoft.com/js/script.js" ></script>
 
 <!-- If you are using Content-Security-Policy, do not forget to add this code to your CSP : 
-  script-src 'unsafe-inline' https://plausible.io
-  connect-src 'unsafe-inline' https://plausible.io
+  script-src 'unsafe-inline' https://analytics.kuribosoft.com
+  connect-src 'unsafe-inline' https://analytics.kuribosoft.com
   or just add the partial 'plausible_csp.html' to those 2 csp directives in your 'index.headers' file
 -->
 
@@ -205,6 +205,10 @@
     
     
     
+    
+    
+    
+    
     <a class="sidebar-nav-item" href="https://raulnegron.me/index.xml" target="_blank">feed</a>
     <a class="sidebar-nav-item" href="https://github.com/rnegron" target="_blank">github</a>
     <a class="sidebar-nav-item" href="https://www.linkedin.com/in/raulnegron/" target="_blank">linkedin</a>
@@ -247,15 +251,16 @@
   <aside>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#noticias-pr"><a href="https://github.com/rnegron/noticias-pr-cli">noticias-pr</a></a></li>
-    <li><a href="#cc-api"><a href="https://github.com/rnegron/cc-api">cc-api</a></a></li>
-    <li><a href="#django-athm"><a href="https://github.com/django-athm/django-athm">django-athm</a></a></li>
-    <li><a href="#dino-gb"><a href="https://github.com/rnegron/dino-gb">dino-gb</a></a></li>
-    <li><a href="#manjares-bot"><a href="https://github.com/aliaspayments/manjares-bot">manjares-bot</a></a></li>
-    <li><a href="#django-profanity-check"><a href="https://github.com/rnegron/django-profanity-check">django-profanity-check</a></a></li>
-    <li><a href="#muncipios-api"><a href="https://github.com/Code4PuertoRico/municipios-api">muncipios-api</a></a></li>
-    <li><a href="#vgstack-work-in-progress"><a href="https://github.com/rnegron/vgstack">vgstack</a> (Work-in-progress)</a></li>
-    <li><a href="#smash-tourney"><a href="https://github.com/rnegron/smash-tourney">smash-tourney</a></a></li>
+    <li><a href="#wiinewspr">WiiNewsPR</a></li>
+    <li><a href="#django-athm">django-athm</a></li>
+    <li><a href="#dino-gb">dino-gb</a></li>
+    <li><a href="#misresultados-tools">misresultados-tools</a></li>
+    <li><a href="#noticias-pr">noticias-pr</a></li>
+    <li><a href="#cc-api">cc-api</a></li>
+    <li><a href="#manjares-bot">manjares-bot</a></li>
+    <li><a href="#django-profanity-check">django-profanity-check</a></li>
+    <li><a href="#muncipios-api">muncipios-api</a></li>
+    <li><a href="#smash-tourney">smash-tourney</a></li>
   </ul>
 </nav>
   </aside>
@@ -263,6 +268,35 @@
 
   <p>Here are my open-source projects as well as some projects I&rsquo;ve contributed to.</p>
 <hr/>
+<h2 id="wiinewspr"><a href="https://github.com/rnegron/WiiNewsPR">WiiNewsPR</a></h2>
+<p>Fork of the WiiLink24 News Channel for the Nintendo Wii console, adding support for PR based news.</p>
+<p>Tech Highlights:</p>
+<ul>
+<li>Golang</li>
+<li>AWS Lambda</li>
+</ul>
+<h2 id="django-athm"><a href="https://github.com/django-athm/django-athm">django-athm</a></h2>
+<p>Django app for handling ATH Móvil payments.</p>
+<p>Tech Highlights:</p>
+<ul>
+<li>Django Templates</li>
+<li>Available on <a href="https://pypi.org/project/django-athm/">PyPI</a> and <a href="https://djangopackages.org/packages/p/django-athm/">Django Packages</a></li>
+</ul>
+<h2 id="dino-gb"><a href="https://github.com/rnegron/dino-gb">dino-gb</a></h2>
+<p>A Nintendo Game Boy port of the Google Chrome T-Rex game. Works on real hardware</p>
+<p>Tech Highlights:</p>
+<ul>
+<li>C Language</li>
+<li>GBDK</li>
+</ul>
+<h2 id="misresultados-tools"><a href="https://github.com/Boricua-Tools/misresultados-tools">misresultados-tools</a></h2>
+<p>Tooling for programmatically interacting with misresultados.com (the most popular healthcare results platform in Puerto Rico)</p>
+<p>Tech Highlights:</p>
+<ul>
+<li>NodeJS</li>
+<li>Firefox Extension</li>
+<li>CLI available on <a href="https://www.npmjs.com/package/misresultados-cli">npm</a></li>
+</ul>
 <h2 id="noticias-pr"><a href="https://github.com/rnegron/noticias-pr-cli">noticias-pr</a></h2>
 <p>A command-line interface for reading the latest from local news sites in Puerto Rico.</p>
 <p>Tech Highlights:</p>
@@ -278,22 +312,8 @@
 <li>TypeScript</li>
 <li>MongoDB</li>
 <li>Web scraping</li>
-<li>Available at: <a href="http://cc.rauln.com">http://cc.rauln.com</a></li>
+<li>Previously available at: <a href="http://cc.rauln.com">http://cc.rauln.com</a></li>
 <li>TypeDoc available at: <a href="https://raulnegron.me/cc-api/">https://raulnegron.me/cc-api/</a></li>
-</ul>
-<h2 id="django-athm"><a href="https://github.com/django-athm/django-athm">django-athm</a></h2>
-<p>Django app for handling ATH Móvil payments.</p>
-<p>Tech Highlights:</p>
-<ul>
-<li>Django Templates</li>
-<li>Available on <a href="https://pypi.org/project/django-athm/">PyPI</a> and <a href="https://djangopackages.org/packages/p/django-athm/">Django Packages</a></li>
-</ul>
-<h2 id="dino-gb"><a href="https://github.com/rnegron/dino-gb">dino-gb</a></h2>
-<p>A Nintendo Game Boy port of the Google Chrome T-Rex game.</p>
-<p>Tech Highlights:</p>
-<ul>
-<li>C</li>
-<li>Makefile</li>
 </ul>
 <h2 id="manjares-bot"><a href="https://github.com/aliaspayments/manjares-bot">manjares-bot</a></h2>
 <p>Slack bot for posting the menu of our office&rsquo;s café daily.</p>
@@ -318,26 +338,8 @@
 <li>Flask</li>
 <li>Available at: <a href="https://municipios.rauln.com">https://municipios.rauln.com</a></li>
 </ul>
-<h2 id="vgstack-work-in-progress"><a href="https://github.com/rnegron/vgstack">vgstack</a> (Work-in-progress)</h2>
-<p>Keep track of your video game backlog. My full-stack clone of <a href="https://backloggery.com">The Backloggery</a>.</p>
-<p>Tech Highlights:</p>
-<ul>
-<li>Backend:
-<ul>
-<li>Django</li>
-<li>PostgreSQL</li>
-<li>Django Rest Framework</li>
-</ul>
-</li>
-<li>Frontend:
-<ul>
-<li>EmberJS</li>
-<li>Bootstrap 4</li>
-</ul>
-</li>
-</ul>
 <h2 id="smash-tourney"><a href="https://github.com/rnegron/smash-tourney">smash-tourney</a></h2>
-<p>A Super Smash Bros. tourney organizer featuring the famous &ldquo;VERSUS&rdquo; announcers!</p>
+<p>My first &ldquo;open-source&rdquo; software. A Super Smash Bros. tourney organizer featuring the famous &ldquo;VERSUS&rdquo; announcers!</p>
 <p>Tech Highlights:</p>
 <ul>
 <li>Text-to-Speech</li>

@@ -59,15 +59,15 @@
 
 
     
-        <link rel="preconnect" href="https://plausible.io">
+        <link rel="preconnect" href="https://analytics.kuribosoft.com">
     
         
             
-            <script defer  data-domain="raulnegron.me" src="https://plausible.io/js/script.js" ></script>
+            <script defer  data-domain="raulnegron.me" src="https://analytics.kuribosoft.com/js/script.js" ></script>
 
 <!-- If you are using Content-Security-Policy, do not forget to add this code to your CSP : 
-  script-src 'unsafe-inline' https://plausible.io
-  connect-src 'unsafe-inline' https://plausible.io
+  script-src 'unsafe-inline' https://analytics.kuribosoft.com
+  connect-src 'unsafe-inline' https://analytics.kuribosoft.com
   or just add the partial 'plausible_csp.html' to those 2 csp directives in your 'index.headers' file
 -->
 
@@ -205,6 +205,10 @@
     
     
     
+    
+    
+    
+    
     <a class="sidebar-nav-item" href="https://raulnegron.me/index.xml" target="_blank">feed</a>
     <a class="sidebar-nav-item" href="https://github.com/rnegron" target="_blank">github</a>
     <a class="sidebar-nav-item" href="https://www.linkedin.com/in/raulnegron/" target="_blank">linkedin</a>
@@ -243,6 +247,8 @@
 <article class="post">
   <h1 class="post-title">Starting a new full-stack project: vg-stack</h1>
   <span class="post-date">January 19, 2019</span>
+  
+
   <h1 id="motivation">Motivation</h1>
 <p>In the web development space, tools and best-practices change quite frequently. At one point in the not-so-distant past, a <a href="https://en.wikipedia.org/wiki/LAMP_%28software_bundle%29">LAMP</a> stack was the go-to approach for launching a web application. These days, PHP is the #8 most popular programming language (according to a company with the name <a href="https://www.tiobe.com/tiobe-index/">&ldquo;The Importance Of Being Earnest&rdquo;</a>), while Python and JavaScript rank above it.</p>
 <p>One of the reason for this change has to do with the growing trend towards microservice architectures. Together with the need for rapid prototyping and the onset of agile development methodologies, Python and other languages have swept in and stolen the LAMP stack&rsquo;s lunch.</p>
@@ -259,7 +265,8 @@
 <p>No shame: the project is most definitely a copy of <a href="https://backloggery.com">The Backloggery</a>, a great site that I use often. However, as far as I know, The Backloggery is <a href="https://backloggery.com/about.php">built in PHP</a>, probably on a LAMP stack or similar. So I thought I would take a crack at building a small subset of the Backloggery features, on a more modern stack.</p>
 <p>I like this idea because it comes with a well-defined problem set. I can already envision the database schema and how to build the backend. But as I mentioned, this project is going to involve the entire stack. That means I gotta learn some frontend JavaScript. In this series of blog posts, I document my experience.</p>
 <blockquote>
-<p>I should say, the reason I picked <a href="https://emberjs.com/">Ember</a> and not (the elephant in the room) <a href="https://reactjs.org/">React</a> is that in my <a href="https://www.aliaspayments.com">day job</a>, we work with Ember and so this is a skill I would like to improve! Besides, we all know <a href="https://en.wikipedia.org/wiki/PostgreSQL">Postgres</a> is the real elephant here, right? Let&rsquo;s move on.</p></blockquote>
+<p>I should say, the reason I picked <a href="https://emberjs.com/">Ember</a> and not (the elephant in the room) <a href="https://reactjs.org/">React</a> is that in my <a href="https://www.aliaspayments.com">day job</a>, we work with Ember and so this is a skill I would like to improve! Besides, we all know <a href="https://en.wikipedia.org/wiki/PostgreSQL">Postgres</a> is the real elephant here, right? Let&rsquo;s move on.</p>
+</blockquote>
 <h1 id="the-app-vg-stack">The app: vg-stack</h1>
 <p>I had to name my repo something!</p>
 <p>In all honestly, I like the name because it hints at the purpose of the project (practicing the web stack) while at the same conjuring a mental image of a bunch of video games stacked on top of each other.</p>
@@ -343,14 +350,14 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-docker" data-lang="docker"><span class="line"><span class="cl"><span class="c"># vgstack/Dockerfile</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># pull the Python official base image, slimmed down</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="s"> python:3.7-slim</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.7-slim</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># set environment varibles</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENV</span> PYTHONDONTWRITEBYTECODE <span class="m">1</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENV</span> PYTHONUNBUFFERED <span class="m">1</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># set work directory</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /usr/src/app</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/usr/src/app</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="c"># install dependencies with Pipenv</span><span class="err">
 </span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> pip install --upgrade pip <span class="o">&amp;&amp;</span> pip install pipenv<span class="err">

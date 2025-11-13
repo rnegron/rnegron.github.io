@@ -5,7 +5,7 @@
     <loc>https://raulnegron.me/about/</loc>
   </url><url>
     <loc>https://raulnegron.me/blog/</loc>
-    <lastmod>2025-08-25T00:00:00+00:00</lastmod>
+    <lastmod>2025-11-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://raulnegron.me/uses/</loc>
     <lastmod>2025-07-28T00:00:00+00:00</lastmod>
@@ -16,12 +16,30 @@
     <lastmod>2025-07-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://raulnegron.me/tags/backend/</loc>
-    <lastmod>2025-08-25T00:00:00+00:00</lastmod>
+    <lastmod>2025-11-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://raulnegron.me/tags/go/</loc>
-    <lastmod>2025-08-25T00:00:00+00:00</lastmod>
+    <loc>https://raulnegron.me/tags/celery/</loc>
+    <lastmod>2025-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://raulnegron.me/tags/django/</loc>
+    <lastmod>2025-11-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://raulnegron.me/</loc>
+    <lastmod>2025-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://raulnegron.me/tags/programming/</loc>
+    <lastmod>2025-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://raulnegron.me/tags/python/</loc>
+    <lastmod>2025-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://raulnegron.me/tags/</loc>
+    <lastmod>2025-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://raulnegron.me/2025/django-6-upcoming-features/</loc>
+    <lastmod>2025-11-13T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://raulnegron.me/tags/go/</loc>
     <lastmod>2025-08-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://raulnegron.me/tags/homebrew/</loc>
@@ -37,12 +55,6 @@
     <lastmod>2025-08-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://raulnegron.me/2025/wii-news-pr/</loc>
-    <lastmod>2025-08-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://raulnegron.me/tags/programming/</loc>
-    <lastmod>2025-08-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://raulnegron.me/tags/</loc>
     <lastmod>2025-08-25T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://raulnegron.me/tags/wii/</loc>
@@ -75,13 +87,7 @@
     <loc>https://raulnegron.me/2019/server-side-javascript-flavors/</loc>
     <lastmod>2019-01-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://raulnegron.me/tags/django/</loc>
-    <lastmod>2019-03-14T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://raulnegron.me/tags/docker/</loc>
-    <lastmod>2019-03-14T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://raulnegron.me/tags/python/</loc>
     <lastmod>2019-03-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://raulnegron.me/2019/vgstack-1/</loc>
