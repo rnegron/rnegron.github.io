@@ -285,29 +285,29 @@
 <p>Create a file and then copy-paste (or type by hand!) the following code:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt; 	// printf(), delay()</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;gb/gb.h&gt;  // joypad(), J_UP, J_DOWN, ...</span><span class="cp">
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">	<span class="c1">// Loop forever
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">		<span class="c1">// Check the status of the Game Boy Joy Pad
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">switch</span><span class="p">(</span><span class="nf">joypad</span><span class="p">())</span> <span class="p">{</span>
+</span></span></span><span class="line"><span class="cl">		<span class="k">switch</span><span class="p">(</span><span class="nf">joypad</span><span class="p">())</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">// If the UP button is pressed...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">case</span> <span class="nl">J_UP</span><span class="p">:</span>
+</span></span></span><span class="line"><span class="cl">			<span class="k">case</span> <span class="nl">J_UP</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">				<span class="c1">// Display &#34;Up!&#34; on the screen
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Up!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">				<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Up!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">				<span class="c1">// Then wait for half a second...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="nf">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl">				<span class="nf">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">				<span class="c1">// Go back to checking the status of the Joy Pad
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="k">break</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl">				<span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">			<span class="c1">// And so on
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">case</span> <span class="nl">J_DOWN</span><span class="p">:</span>
+</span></span></span><span class="line"><span class="cl">			<span class="k">case</span> <span class="nl">J_DOWN</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">				<span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Down!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">				<span class="nf">delay</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">				<span class="k">break</span><span class="p">;</span>

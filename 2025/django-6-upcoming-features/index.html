@@ -291,10 +291,10 @@
 </span></span></span><span class="line"><span class="cl"><span class="x">    &lt;h3&gt;</span><span class="cp">{{</span> <span class="nv">user.username</span> <span class="cp">}}</span><span class="x">&lt;/h3&gt;
 </span></span></span><span class="line"><span class="cl"><span class="x">    &lt;p&gt;</span><span class="cp">{{</span> <span class="nv">user.email</span> <span class="cp">}}</span><span class="x">&lt;/p&gt;
 </span></span></span><span class="line"><span class="cl"><span class="x">  &lt;/div&gt;
-</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{%</span> <span class="k">endpartialdef</span> <span class="cp">%}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="cp">{%</span> <span class="k">endpartialdef</span> <span class="cp">%}</span><span class="x">
 </span></span></span><span class="line"><span class="cl"><span class="x">
 </span></span></span><span class="line"><span class="cl"><span class="x">&lt;!-- Reuse the partial using the partial name and provide context --&gt;
-</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{%</span> <span class="k">partial</span> <span class="nv">user_card</span> <span class="nv">user</span><span class="o">=</span><span class="nv">current_user</span> <span class="cp">%}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="cp">{%</span> <span class="k">partial</span> <span class="nv">user_card</span> <span class="nv">user</span><span class="o">=</span><span class="nv">current_user</span> <span class="cp">%}</span><span class="x">
 </span></span></span></code></pre></div><p>The ability to <a href="https://docs.djangoproject.com/en/dev/ref/templates/language/#template-partials-direct-access">directly access named partials</a> is likely to become the best-practice approach when it comes to working with <code>htmx</code>-style &ldquo;respond with an HTML snippet&rdquo; requests.</p>
 <p>This feature is essentially &ldquo;vendoring-in&rdquo; the <a href="https://github.com/carltongibson/django-template-partials"><code>django-template-partials</code></a> third-party package.</p>
 <h2 id="bonus-content-security-policy">Bonus: Content Security Policy</h2>
