@@ -570,7 +570,7 @@ img.with-border {
 <h3 id="final-setup-requirements-for-proper-news-channel-support">Final setup requirements for proper News Channel support</h3>
 <p>Two quick things we&rsquo;ll need in order to get this all to work:</p>
 <ol>
-<li>We need to sign each binary news file with a custom RSA key for the Wii to process the file (<a href="(https://github.com/rnegron/WiiNewsPR/blob/11df0e242bb1f4134e61ff0b35587372a5fd0564/utils.go#L20)">source</a>). We can use <code>openssl</code> for this (note the <code>-traditional</code> option):</li>
+<li>We need to sign each binary news file with a custom RSA key for the Wii to process the file (<a href="https://github.com/rnegron/WiiNewsPR/blob/11df0e242bb1f4134e61ff0b35587372a5fd0564/utils.go#L20">source</a>). We can use <code>openssl</code> for this (note the <code>-traditional</code> option):</li>
 </ol>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> openssl genrsa -traditional -out Private.pem <span class="m">2048</span>
 </span></span></code></pre></div><ol start="2">

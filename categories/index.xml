@@ -325,7 +325,7 @@ img.with-border {
 &lt;h3 id=&#34;final-setup-requirements-for-proper-news-channel-support&#34;&gt;Final setup requirements for proper News Channel support&lt;/h3&gt;
 &lt;p&gt;Two quick things we&amp;rsquo;ll need in order to get this all to work:&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;We need to sign each binary news file with a custom RSA key for the Wii to process the file (&lt;a href=&#34;(https://github.com/rnegron/WiiNewsPR/blob/11df0e242bb1f4134e61ff0b35587372a5fd0564/utils.go#L20)&#34;&gt;source&lt;/a&gt;). We can use &lt;code&gt;openssl&lt;/code&gt; for this (note the &lt;code&gt;-traditional&lt;/code&gt; option):&lt;/li&gt;
+&lt;li&gt;We need to sign each binary news file with a custom RSA key for the Wii to process the file (&lt;a href=&#34;https://github.com/rnegron/WiiNewsPR/blob/11df0e242bb1f4134e61ff0b35587372a5fd0564/utils.go#L20&#34;&gt;source&lt;/a&gt;). We can use &lt;code&gt;openssl&lt;/code&gt; for this (note the &lt;code&gt;-traditional&lt;/code&gt; option):&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt; openssl genrsa -traditional -out Private.pem &lt;span class=&#34;m&#34;&gt;2048&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
