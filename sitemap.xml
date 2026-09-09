@@ -13,7 +13,13 @@
     <loc>https://raulnegron.me/projects/</loc>
   </url><url>
     <loc>https://raulnegron.me/appearances/</loc>
-    <lastmod>2025-07-28T00:00:00+00:00</lastmod>
+    <lastmod>2026-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://raulnegron.me/fixed/</loc>
+    <lastmod>2026-09-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://raulnegron.me/</loc>
+    <lastmod>2026-09-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://raulnegron.me/tags/backend/</loc>
     <lastmod>2025-11-13T00:00:00+00:00</lastmod>
@@ -22,9 +28,6 @@
     <lastmod>2025-11-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://raulnegron.me/tags/django/</loc>
-    <lastmod>2025-11-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://raulnegron.me/</loc>
     <lastmod>2025-11-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://raulnegron.me/tags/programming/</loc>
@@ -59,9 +62,6 @@
   </url><url>
     <loc>https://raulnegron.me/tags/wii/</loc>
     <lastmod>2025-08-25T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://raulnegron.me/fixed/</loc>
-    <lastmod>2025-07-28T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://raulnegron.me/translations/</loc>
     <lastmod>2020-07-05T00:00:00+00:00</lastmod>

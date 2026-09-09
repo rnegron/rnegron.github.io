@@ -4,7 +4,7 @@
     <link>https://raulnegron.me/tags/mac/</link>
     <language>en-us</language>
     <author></author>
-    <rights>(C) 2025</rights>
+    <rights>(C) 2026</rights>
     <updated>2018-04-21 00:00:00 &#43;0000 UTC</updated>
 
     
@@ -129,8 +129,8 @@ img.with-border {
 &lt;p&gt;The News Channel debuted in North America on January 26, 2007, a little over two months after the Wii&amp;rsquo;s launch. Since that date, it mostly came pre-installed with Wii consoles and was a novel way to read news from all over the world. Together with other &amp;ldquo;utility&amp;rdquo; channels like the Forecast Channel, it tried to position the Wii as more than just a gaming console.&lt;/p&gt;
 &lt;p&gt;Check out a video recording of the service from right before it was discontinued on June 27th, 2013:&lt;/p&gt;
 &lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
-      &lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen&#34; loading=&#34;lazy&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube.com/embed/vP70ioijK6U?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=15&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;&gt;&lt;/iframe&gt;
-    &lt;/div&gt;
+			&lt;iframe allow=&#34;accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen&#34; loading=&#34;lazy&#34; referrerpolicy=&#34;strict-origin-when-cross-origin&#34; src=&#34;https://www.youtube.com/embed/vP70ioijK6U?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=15&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; title=&#34;YouTube video&#34;&gt;&lt;/iframe&gt;
+		&lt;/div&gt;
 
 &lt;h3 id=&#34;how-the-news-channel-fetches-content&#34;&gt;How the News Channel fetches content&lt;/h3&gt;
 &lt;p&gt;Before we can consider displaying custom news on it, we have to figure out how the News Channel actually fetches content. We know that it must have fetched news somehow since it displays a &amp;ldquo;Downloading&amp;hellip;&amp;rdquo; splash screen on startup.&lt;/p&gt;
