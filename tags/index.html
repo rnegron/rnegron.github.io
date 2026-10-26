@@ -89,12 +89,10 @@
   <link rel="stylesheet" href="/css/syntax.css" />
   <link rel="stylesheet" href="/css/lanyon.css" />
   <link rel="stylesheet" href="/css/styles.css" />
-  <link rel="stylesheet" href="/css/dracula.css" id="dark-theme" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/css/dracula.css" id="dark-theme" media="not all" />
   <script>
-    const darkThemeMedia = { dark: "all", light: "not all", system: "(prefers-color-scheme: dark)" };
     try {
-      const theme = localStorage.getItem("theme");
-      if (theme === "dark" || theme === "light") document.getElementById("dark-theme").media = darkThemeMedia[theme];
+      if (localStorage.getItem("theme") === "dark") document.getElementById("dark-theme").media = "all";
     } catch {}
   </script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400" />
@@ -286,9 +284,6 @@
 
     <div class="corner-controls">
       
-      
-      <a class="mode-toggle" href="/play/" title="Hobby posts">play</a>
-      
       <button type="button" class="theme-toggle" id="theme-toggle" hidden>
         <svg class="icon-sun" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
         <svg class="icon-moon" aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -299,32 +294,24 @@
       (() => {
         const stylesheet = document.getElementById("dark-theme");
         const button = document.getElementById("theme-toggle");
-        const systemDark = matchMedia(darkThemeMedia.system);
-        const systemTheme = () => (systemDark.matches ? "dark" : "light");
-        const currentTheme = () => matchMedia(stylesheet.media).matches ? "dark" : "light";
+        const isDark = () => stylesheet.media === "all";
 
         const render = () => {
-          const current = currentTheme();
-          const label = `Switch to ${current === "dark" ? "light" : "dark"} theme`;
-          button.dataset.current = current;
+          const label = `Switch to ${isDark() ? "light" : "dark"} theme`;
+          button.dataset.current = isDark() ? "dark" : "light";
           button.setAttribute("aria-label", label);
           button.title = label;
           dispatchEvent(new Event("themechange"));
         };
 
         button.addEventListener("click", () => {
-          const next = currentTheme() === "dark" ? "light" : "dark";
-          const choice = next === systemTheme() ? "system" : next;
-          stylesheet.media = darkThemeMedia[choice];
+          const dark = !isDark();
+          stylesheet.media = dark ? "all" : "not all";
           try {
-            if (choice === "system") localStorage.removeItem("theme");
-            else localStorage.setItem("theme", choice);
+            if (dark) localStorage.setItem("theme", "dark");
+            else localStorage.removeItem("theme");
           } catch {}
           render();
-        });
-
-        systemDark.addEventListener("change", () => {
-          if (stylesheet.media === darkThemeMedia.system) render();
         });
 
         render();

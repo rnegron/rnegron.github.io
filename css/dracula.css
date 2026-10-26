@@ -149,6 +149,9 @@ a.sidebar-nav-item:focus {
   color: var(--foreground);
   background-color: var(--floating);
 }
+.mode-toggle {
+  border-color: var(--selection);
+}
 .sidebar-toggle:before,
 .sidebar-toggle:active:before,
 #sidebar-checkbox:checked ~ .sidebar-toggle:before {

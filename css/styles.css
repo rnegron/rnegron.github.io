@@ -70,6 +70,7 @@ td img {
 .mode-toggle {
   padding: 0 .75rem;
   font-family: Helvetica, Arial, sans-serif;
+  border: 1px solid #ddd;
 }
 .mode-toggle,
 .mode-toggle:hover,
