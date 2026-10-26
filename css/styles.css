@@ -46,3 +46,61 @@ td img {
 .ai-disclosure span {
   line-height: 1.4;
 }
+
+/* Work/play and theme toggles, mirror .sidebar-toggle on the opposite corner */
+.corner-controls {
+  position: absolute;
+  top: .8rem;
+  right: 1rem;
+  z-index: 10;
+  display: flex;
+  gap: .25rem;
+}
+.mode-toggle,
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  height: 2.25rem;
+  color: #505050;
+  background-color: #fff;
+  border: 0;
+  border-radius: .25rem;
+  cursor: pointer;
+}
+.mode-toggle {
+  padding: 0 .75rem;
+  font-family: Helvetica, Arial, sans-serif;
+}
+.mode-toggle,
+.mode-toggle:hover,
+.mode-toggle:focus {
+  text-decoration: none;
+}
+.theme-toggle {
+  width: 2.25rem;
+  padding: 0;
+}
+.mode-toggle:hover,
+.mode-toggle:focus-visible,
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: #fff;
+  background-color: #555;
+}
+.theme-toggle[hidden] {
+  display: none;
+}
+.theme-toggle[data-current="light"] .icon-sun,
+.theme-toggle[data-current="dark"] .icon-moon {
+  display: none;
+}
+@media (min-width: 30.1em) {
+  .corner-controls {
+    position: fixed;
+  }
+}
+@media print {
+  .corner-controls {
+    display: none;
+  }
+}

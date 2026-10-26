@@ -1,0 +1,252 @@
+/*
+ * Dracula dark theme per https://draculatheme.com/spec
+ * Loaded only when dark mode is active; see partials/head.html.
+ *
+ * Links use palette Cyan instead of Functional Cyan: Functional Cyan fails the
+ * spec's own 4.5:1 contrast requirement on the Dracula background.
+ */
+
+:root {
+  color-scheme: dark;
+
+  --background: #282A36;
+  --background-lighter: #424450;
+  --floating: #343746;
+  --current-line: #6272A4;
+  --selection: #44475A;
+  --foreground: #F8F8F2;
+  --comment: #6272A4;
+  --red: #FF5555;
+  --orange: #FFB86C;
+  --yellow: #F1FA8C;
+  --green: #50FA7B;
+  --cyan: #8BE9FD;
+  --purple: #BD93F9;
+  --pink: #FF79C6;
+  --functional-purple: #815CD6;
+}
+
+::selection {
+  background-color: var(--selection);
+}
+
+:focus-visible {
+  outline: 2px solid var(--functional-purple);
+  outline-offset: 2px;
+}
+
+body {
+  color: var(--foreground);
+  background-color: var(--background);
+}
+
+a,
+.related-posts li a:hover {
+  color: var(--cyan);
+  text-decoration: underline;
+}
+.masthead-title a,
+.post-title a,
+.sidebar a,
+.pagination-item {
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6,
+.page-title,
+.post-title,
+.post-title a,
+.content-title h2 {
+  color: var(--purple);
+}
+
+strong,
+abbr,
+blockquote,
+.message,
+.post-date,
+.masthead-title,
+.masthead-title a,
+.masthead-title small,
+.related-posts li small,
+.pagination,
+.ai-disclosure {
+  color: var(--foreground);
+}
+.muted {
+  color: var(--foreground) !important;
+}
+
+hr {
+  border-top-color: var(--current-line);
+  border-bottom: 0;
+}
+
+.masthead,
+.related,
+table,
+td,
+th,
+blockquote,
+abbr[title],
+.pagination-item,
+.ai-disclosure {
+  border-color: var(--current-line);
+}
+
+tbody tr:nth-child(odd) td,
+tbody tr:nth-child(odd) th,
+a.pagination-item:hover {
+  background-color: var(--background-lighter);
+}
+
+.message {
+  background-color: var(--floating);
+}
+
+code,
+pre {
+  color: var(--foreground);
+  background-color: var(--background);
+}
+code {
+  border: 1px solid var(--current-line);
+}
+pre {
+  border: 1px solid var(--current-line);
+  border-radius: 4px;
+}
+pre code,
+.highlight pre {
+  border: 0;
+}
+.highlight {
+  border: 1px solid var(--current-line);
+}
+
+/* Sidebar */
+.sidebar {
+  color: var(--foreground);
+  background-color: var(--floating);
+}
+.sidebar a {
+  color: var(--foreground);
+}
+.sidebar-nav,
+.sidebar-nav-item {
+  border-color: var(--current-line);
+}
+.sidebar-nav-item.active,
+a.sidebar-nav-item:hover,
+a.sidebar-nav-item:focus {
+  background-color: var(--selection);
+}
+
+.sidebar-toggle,
+.sidebar-toggle:active,
+.mode-toggle,
+.theme-toggle {
+  color: var(--foreground);
+  background-color: var(--floating);
+}
+.sidebar-toggle:before,
+.sidebar-toggle:active:before,
+#sidebar-checkbox:checked ~ .sidebar-toggle:before {
+  background-image: linear-gradient(to bottom,
+    var(--foreground) 0 20%, transparent 20% 40%,
+    var(--foreground) 40% 60%, transparent 60% 80%,
+    var(--foreground) 80% 100%);
+}
+#sidebar-checkbox:checked ~ .sidebar-toggle,
+.mode-toggle:hover,
+.mode-toggle:focus-visible,
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--foreground);
+  background-color: var(--selection);
+}
+
+/* Syntax highlighting (Chroma classes) */
+/* Unrecognized tokens fall back to foreground, overriding syntax.css */
+.highlight .o,
+.highlight .nn,
+.highlight .nv,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi,
+.highlight .ni,
+.highlight .nl,
+.highlight .si,
+.highlight .go,
+.highlight .w { color: var(--foreground); }
+.highlight .err,
+.highlight .gd,
+.highlight .gi { background: none; border: 0; }
+
+.highlight .hl,
+.highlight .hll { display: block; background-color: color-mix(in srgb, var(--current-line) 20%, transparent); }
+.highlight .ln,
+.highlight .lnt { color: var(--comment); }
+
+.highlight .k,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .ow,
+.highlight .cp,
+.highlight .gp { color: var(--pink); }
+
+.highlight .kc,
+.highlight .m,
+.highlight .mb,
+.highlight .mf,
+.highlight .mh,
+.highlight .mi,
+.highlight .il,
+.highlight .mo { color: var(--orange); }
+.highlight .no { color: var(--purple); }
+
+.highlight .nf,
+.highlight .fm,
+.highlight .gi { color: var(--green); }
+
+.highlight .kt,
+.highlight .nc,
+.highlight .ne,
+.highlight .nb,
+.highlight .na,
+.highlight .nt,
+.highlight .sr { color: var(--cyan); }
+
+.highlight .bp { color: var(--purple); font-style: italic; }
+
+.highlight .s,
+.highlight .sa,
+.highlight .sb,
+.highlight .sc,
+.highlight .dl,
+.highlight .s2,
+.highlight .se,
+.highlight .sh,
+.highlight .sx,
+.highlight .s1,
+.highlight .ss,
+.highlight .cpf { color: var(--yellow); }
+
+.highlight .c,
+.highlight .ch,
+.highlight .cm,
+.highlight .c1,
+.highlight .cs,
+.highlight .sd,
+.highlight .nd { color: var(--comment); font-style: italic; }
+
+.highlight .err,
+.highlight .gr,
+.highlight .gt,
+.highlight .gd { color: var(--red); }
+.highlight .gh,
+.highlight .gu { color: var(--purple); font-weight: bold; }
+.highlight .ge { font-style: italic; }
+.highlight .gs { font-weight: bold; }
